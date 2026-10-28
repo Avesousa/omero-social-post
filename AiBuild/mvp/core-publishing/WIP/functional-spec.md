@@ -171,9 +171,11 @@ For published X posts, the app fetches basic metrics at fixed checkpoints and sh
   - Configuration fully driven by environment variables, with no owner-specific values in code.
 - **Look and feel:** a polished UI inspired by Metricool's colorful, clean dashboard style, with its own identity and no copied branding.
 
+## Decisions
+- **License:** AGPL-3.0.
+- **UI language:** Spanish first, with i18n in place from the start so English (and others) can be added without rewriting.
+
 ## Open questions
-- **UI language:** English UI with i18n ready for Spanish, or Spanish first?
-- **License:** AGPL-3.0 (recommended, same as Postiz) or MIT. It must be decided before the first public commit with code.
 - **X Premium:** does the owner's X account allow long posts (the per-channel toggle default)?
 - **Missed-post grace window:** is 6 h the right default?
 - **Default queue slots** for a fresh install: none, or a suggested set?

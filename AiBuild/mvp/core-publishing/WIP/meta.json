@@ -28,11 +28,13 @@
     "finish": "pending"
   },
   "open_questions": [
-    "UI language (English + i18n vs Spanish first)",
-    "License: AGPL-3.0 vs MIT (before first code commit)",
     "X Premium long posts default",
     "Missed-post grace window (default 6h)",
     "Default queue slots on fresh install"
   ],
-  "remote": "git@github.com:Avesousa/omero-social-post.git"
+  "remote": "git@github.com:Avesousa/omero-social-post.git",
+  "decisions": {
+    "license": "AGPL-3.0",
+    "ui_language": "es first, i18n-ready"
+  }
 }
