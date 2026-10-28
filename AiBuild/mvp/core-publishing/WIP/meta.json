@@ -1,0 +1,38 @@
+{
+  "project": "omero-social-post",
+  "feature": "core-publishing",
+  "ticket_id": null,
+  "raw_input": "New open source app built from scratch (Next.js + NestJS, Postiz as reference): multi-network publishing (X, LinkedIn, Instagram, Facebook) with calendar and per-network OAuth, daily AI news digest over chosen sources (X accounts, websites/RSS), React Native/Expo mobile app. Self-hosted single-user, private behind Tailscale on a Hostinger KVM 1 VPS. Built in public. Split into stages; this first cycle is stage 1: monorepo + X/LinkedIn publishing + composer + calendar + scheduler.",
+  "type": "mvp",
+  "branch": "mvp/core-publishing",
+  "main_branch": "main",
+  "tests_required": false,
+  "language": "en",
+  "conversation_language": "es",
+  "create_claude_md": true,
+  "status": "functional-spec-done",
+  "created_at": "2026-10-28T03:35:00Z",
+  "updated_at": "2026-10-28T03:50:00Z",
+  "git": true,
+  "roadmap": [
+    "mvp/core-publishing — monorepo, X + LinkedIn publishing, composer, calendar, scheduler",
+    "feature/news-digest — sources, AI research, drafts into the calendar",
+    "feature/mobile-app — Expo app: approve drafts, read digest, share-sheet drafts, push",
+    "feature/meta-networks — Instagram + Facebook Pages"
+  ],
+  "steps": {
+    "functional_spec": "done",
+    "technical_spec": "pending",
+    "plan": "pending",
+    "build": "pending",
+    "finish": "pending"
+  },
+  "open_questions": [
+    "UI language (English + i18n vs Spanish first)",
+    "License: AGPL-3.0 vs MIT (before first code commit)",
+    "X Premium long posts default",
+    "Missed-post grace window (default 6h)",
+    "Default queue slots on fresh install"
+  ],
+  "remote": "git@github.com:Avesousa/omero-social-post.git"
+}
