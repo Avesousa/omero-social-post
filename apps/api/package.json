@@ -13,7 +13,8 @@
     "test:watch": "vitest",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "tsx scripts/migrate.ts",
-    "openapi:export": "nest build && node dist/scripts/export-openapi.js"
+    "openapi:export": "nest build && node dist/scripts/export-openapi.js",
+    "generate": "pnpm openapi:export"
   },
   "dependencies": {
     "@bull-board/api": "^9.10.5",

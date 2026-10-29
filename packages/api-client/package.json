@@ -1,0 +1,39 @@
+{
+  "name": "@omero/api-client",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Typed fetch client and TanStack Query hooks for the omero-social-post API, generated from its OpenAPI document with orval.",
+  "license": "AGPL-3.0-only",
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "generate": "orval --config orval.config.ts",
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "@tanstack/react-query": "^5.0.0",
+    "react": "^19.0.0"
+  },
+  "devDependencies": {
+    "@omero/config": "workspace:*",
+    "@tanstack/react-query": "5.105.0",
+    "@types/react": "19.3.0",
+    "orval": "8.43.0",
+    "react": "19.3.1",
+    "tsup": "^8.5.1",
+    "typescript": "^5.6.0"
+  }
+}

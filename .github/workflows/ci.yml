@@ -89,6 +89,20 @@ jobs:
       - name: Build
         run: pnpm build
 
+      # The OpenAPI document and the generated client are committed. Regenerating them must
+      # produce no diff; otherwise an endpoint changed without running `pnpm generate`.
+      - name: Check generated API client is up to date
+        run: |
+          pnpm generate
+          git status --porcelain -- apps/api/openapi.json packages/api-client/src/generated
+          git diff --exit-code -- apps/api/openapi.json packages/api-client/src/generated
+          untracked="$(git ls-files --others --exclude-standard -- packages/api-client/src/generated)"
+          if [ -n "$untracked" ]; then
+            echo "::error::New generated files are not committed. Run 'pnpm generate' and commit:"
+            echo "$untracked"
+            exit 1
+          fi
+
       # Throwaway values for the API config. The key is random per run, masked in logs,
       # and only ever encrypts test data that is discarded with the service containers.
       - name: Prepare test environment
