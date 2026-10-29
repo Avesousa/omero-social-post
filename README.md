@@ -9,6 +9,11 @@ Una alternativa self-hosted a Typefully y Metricool: escribís, programás y pub
 
 [Español](#español) · [English](#english)
 
+## Documentación / Docs
+
+- **Español:** guía de self-hosting, configuración, arquitectura y cómo agregar una red, en [`docs/`](docs/README.md).
+- **English:** self-hosting guide, configuration, architecture and how to add a network, in [`docs/`](docs/README.md).
+
 ---
 
 ## Español
