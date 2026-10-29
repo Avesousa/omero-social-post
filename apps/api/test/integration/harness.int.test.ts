@@ -81,8 +81,9 @@ describe('test harness', () => {
 
   describe('msw', () => {
     it('fails requests to provider hosts that have no handler', async () => {
-      await expect(fetch(`${X_API_BASE}/2/users/me`)).rejects.toThrow();
-      await expect(fetch('https://api.linkedin.com/v2/userinfo')).rejects.toThrow();
+      // Default happy-path handlers cover the endpoints the adapters use; anything else fails.
+      await expect(fetch(`${X_API_BASE}/2/unmocked-endpoint`)).rejects.toThrow();
+      await expect(fetch('https://api.linkedin.com/v2/unmocked-endpoint')).rejects.toThrow();
     });
 
     it('answers with per-test handlers registered through server.use', async () => {
