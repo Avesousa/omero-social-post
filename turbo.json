@@ -3,7 +3,8 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
+      "outputs": ["dist/**", ".next/**", "!.next/cache/**"],
+      "env": ["API_INTERNAL_URL"]
     },
     "dev": {
       "dependsOn": ["^build"],
@@ -32,6 +33,10 @@
     },
     "generate": {
       "dependsOn": ["^build"],
+      "cache": false
+    },
+    "@omero/api-client#generate": {
+      "dependsOn": ["@omero/api#generate"],
       "cache": false
     }
   }

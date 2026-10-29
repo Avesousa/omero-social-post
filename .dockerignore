@@ -1,0 +1,34 @@
+# Build context for apps/api/Dockerfile and apps/web/Dockerfile (both built from the repo root).
+# Keep it small and free of secrets: everything the images need is rebuilt inside them.
+
+# VCS, editors, agents
+.git
+.github
+.claude
+.idea
+.vscode
+**/.DS_Store
+
+# Dependencies and build output (reinstalled and rebuilt in the image)
+**/node_modules
+**/dist
+**/.next
+**/.turbo
+**/coverage
+**/*.tsbuildinfo
+**/*.log
+
+# Secrets and local data
+**/.env
+**/.env.*
+!**/.env.example
+media-data
+**/media-data
+
+# Not needed to build the images
+AiBuild
+infra
+docs
+apps/mobile
+**/test
+**/*.test.ts
