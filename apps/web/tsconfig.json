@@ -1,4 +1,10 @@
 {
-  "extends": "@omero/config/tsconfig/library.json",
-  "include": ["src"]
+  "extends": "@omero/config/tsconfig/next.json",
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./*"]
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules", ".next"]
 }

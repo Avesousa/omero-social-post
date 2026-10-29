@@ -1,0 +1,190 @@
+{
+  "Metadata": {
+    "title": "omero",
+    "description": "Self-hosted social media publisher: write, schedule and publish to X and LinkedIn from your own server."
+  },
+  "Common": {
+    "appName": "omero",
+    "comingSoon": "Coming soon",
+    "close": "Close",
+    "cancel": "Cancel",
+    "openMenu": "Open menu"
+  },
+  "Nav": {
+    "label": "Main navigation",
+    "designSystem": "Design system",
+    "calendar": "Calendar",
+    "newPost": "New post",
+    "settings": "Settings",
+    "onThisPage": "On this page",
+    "instance": "Local instance"
+  },
+  "Locale": {
+    "label": "Language",
+    "es": "Español",
+    "en": "English"
+  },
+  "Theme": {
+    "label": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "Status": {
+    "draft": "Draft",
+    "scheduled": "Scheduled",
+    "publishing": "Publishing",
+    "published": "Published",
+    "partially_published": "Partially published",
+    "failed": "Failed",
+    "missed": "Missed"
+  },
+  "StatusHint": {
+    "draft": "Saved, no date yet.",
+    "scheduled": "Waiting for its time slot.",
+    "publishing": "Being sent to the network.",
+    "published": "Live on every selected network.",
+    "partially_published": "Live on some networks; others failed.",
+    "failed": "Could not be published after retries.",
+    "missed": "The server was down at that time."
+  },
+  "Network": {
+    "x": "X",
+    "linkedin": "LinkedIn",
+    "instagram": "Instagram",
+    "facebook": "Facebook"
+  },
+  "DesignSystem": {
+    "header": {
+      "title": "Design system",
+      "subtitle": "omero's color, type and components, in light and dark."
+    },
+    "hero": {
+      "title": "Write once and publish to X and LinkedIn from your own server.",
+      "body": "Every post has a version per network, a time slot and a status you can read at a glance. These are the pieces the calendar and the composer are built from.",
+      "primaryCta": "New post",
+      "secondaryCta": "View calendar"
+    },
+    "samplePost": {
+      "author": "Omero Demo",
+      "handle": "@omero_demo",
+      "body": "I moved the scheduler to queues with retries: three attempts with backoff and no cron at all. Here is how, in a thread.",
+      "when": "Today, 09:00",
+      "thread": "Thread of {count} posts",
+      "single": "Single post",
+      "characters": "{used} of {limit} characters",
+      "deliveries": "Deliveries"
+    },
+    "palette": {
+      "title": "Palette",
+      "description": "Roasted coffee for the brand, vivid colors for action.",
+      "brand": "Brand",
+      "semantic": "Semantic",
+      "names": {
+        "espresso": "Espresso",
+        "roast": "Roast",
+        "lagoon": "Lagoon",
+        "crema": "Crema",
+        "berry": "Berry",
+        "iris": "Iris"
+      },
+      "roles": {
+        "espresso": "Sidebar and brand surfaces",
+        "roast": "Warm details",
+        "lagoon": "Primary actions and focus",
+        "crema": "Energetic accent",
+        "berry": "Highlights and charts",
+        "iris": "Scheduling"
+      },
+      "semanticNames": {
+        "success": "Success",
+        "warning": "Warning",
+        "danger": "Error",
+        "info": "Info"
+      }
+    },
+    "statuses": {
+      "title": "Post statuses",
+      "description": "Each network gets its own delivery; the post status is derived from them.",
+      "calendarPreview": "How they look on the calendar"
+    },
+    "networks": {
+      "title": "Networks",
+      "description": "X and LinkedIn in this stage. Instagram and Facebook come later.",
+      "available": "Available",
+      "later": "Later"
+    },
+    "components": {
+      "title": "Components",
+      "description": "shadcn/ui pieces with omero's tokens.",
+      "buttons": "Buttons",
+      "forms": "Forms",
+      "overlays": "Overlays and notices",
+      "button": {
+        "primary": "Schedule",
+        "crema": "Publish now",
+        "secondary": "Save draft",
+        "outline": "Add to queue",
+        "ghost": "Cancel",
+        "destructive": "Delete",
+        "link": "View details",
+        "small": "Small",
+        "large": "Large",
+        "edit": "Edit",
+        "duplicate": "Duplicate"
+      },
+      "form": {
+        "channel": "Channel",
+        "channelPlaceholder": "Choose a channel",
+        "content": "Internal title",
+        "contentPlaceholder": "Version 0.1 launch",
+        "longPosts": "Long posts on X",
+        "longPostsHint": "Only for X Premium accounts."
+      },
+      "tabs": {
+        "base": "Base",
+        "baseBody": "The base text is used on every network that has no version of its own.",
+        "xBody": "On X you can split the text into a thread; each part stays within the character limit.",
+        "linkedinBody": "On LinkedIn the post is a single item and allows longer text."
+      },
+      "dialog": {
+        "trigger": "Delete post",
+        "title": "Delete this scheduled post?",
+        "description": "It will be removed from the queue and the calendar. This cannot be undone.",
+        "confirm": "Delete",
+        "done": "Post deleted"
+      },
+      "dropdown": {
+        "trigger": "Actions",
+        "edit": "Edit",
+        "duplicate": "Duplicate",
+        "reschedule": "Reschedule",
+        "delete": "Delete"
+      },
+      "popover": {
+        "trigger": "Next slot",
+        "title": "Next free slot",
+        "body": "Tomorrow at 09:00, based on your queue times."
+      },
+      "tooltip": {
+        "trigger": "Link cost",
+        "content": "On the X API, posts with links cost more."
+      },
+      "toast": {
+        "trigger": "Show notice",
+        "title": "Post scheduled",
+        "description": "It will be published today at 09:00."
+      }
+    },
+    "type": {
+      "title": "Type and shape",
+      "description": "Bricolage Grotesque for headings and numbers; Figtree for the interface.",
+      "display": "Display",
+      "body": "Body",
+      "sampleDisplay": "Tuesday, 09:00",
+      "sampleBody": "Three posts scheduled this week. The next one goes out early tomorrow on X and LinkedIn.",
+      "radius": "Radius",
+      "shadow": "Shadows"
+    }
+  }
+}

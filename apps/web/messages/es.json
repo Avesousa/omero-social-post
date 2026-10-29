@@ -1,0 +1,190 @@
+{
+  "Metadata": {
+    "title": "omero",
+    "description": "Publicador de redes sociales autoalojado: escribe, programa y publica en X y LinkedIn desde tu propio servidor."
+  },
+  "Common": {
+    "appName": "omero",
+    "comingSoon": "Disponible pronto",
+    "close": "Cerrar",
+    "cancel": "Cancelar",
+    "openMenu": "Abrir menú"
+  },
+  "Nav": {
+    "label": "Navegación principal",
+    "designSystem": "Sistema de diseño",
+    "calendar": "Calendario",
+    "newPost": "Nuevo post",
+    "settings": "Ajustes",
+    "onThisPage": "En esta página",
+    "instance": "Instancia local"
+  },
+  "Locale": {
+    "label": "Idioma",
+    "es": "Español",
+    "en": "English"
+  },
+  "Theme": {
+    "label": "Tema",
+    "light": "Claro",
+    "dark": "Oscuro",
+    "system": "Sistema"
+  },
+  "Status": {
+    "draft": "Borrador",
+    "scheduled": "Programado",
+    "publishing": "Publicando",
+    "published": "Publicado",
+    "partially_published": "Publicado en parte",
+    "failed": "Falló",
+    "missed": "Perdido"
+  },
+  "StatusHint": {
+    "draft": "Guardado, todavía sin fecha.",
+    "scheduled": "Espera su horario en la cola.",
+    "publishing": "Se está enviando a la red.",
+    "published": "Salió en todas las redes elegidas.",
+    "partially_published": "Salió en algunas redes; otras fallaron.",
+    "failed": "No se pudo publicar tras los reintentos.",
+    "missed": "El servidor estaba apagado a esa hora."
+  },
+  "Network": {
+    "x": "X",
+    "linkedin": "LinkedIn",
+    "instagram": "Instagram",
+    "facebook": "Facebook"
+  },
+  "DesignSystem": {
+    "header": {
+      "title": "Sistema de diseño",
+      "subtitle": "Color, tipografía y componentes de omero, en claro y oscuro."
+    },
+    "hero": {
+      "title": "Escribe una vez y publica en X y LinkedIn desde tu propio servidor.",
+      "body": "Cada post tiene una versión por red, un horario y un estado que se lee de un vistazo. Aquí están las piezas con las que se construyen el calendario y el editor.",
+      "primaryCta": "Nuevo post",
+      "secondaryCta": "Ver calendario"
+    },
+    "samplePost": {
+      "author": "Omero Demo",
+      "handle": "@omero_demo",
+      "body": "Migré el scheduler a colas con reintentos: tres intentos con backoff y ningún cron. Te cuento cómo en un hilo.",
+      "when": "Hoy, 09:00",
+      "thread": "Hilo de {count} posts",
+      "single": "Post único",
+      "characters": "{used} de {limit} caracteres",
+      "deliveries": "Entregas"
+    },
+    "palette": {
+      "title": "Paleta",
+      "description": "Café tostado para la marca, colores vivos para la acción.",
+      "brand": "Marca",
+      "semantic": "Semánticos",
+      "names": {
+        "espresso": "Espresso",
+        "roast": "Tostado",
+        "lagoon": "Laguna",
+        "crema": "Crema",
+        "berry": "Frutos rojos",
+        "iris": "Iris"
+      },
+      "roles": {
+        "espresso": "Barra lateral y superficies de marca",
+        "roast": "Detalles cálidos",
+        "lagoon": "Acciones principales y foco",
+        "crema": "Acento enérgico",
+        "berry": "Destacados y gráficos",
+        "iris": "Programación"
+      },
+      "semanticNames": {
+        "success": "Éxito",
+        "warning": "Aviso",
+        "danger": "Error",
+        "info": "Información"
+      }
+    },
+    "statuses": {
+      "title": "Estados de un post",
+      "description": "Cada red recibe su propia entrega; el estado del post se deriva de ellas.",
+      "calendarPreview": "Así se ven en el calendario"
+    },
+    "networks": {
+      "title": "Redes",
+      "description": "X y LinkedIn en esta etapa. Instagram y Facebook llegan más adelante.",
+      "available": "Disponible",
+      "later": "Más adelante"
+    },
+    "components": {
+      "title": "Componentes",
+      "description": "Piezas de shadcn/ui con los tokens de omero.",
+      "buttons": "Botones",
+      "forms": "Formularios",
+      "overlays": "Capas y avisos",
+      "button": {
+        "primary": "Programar",
+        "crema": "Publicar ahora",
+        "secondary": "Guardar borrador",
+        "outline": "Añadir a la cola",
+        "ghost": "Cancelar",
+        "destructive": "Eliminar",
+        "link": "Ver detalle",
+        "small": "Pequeño",
+        "large": "Grande",
+        "edit": "Editar",
+        "duplicate": "Duplicar"
+      },
+      "form": {
+        "channel": "Canal",
+        "channelPlaceholder": "Elige un canal",
+        "content": "Título interno",
+        "contentPlaceholder": "Lanzamiento de la versión 0.1",
+        "longPosts": "Posts largos en X",
+        "longPostsHint": "Solo para cuentas con X Premium."
+      },
+      "tabs": {
+        "base": "Base",
+        "baseBody": "El texto base se usa en todas las redes que no tengan una versión propia.",
+        "xBody": "En X puedes dividir el texto en un hilo; cada parte respeta el límite de caracteres.",
+        "linkedinBody": "En LinkedIn el post es único y admite textos más largos."
+      },
+      "dialog": {
+        "trigger": "Eliminar post",
+        "title": "¿Eliminar este post programado?",
+        "description": "Se quitará de la cola y del calendario. No se puede deshacer.",
+        "confirm": "Eliminar",
+        "done": "Post eliminado"
+      },
+      "dropdown": {
+        "trigger": "Acciones",
+        "edit": "Editar",
+        "duplicate": "Duplicar",
+        "reschedule": "Reprogramar",
+        "delete": "Eliminar"
+      },
+      "popover": {
+        "trigger": "Próximo hueco",
+        "title": "Próximo hueco libre",
+        "body": "Mañana a las 09:00, según tus horarios de la cola."
+      },
+      "tooltip": {
+        "trigger": "Coste de enlaces",
+        "content": "En la API de X, los posts con enlaces cuestan más."
+      },
+      "toast": {
+        "trigger": "Mostrar aviso",
+        "title": "Post programado",
+        "description": "Se publicará hoy a las 09:00."
+      }
+    },
+    "type": {
+      "title": "Tipografía y forma",
+      "description": "Bricolage Grotesque para titulares y cifras; Figtree para la interfaz.",
+      "display": "Titular",
+      "body": "Texto",
+      "sampleDisplay": "Martes, 09:00",
+      "sampleBody": "Tres posts programados esta semana. El próximo sale mañana temprano en X y LinkedIn.",
+      "radius": "Radios",
+      "shadow": "Sombras"
+    }
+  }
+}
