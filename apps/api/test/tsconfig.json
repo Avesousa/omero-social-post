@@ -1,0 +1,14 @@
+{
+  // Type-checks tests the way Vitest runs them: ESM through Vite, resolved via
+  // package `exports` (msw 3 and vitest are ESM-only). Not used for the build.
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "rootDir": "..",
+    "incremental": false,
+    "noEmit": true
+  },
+  "include": ["../src", "../test"],
+  "exclude": ["../node_modules", "../dist"]
+}

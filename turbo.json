@@ -18,7 +18,8 @@
     },
     "test": {
       "dependsOn": ["^build"],
-      "env": ["DATABASE_URL", "REDIS_URL", "TEST_DATABASE_URL", "TEST_REDIS_URL"]
+      "env": ["DATABASE_URL", "REDIS_URL", "TEST_DATABASE_URL", "TEST_REDIS_URL"],
+      "passThroughEnv": ["TEST_CONTAINERS", "TEST_LOG_LEVEL", "DOCKER_HOST", "TESTCONTAINERS_*"]
     },
     "generate": {
       "dependsOn": ["^build"],
