@@ -12,7 +12,7 @@
   "create_claude_md": true,
   "status": "build-in-progress",
   "created_at": "2026-10-28T03:35:00Z",
-  "updated_at": "2026-10-29T02:50:12Z",
+  "updated_at": "2026-10-29T02:55:05Z",
   "git": true,
   "roadmap": [
     "mvp/core-publishing — monorepo, X + LinkedIn publishing, composer, calendar, scheduler",
@@ -129,7 +129,7 @@
       "key": "devinfra",
       "phase": 0,
       "description": "Local dev infrastructure (Postgres + Redis)",
-      "status": "in_progress",
+      "status": "done",
       "depends_on": [
         "T001"
       ],
@@ -145,7 +145,12 @@
         "infra/docker-compose.dev.yml",
         "package.json"
       ],
-      "started_at": "2026-10-29T02:19:44Z"
+      "started_at": "2026-10-29T02:19:44Z",
+      "completed_at": "2026-10-29T02:55:05Z",
+      "files_modified": [
+        "infra/docker-compose.dev.yml",
+        "apps/api"
+      ]
     },
     {
       "id": "T004",
@@ -237,7 +242,7 @@
       "key": "api-scaffold",
       "phase": 1,
       "description": "NestJS API scaffold",
-      "status": "in_progress",
+      "status": "done",
       "depends_on": [
         "T001",
         "T003"
@@ -254,14 +259,19 @@
         "apps/api/src/common/**",
         "apps/api/src/health/**"
       ],
-      "started_at": "2026-10-29T02:19:44Z"
+      "started_at": "2026-10-29T02:19:44Z",
+      "completed_at": "2026-10-29T02:55:05Z",
+      "files_modified": [
+        "infra/docker-compose.dev.yml",
+        "apps/api"
+      ]
     },
     {
       "id": "T008",
       "key": "db",
       "phase": 1,
       "description": "Drizzle schema, indexes and migrations",
-      "status": "in_progress",
+      "status": "done",
       "depends_on": [
         "T007"
       ],
@@ -278,14 +288,19 @@
         "apps/api/drizzle.config.ts",
         "apps/api/src/db/**"
       ],
-      "started_at": "2026-10-29T02:19:44Z"
+      "started_at": "2026-10-29T02:19:44Z",
+      "completed_at": "2026-10-29T02:55:05Z",
+      "files_modified": [
+        "infra/docker-compose.dev.yml",
+        "apps/api"
+      ]
     },
     {
       "id": "T009",
       "key": "crypto",
       "phase": 1,
       "description": "Token encryption service",
-      "status": "in_progress",
+      "status": "done",
       "depends_on": [
         "T007"
       ],
@@ -299,14 +314,19 @@
       "files_affected": [
         "apps/api/src/crypto/**"
       ],
-      "started_at": "2026-10-29T02:19:44Z"
+      "started_at": "2026-10-29T02:19:44Z",
+      "completed_at": "2026-10-29T02:55:05Z",
+      "files_modified": [
+        "infra/docker-compose.dev.yml",
+        "apps/api"
+      ]
     },
     {
       "id": "T010",
       "key": "queues",
       "phase": 1,
       "description": "Redis and BullMQ infrastructure module",
-      "status": "in_progress",
+      "status": "done",
       "depends_on": [
         "T007"
       ],
@@ -321,14 +341,19 @@
         "apps/api/src/queues/**",
         "apps/api/src/common/redis-lock.ts"
       ],
-      "started_at": "2026-10-29T02:19:44Z"
+      "started_at": "2026-10-29T02:19:44Z",
+      "completed_at": "2026-10-29T02:55:05Z",
+      "files_modified": [
+        "infra/docker-compose.dev.yml",
+        "apps/api"
+      ]
     },
     {
       "id": "T011",
       "key": "harness",
       "phase": 1,
       "description": "Test harness for the API",
-      "status": "in_progress",
+      "status": "done",
       "depends_on": [
         "T008",
         "T010"
@@ -347,7 +372,12 @@
         "apps/api/vitest.config.ts",
         "apps/api/test/**"
       ],
-      "started_at": "2026-10-29T02:19:44Z"
+      "started_at": "2026-10-29T02:19:44Z",
+      "completed_at": "2026-10-29T02:55:05Z",
+      "files_modified": [
+        "infra/docker-compose.dev.yml",
+        "apps/api"
+      ]
     },
     {
       "id": "T012",
