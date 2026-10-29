@@ -1,0 +1,4 @@
+{
+  "extends": "@omero/config/tsconfig/library.json",
+  "include": ["src"]
+}

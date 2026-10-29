@@ -1,0 +1,5 @@
+pnpm-lock.yaml
+LICENSE
+AiBuild/
+packages/api-client/src/generated/
+apps/api/drizzle/

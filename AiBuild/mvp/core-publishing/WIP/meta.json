@@ -10,9 +10,9 @@
   "language": "en",
   "conversation_language": "es",
   "create_claude_md": true,
-  "status": "plan-done",
+  "status": "build-in-progress",
   "created_at": "2026-10-28T03:35:00Z",
-  "updated_at": "2026-10-28T04:45:00Z",
+  "updated_at": "2026-10-29T02:19:06Z",
   "git": true,
   "roadmap": [
     "mvp/core-publishing — monorepo, X + LinkedIn publishing, composer, calendar, scheduler",
@@ -24,7 +24,7 @@
     "functional_spec": "done",
     "technical_spec": "done",
     "plan": "done",
-    "build": "pending",
+    "build": "in_progress",
     "finish": "pending"
   },
   "open_questions": [],
@@ -50,7 +50,7 @@
       "key": "monorepo",
       "phase": 0,
       "description": "Scaffold the pnpm + Turborepo monorepo",
-      "status": "pending",
+      "status": "done",
       "depends_on": [],
       "can_parallelize_with": [],
       "done_when": "`pnpm install && pnpm lint && pnpm typecheck` pass on a clean clone.",
@@ -63,6 +63,23 @@
         ".nvmrc",
         ".editorconfig",
         ".gitignore"
+      ],
+      "started_at": "2026-10-29T02:18:15Z",
+      "completed_at": "2026-10-29T02:19:06Z",
+      "files_modified": [
+        "package.json",
+        "pnpm-workspace.yaml",
+        "turbo.json",
+        "packages/config",
+        ".nvmrc",
+        ".editorconfig",
+        ".gitignore",
+        ".prettierrc.json",
+        ".prettierignore",
+        "eslint.config.mjs",
+        "apps/api",
+        "apps/web",
+        "packages/shared"
       ]
     },
     {
