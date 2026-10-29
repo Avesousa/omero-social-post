@@ -18,7 +18,8 @@
     },
     "test": {
       "dependsOn": ["^build"],
-      "env": ["DATABASE_URL", "REDIS_URL", "TEST_DATABASE_URL", "TEST_REDIS_URL"]
+      "env": ["DATABASE_URL", "REDIS_URL", "TEST_DATABASE_URL", "TEST_REDIS_URL"],
+      "passThroughEnv": ["NODE_ENV", "PUBLIC_BASE_URL", "ENCRYPTION_KEY", "MEDIA_DIR"]
     },
     "generate": {
       "dependsOn": ["^build"],
