@@ -1,0 +1,26 @@
+# Git hooks managed by lefthook (https://lefthook.dev).
+# Hooks are installed by `pnpm install` (root `prepare` script). Reinstall with `pnpm exec lefthook install`.
+#
+# The secret scan needs the gitleaks binary on PATH (see CONTRIBUTING.md for install options).
+# When it is missing the hook prints a warning and lets the commit through; CI still runs gitleaks
+# on every push and pull request, so nothing reaches `main` unscanned.
+
+pre-commit:
+  parallel: true
+  commands:
+    gitleaks:
+      # gitleaks >= 8.19 uses `gitleaks git --pre-commit --staged`; older versions use `protect --staged`.
+      run: |
+        if ! command -v gitleaks >/dev/null 2>&1; then
+          echo "WARNING: gitleaks is not installed, skipping the local secret scan. Install it: https://github.com/gitleaks/gitleaks#installing"
+          exit 0
+        fi
+        if gitleaks git --help >/dev/null 2>&1; then
+          gitleaks git --pre-commit --staged --redact --no-banner --verbose
+        else
+          gitleaks protect --staged --redact --no-banner --verbose
+        fi
+
+    prettier:
+      glob: '*.{js,cjs,mjs,jsx,ts,cts,mts,tsx,json,jsonc,md,mdx,yml,yaml,css,scss,html}'
+      run: pnpm exec prettier --check --ignore-unknown --no-error-on-unmatched-pattern {staged_files}
