@@ -20,6 +20,8 @@ export function createOpenApiDocument(app: INestApplication): OpenAPIObject {
     .setTitle('omero-social-post API')
     .setDescription('Self-hosted social media publisher. Errors use RFC 9457 problem details.')
     .setVersion('v1')
+    // zod v4 emits JSON Schema 2020-12 (e.g. `type: ['string', 'null']`), which is OpenAPI 3.1.
+    .setOpenAPIVersion('3.1.0')
     // Referenced by @ApiCookieAuth(SESSION_COOKIE) on private operations.
     .addCookieAuth(SESSION_COOKIE, { type: 'apiKey', in: 'cookie' }, SESSION_COOKIE)
     .build();
@@ -30,7 +32,7 @@ export function createOpenApiDocument(app: INestApplication): OpenAPIObject {
 /** Registers the ProblemDetails schema and declares it as every operation's default response. */
 function withProblemDetails(document: OpenAPIObject): OpenAPIObject {
   const { $schema: _ignored, ...schema } = z.toJSONSchema(problemDetailsSchema, {
-    target: 'openapi-3.0',
+    target: 'draft-2020-12',
   }) as Record<string, unknown>;
   document.components ??= {};
   document.components.schemas ??= {};

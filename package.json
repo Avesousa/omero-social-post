@@ -13,7 +13,7 @@
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",
     "test": "turbo run test",
-    "generate": "turbo run generate",
+    "generate": "pnpm --filter @omero/shared build && pnpm --filter @omero/api generate && pnpm --filter @omero/api-client generate && pnpm --filter @omero/api-client build",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "infra:up": "docker compose -f infra/docker-compose.dev.yml up -d --wait",

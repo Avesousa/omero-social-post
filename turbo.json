@@ -31,10 +31,6 @@
         "TESTCONTAINERS_*"
       ]
     },
-    "generate": {
-      "dependsOn": ["^build"],
-      "cache": false
-    },
     "@omero/api-client#generate": {
       "dependsOn": ["@omero/api#generate"],
       "cache": false

@@ -12,7 +12,7 @@
   "create_claude_md": true,
   "status": "build-in-progress",
   "created_at": "2026-10-28T03:35:00Z",
-  "updated_at": "2026-10-29T10:00:00Z",
+  "updated_at": "2026-10-29T10:03:29Z",
   "git": true,
   "roadmap": [
     "mvp/core-publishing — monorepo, X + LinkedIn publishing, composer, calendar, scheduler",
@@ -384,7 +384,7 @@
       "key": "api-client",
       "phase": 1,
       "description": "OpenAPI → typed client pipeline",
-      "status": "in_progress",
+      "status": "done",
       "depends_on": [
         "T007",
         "T005"
@@ -401,7 +401,14 @@
         "apps/api/scripts/export-openapi.ts",
         "turbo.json"
       ],
-      "started_at": "2026-10-29T02:55:34Z"
+      "started_at": "2026-10-29T02:55:34Z",
+      "completed_at": "2026-10-29T10:03:29Z",
+      "files_modified": [
+        "packages/api-client",
+        "apps/api/Dockerfile",
+        "apps/web/Dockerfile",
+        "infra"
+      ]
     },
     {
       "id": "T013",
@@ -1059,7 +1066,7 @@
       "key": "prod-infra",
       "phase": 5,
       "description": "Production images and compose",
-      "status": "in_progress",
+      "status": "done",
       "depends_on": [
         "T007",
         "T013",
@@ -1081,14 +1088,21 @@
         "infra/docker-compose.yml",
         ".github/workflows/release.yml"
       ],
-      "started_at": "2026-10-29T02:55:34Z"
+      "started_at": "2026-10-29T02:55:34Z",
+      "completed_at": "2026-10-29T10:03:29Z",
+      "files_modified": [
+        "packages/api-client",
+        "apps/api/Dockerfile",
+        "apps/web/Dockerfile",
+        "infra"
+      ]
     },
     {
       "id": "T039",
       "key": "vps",
       "phase": 5,
       "description": "Generic VPS bootstrap and Tailscale exposure",
-      "status": "in_progress",
+      "status": "done",
       "depends_on": [
         "T038"
       ],
@@ -1108,7 +1122,14 @@
         "infra/backup.sh",
         "infra/tailscale/README.md"
       ],
-      "started_at": "2026-10-29T02:55:34Z"
+      "started_at": "2026-10-29T02:55:34Z",
+      "completed_at": "2026-10-29T10:03:29Z",
+      "files_modified": [
+        "packages/api-client",
+        "apps/api/Dockerfile",
+        "apps/web/Dockerfile",
+        "infra"
+      ]
     },
     {
       "id": "T040",
