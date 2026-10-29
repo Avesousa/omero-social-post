@@ -12,7 +12,7 @@
   "create_claude_md": true,
   "status": "build-in-progress",
   "created_at": "2026-10-28T03:35:00Z",
-  "updated_at": "2026-10-29T02:55:34Z",
+  "updated_at": "2026-10-29T09:49:17Z",
   "git": true,
   "roadmap": [
     "mvp/core-publishing — monorepo, X + LinkedIn publishing, composer, calendar, scheduler",
@@ -459,7 +459,7 @@
       "key": "settings-slots",
       "phase": 2,
       "description": "Settings and queue slots",
-      "status": "in_progress",
+      "status": "done",
       "depends_on": [
         "T008"
       ],
@@ -477,7 +477,13 @@
         "apps/api/src/settings/**",
         "apps/api/src/scheduling/next-free-slot.ts"
       ],
-      "started_at": "2026-10-29T02:55:34Z"
+      "started_at": "2026-10-29T02:55:34Z",
+      "completed_at": "2026-10-29T09:49:17Z",
+      "files_modified": [
+        "apps/api/src/settings",
+        "apps/api/src/notifications",
+        "apps/api/src/scheduling/next-free-slot.ts"
+      ]
     },
     {
       "id": "T016",
@@ -638,7 +644,7 @@
       "key": "notifications",
       "phase": 2,
       "description": "Notifications module and Telegram notifier",
-      "status": "in_progress",
+      "status": "done",
       "depends_on": [
         "T008",
         "T010"
@@ -656,7 +662,13 @@
       "files_affected": [
         "apps/api/src/notifications/**"
       ],
-      "started_at": "2026-10-29T02:55:34Z"
+      "started_at": "2026-10-29T02:55:34Z",
+      "completed_at": "2026-10-29T09:49:17Z",
+      "files_modified": [
+        "apps/api/src/settings",
+        "apps/api/src/notifications",
+        "apps/api/src/scheduling/next-free-slot.ts"
+      ]
     },
     {
       "id": "T023",
@@ -931,7 +943,7 @@
       "key": "test-slots",
       "phase": 4,
       "description": "Unit tests: queue slots and timezones",
-      "status": "in_progress",
+      "status": "done",
       "depends_on": [
         "T011",
         "T015"
@@ -950,7 +962,13 @@
       "files_affected": [
         "apps/api/test/settings/**"
       ],
-      "started_at": "2026-10-29T02:55:34Z"
+      "started_at": "2026-10-29T02:55:34Z",
+      "completed_at": "2026-10-29T09:49:17Z",
+      "files_modified": [
+        "apps/api/src/settings",
+        "apps/api/src/notifications",
+        "apps/api/src/scheduling/next-free-slot.ts"
+      ]
     },
     {
       "id": "T036",
