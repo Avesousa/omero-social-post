@@ -12,7 +12,7 @@
   "create_claude_md": true,
   "status": "build-in-progress",
   "created_at": "2026-10-28T03:35:00Z",
-  "updated_at": "2026-10-29T02:19:44Z",
+  "updated_at": "2026-10-29T02:38:09Z",
   "git": true,
   "roadmap": [
     "mvp/core-publishing — monorepo, X + LinkedIn publishing, composer, calendar, scheduler",
@@ -161,7 +161,7 @@
       "key": "shared-contracts",
       "phase": 1,
       "description": "Shared contracts package",
-      "status": "in_progress",
+      "status": "done",
       "depends_on": [
         "T001"
       ],
@@ -176,14 +176,18 @@
       "files_affected": [
         "packages/shared/src/**"
       ],
-      "started_at": "2026-10-29T02:19:44Z"
+      "started_at": "2026-10-29T02:19:44Z",
+      "completed_at": "2026-10-29T02:38:09Z",
+      "files_modified": [
+        "packages/shared"
+      ]
     },
     {
       "id": "T006",
       "key": "shared-text",
       "phase": 1,
       "description": "X weighted counter, thread splitter and per-provider validation",
-      "status": "in_progress",
+      "status": "done",
       "depends_on": [
         "T005"
       ],
@@ -196,7 +200,11 @@
         "packages/shared/src/text/**",
         "packages/shared/test/**"
       ],
-      "started_at": "2026-10-29T02:19:44Z"
+      "started_at": "2026-10-29T02:19:44Z",
+      "completed_at": "2026-10-29T02:38:09Z",
+      "files_modified": [
+        "packages/shared"
+      ]
     },
     {
       "id": "T007",
