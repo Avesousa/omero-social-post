@@ -4,6 +4,7 @@ import { BullBoardModule } from '@bull-board/nestjs';
 import { BullModule } from '@nestjs/bullmq';
 import { Global, Module } from '@nestjs/common';
 import { type Redis } from 'ioredis';
+import { SessionAuthMiddleware } from '../auth/session-auth.middleware';
 import { BULLMQ_CONNECTION } from '../redis/redis.module';
 import {
   BULL_BOARD_ROUTE,
@@ -32,8 +33,9 @@ import {
     BullBoardModule.forRoot({
       route: BULL_BOARD_ROUTE,
       adapter: ExpressAdapter,
-      // TODO(T014): protect with session guard. Pass the session-check middleware as
-      // `middleware` here so /api/v1/admin/queues requires an authenticated owner.
+      // Runs before the board's router: 401 problem+json without a valid session. Its
+      // SessionService dependency resolves from the global AuthModule.
+      middleware: SessionAuthMiddleware,
     }),
     BullBoardModule.forFeature(...QUEUE_NAMES.map((name) => ({ name, adapter: BullMQAdapter }))),
   ],

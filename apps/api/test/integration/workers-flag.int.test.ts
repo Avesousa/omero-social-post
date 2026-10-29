@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { MaintenanceProcessor } from '../../src/queues/processors/maintenance.processor';
 import { QUEUE, QUEUE_NAMES } from '../../src/queues/queue.constants';
 import { createTestApp } from '../helpers/app';
+import { loginAs } from '../helpers/auth';
 import { getQueue } from '../helpers/jobs';
 
 describe('WORKERS_ENABLED', () => {
@@ -33,7 +34,8 @@ describe('WORKERS_ENABLED', () => {
   it('lists the four queues in Bull Board', async () => {
     const t = await createTestApp({ env: { WORKERS_ENABLED: 'false' } });
     try {
-      const res = await t.http().get('/api/v1/admin/queues/api/queues').expect(200);
+      const { http } = await loginAs(t);
+      const res = await http.get('/api/v1/admin/queues/api/queues').expect(200);
       const names = (res.body.queues as Array<{ name: string }>).map((q) => q.name).sort();
       expect(names).toEqual(['maintenance', 'metrics', 'notify', 'publish']);
     } finally {

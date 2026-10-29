@@ -2,6 +2,7 @@ import { Body, Controller, Get, NotFoundException, Post } from '@nestjs/common';
 import { createZodDto } from 'nestjs-zod';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { z } from 'zod';
+import { Public } from '../../src/common/decorators/public.decorator';
 import { ProblemException } from '../../src/common/errors/problem.exception';
 import { createTestApp, type TestApp } from '../helpers/app';
 
@@ -12,6 +13,8 @@ class EchoDto extends createZodDto(
   }),
 ) {}
 
+// Public: this suite exercises the error pipeline, not authentication.
+@Public()
 @Controller('__test')
 class ProbeController {
   @Post('echo')

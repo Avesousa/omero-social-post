@@ -32,7 +32,15 @@ Dependency injection:
 - Locks: inject `RedisLock`.
 - Queues are global: `@InjectQueue(QUEUE.publish)`.
 
-Every route is private by default once the session guard exists (T014). Mark public routes with `@Public()`.
+## Authentication
+
+Every route is private: the global `SessionGuard` (APP_GUARD, `src/auth`) answers 401 `UNAUTHORIZED` without a valid `omero_session` cookie. Mark public routes with `@Public()` and add them to the allowlist in `test/integration/auth-security.int.test.ts` (that test fails on any unexpected public route).
+
+- Read the session with `@CurrentSession() session: AuthSession` (`import { CurrentSession, type AuthSession } from '../auth'`). Shape: `{ sessionId, userId }`. `sessionId` is the stored sha256 of the cookie token, safe to use as a key (e.g. to bind OAuth state).
+- `req.session` carries the same object (typed through the global `Express.Request` augmentation in `src/auth/session.types.ts`).
+- Routes outside Nest's router (plain Express middleware) are protected with `SessionAuthMiddleware`, as Bull Board and `/api/v1/openapi.json` are (openapi.json stays open when `NODE_ENV=development`).
+- CSRF: every POST/PUT/PATCH/DELETE must carry an `Origin` (or, without it, a `Referer`) matching `PUBLIC_BASE_URL`, otherwise 403 `FORBIDDEN`. This runs as `app.use` middleware before any route. OAuth callbacks are GET, so they are unaffected.
+- Rate limiting: `@nestjs/throttler` with Redis storage, used only by `LoginThrottlerGuard` on `POST /auth/login`. To throttle another route, add a named throttler in `AuthModule` and skip the login one with `@SkipThrottle({ login: true })`.
 
 **DTOs**
 
@@ -79,7 +87,13 @@ Rules:
 **Integration tests:** `test/integration/*.int.test.ts`. Copy `test/integration/harness.int.test.ts` as a starting point.
 
 - Lifecycle: `createTestApp({ env?, imports?, controllers? })` in `beforeAll`, `resetDb(t.db)` in `beforeEach`, `t.close()` in `afterAll`.
-- HTTP: `t.http()` (supertest).
+- HTTP: `t.http()` is a supertest agent that sends `Origin: PUBLIC_BASE_URL` (so mutating requests pass the CSRF check) and **no session**. `t.rawHttp()` is plain supertest without default headers, for CSRF tests.
+- Auth (`test/helpers/auth.ts`):
+  - `const owner = await loginAs(t)` creates the owner if missing and a session through `SessionService` (fast, and it never uses up the login throttle). Use `owner.http.get(...)` / `.post(...)`, an agent with the cookie and `Origin` set. Also returns `user`, `token`, `sessionId` and `cookie` (`omero_session=<token>`).
+  - `createOwner(t, creds?)` inserts the user only. `TEST_OWNER` has the default credentials.
+  - `sessionSetCookie(res)` returns the `omero_session` Set-Cookie line.
+  - `resetThrottle(t)` clears login throttle counters; they live in Redis and survive `resetDb`. Call it in `beforeEach` when a suite logs in through `POST /auth/login`.
+  - Test controllers passed through `createTestApp({ controllers })` are private too: use `loginAs(t)` or mark them `@Public()`.
 - Factories: in `test/factories`; they create missing parents and encrypt tokens with the test key.
 - Jobs: `runJobToCompletion(getQueue(t.app, QUEUE.x), name, data)`.
 - External APIs: mock with msw v3, e.g. ``server.use(http.post(`${X_API_BASE}/2/tweets`, ...))``. Every unmocked external request fails the test (`onUnhandledFrame`).

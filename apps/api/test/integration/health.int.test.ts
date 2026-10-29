@@ -1,5 +1,6 @@
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { createTestApp, type TestApp } from '../helpers/app';
+import { loginAs } from '../helpers/auth';
 
 describe('GET /api/v1/health', () => {
   let t: TestApp;
@@ -28,7 +29,8 @@ describe('GET /api/v1/health', () => {
   });
 
   it('serves the OpenAPI document with the problem details schema', async () => {
-    const res = await t.http().get('/api/v1/openapi.json').expect(200);
+    const { http } = await loginAs(t);
+    const res = await http.get('/api/v1/openapi.json').expect(200);
     expect(res.body.openapi).toMatch(/^3\./);
     expect(res.body.paths['/api/v1/health'].get.responses).toHaveProperty('200');
     expect(res.body.paths['/api/v1/health'].get.responses.default.content).toHaveProperty(

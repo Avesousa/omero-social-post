@@ -2,6 +2,7 @@ import { type DynamicModule, Module, type ModuleMetadata } from '@nestjs/common'
 import { APP_FILTER, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 import { LoggerModule } from 'nestjs-pino';
 import { ZodSerializerInterceptor, ZodValidationPipe } from 'nestjs-zod';
+import { AuthModule } from './auth/auth.module';
 import { ProblemDetailsFilter } from './common/filters/problem-details.filter';
 import { buildLoggerParams } from './common/logging/logger.options';
 import { ConfigModule } from './config/config.module';
@@ -30,6 +31,8 @@ export class AppModule {
         DbModule,
         RedisModule,
         CryptoModule,
+        // Registers the global SessionGuard: every route is private unless @Public().
+        AuthModule,
         QueuesModule,
         HealthModule,
         ...(env.WORKERS_ENABLED ? [WorkersModule] : []),
