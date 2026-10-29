@@ -13,6 +13,7 @@ import { HealthModule } from './health/health.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { MediaModule } from './media/media.module';
 import { PostsModule } from './posts/posts.module';
+import { ProvidersModule } from './providers/providers.module';
 import { QueuesModule } from './queues/queues.module';
 import { WorkersModule } from './queues/workers.module';
 import { RedisModule } from './redis/redis.module';
@@ -43,6 +44,7 @@ export class AppModule {
         NotificationsModule,
         MediaModule,
         PostsModule,
+        ProvidersModule,
         ...(env.WORKERS_ENABLED ? [WorkersModule] : []),
         ...(extra.imports ?? []),
       ],

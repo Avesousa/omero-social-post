@@ -73,7 +73,6 @@ const deliveryFailed = {
 
 describe('notifications with Telegram configured', () => {
   let t: TestApp;
-  let owner: AuthedAgent;
   let queue: Queue;
 
   beforeAll(async () => {
@@ -87,7 +86,6 @@ describe('notifications with Telegram configured', () => {
   });
   beforeEach(async () => {
     await resetDb(t.db);
-    owner = await loginAs(t);
     await obliterateQueues([queue]);
   });
 

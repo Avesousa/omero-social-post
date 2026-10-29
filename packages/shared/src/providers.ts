@@ -26,7 +26,13 @@ export const LINKEDIN_CHAR_LIMIT = 3_000;
 
 const MB = 1024 * 1024;
 
-// TODO: re-verify byte limits and mime types against the current X and LinkedIn docs during the adapter tasks.
+// Verified 2026-10-29 (T018/T019):
+// - X: 4 photos per post, images <= 5 MB, JPG/PNG/GIF/WEBP
+//   (https://docs.x.com/x-api/media/introduction, https://docs.x.com/x-api/media/quickstart/best-practices).
+// - LinkedIn: multi-image posts take 2-20 images; JPG/GIF/PNG under 36,152,320 pixels. LinkedIn documents
+//   no byte limit, so 10 MB is our own conservative cap
+//   (https://learn.microsoft.com/en-us/linkedin/marketing/community-management/shares/multiimage-post-api,
+//   https://learn.microsoft.com/en-us/linkedin/marketing/community-management/shares/images-api).
 export const PROVIDER_LIMITS: Readonly<Record<ProviderId, ProviderLimits>> = {
   x: {
     maxChars: X_DEFAULT_CHAR_LIMIT,
@@ -40,7 +46,7 @@ export const PROVIDER_LIMITS: Readonly<Record<ProviderId, ProviderLimits>> = {
   linkedin: {
     maxChars: LINKEDIN_CHAR_LIMIT,
     weightedCounting: false,
-    maxImagesPerItem: 9,
+    maxImagesPerItem: 20,
     maxImageBytes: 10 * MB,
     // The LinkedIn Images API accepts JPG, PNG and GIF; WebP uploads must be converted by the media pipeline.
     allowedMimeTypes: ['image/jpeg', 'image/png', 'image/gif'],

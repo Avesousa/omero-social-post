@@ -12,7 +12,7 @@
   "create_claude_md": true,
   "status": "build-in-progress",
   "created_at": "2026-10-28T03:35:00Z",
-  "updated_at": "2026-10-29T09:57:45Z",
+  "updated_at": "2026-10-29T10:00:00Z",
   "git": true,
   "roadmap": [
     "mvp/core-publishing — monorepo, X + LinkedIn publishing, composer, calendar, scheduler",
@@ -524,7 +524,7 @@
       "key": "providers",
       "phase": 2,
       "description": "Provider framework and OAuth state",
-      "status": "in_progress",
+      "status": "done",
       "depends_on": [
         "T005",
         "T009",
@@ -543,14 +543,19 @@
       "files_affected": [
         "apps/api/src/providers/**"
       ],
-      "started_at": "2026-10-29T02:55:34Z"
+      "started_at": "2026-10-29T02:55:34Z",
+      "completed_at": "2026-10-29T10:00:00Z",
+      "files_modified": [
+        "apps/api/src/providers",
+        "packages/shared/src/providers.ts"
+      ]
     },
     {
       "id": "T018",
       "key": "x-adapter",
       "phase": 2,
       "description": "X adapter",
-      "status": "in_progress",
+      "status": "done",
       "depends_on": [
         "T017"
       ],
@@ -569,14 +574,19 @@
         "apps/api/src/providers/x/**",
         "apps/api/test/msw/x.ts"
       ],
-      "started_at": "2026-10-29T02:55:34Z"
+      "started_at": "2026-10-29T02:55:34Z",
+      "completed_at": "2026-10-29T10:00:00Z",
+      "files_modified": [
+        "apps/api/src/providers",
+        "packages/shared/src/providers.ts"
+      ]
     },
     {
       "id": "T019",
       "key": "linkedin-adapter",
       "phase": 2,
       "description": "LinkedIn adapter",
-      "status": "in_progress",
+      "status": "done",
       "depends_on": [
         "T017"
       ],
@@ -595,7 +605,12 @@
         "apps/api/src/providers/linkedin/**",
         "apps/api/test/msw/linkedin.ts"
       ],
-      "started_at": "2026-10-29T02:55:34Z"
+      "started_at": "2026-10-29T02:55:34Z",
+      "completed_at": "2026-10-29T10:00:00Z",
+      "files_modified": [
+        "apps/api/src/providers",
+        "packages/shared/src/providers.ts"
+      ]
     },
     {
       "id": "T020",

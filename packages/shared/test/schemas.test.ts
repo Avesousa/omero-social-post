@@ -78,7 +78,7 @@ describe('provider limits', () => {
     expect(PROVIDER_LIMITS.linkedin).toMatchObject({
       maxChars: 3000,
       weightedCounting: false,
-      maxImagesPerItem: 9,
+      maxImagesPerItem: 20,
     });
     expect(PROVIDER_LIMITS.linkedin.supportsThreads).toBe(false);
   });
