@@ -1,5 +1,6 @@
 import { type Database } from '../../src/db/db.module';
-import { channels, deliveries, deliveryItems, posts } from '../../src/db/schema';
+import { randomBytes } from 'node:crypto';
+import { channels, deliveries, deliveryItems, media, posts } from '../../src/db/schema';
 import { testCipher } from '../setup/test-env';
 
 /**
@@ -12,6 +13,7 @@ export type Channel = typeof channels.$inferSelect;
 export type Post = typeof posts.$inferSelect;
 export type Delivery = typeof deliveries.$inferSelect;
 export type DeliveryItem = typeof deliveryItems.$inferSelect;
+export type Media = typeof media.$inferSelect;
 
 let seq = 0;
 const next = () => ++seq;
@@ -89,6 +91,30 @@ export async function createDeliveryItem(
   const [row] = await db
     .insert(deliveryItems)
     .values({ position: 0, text: `Item ${n}`, status: 'pending', ...overrides, deliveryId })
+    .returning();
+  return row!;
+}
+
+/**
+ * A media row without a stored file (enough for post validation, which only reads
+ * mime and bytes). Upload through `POST /media` when the bytes matter.
+ */
+export async function createMedia(
+  db: Database,
+  overrides: Partial<typeof media.$inferInsert> = {},
+): Promise<Media> {
+  const n = next();
+  const [row] = await db
+    .insert(media)
+    .values({
+      storageKey: `00000000-0000-7000-8000-${String(n).padStart(12, '0')}.jpg`,
+      mime: 'image/jpeg',
+      bytes: 100_000,
+      width: 800,
+      height: 600,
+      sha256: randomBytes(32).toString('hex'),
+      ...overrides,
+    })
     .returning();
   return row!;
 }

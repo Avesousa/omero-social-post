@@ -10,6 +10,8 @@ import { CryptoModule } from './crypto/crypto.module';
 import { DbModule } from './db/db.module';
 import { HealthModule } from './health/health.module';
 import { NotificationsModule } from './notifications/notifications.module';
+import { MediaModule } from './media/media.module';
+import { PostsModule } from './posts/posts.module';
 import { QueuesModule } from './queues/queues.module';
 import { WorkersModule } from './queues/workers.module';
 import { RedisModule } from './redis/redis.module';
@@ -36,6 +38,8 @@ export class AppModule {
         HealthModule,
         SettingsModule,
         NotificationsModule,
+        MediaModule,
+        PostsModule,
         ...(env.WORKERS_ENABLED ? [WorkersModule] : []),
         ...(extra.imports ?? []),
       ],
