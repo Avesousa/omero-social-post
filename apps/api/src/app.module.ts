@@ -9,6 +9,7 @@ import { type Env } from './config/env.schema';
 import { CryptoModule } from './crypto/crypto.module';
 import { DbModule } from './db/db.module';
 import { HealthModule } from './health/health.module';
+import { MediaModule } from './media/media.module';
 import { QueuesModule } from './queues/queues.module';
 import { WorkersModule } from './queues/workers.module';
 import { RedisModule } from './redis/redis.module';
@@ -32,6 +33,7 @@ export class AppModule {
         CryptoModule,
         QueuesModule,
         HealthModule,
+        MediaModule,
         ...(env.WORKERS_ENABLED ? [WorkersModule] : []),
         ...(extra.imports ?? []),
       ],
