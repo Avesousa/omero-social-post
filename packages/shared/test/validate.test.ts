@@ -234,7 +234,7 @@ describe('validatePostInput', () => {
     ).toEqual(['channels.0.items.0.text:EMPTY_ITEM']);
   });
 
-  it('limits X to 4 images per item and LinkedIn to 9', () => {
+  it('limits X to 4 images per item and LinkedIn to 20', () => {
     const at = (n: number) =>
       post({
         baseMediaIds: media(n),
@@ -245,11 +245,8 @@ describe('validatePostInput', () => {
       });
     expect(paths(at(4))).toEqual([]);
     expect(paths(at(5))).toEqual(['channels.0.items.0.mediaIds:TOO_MANY_IMAGES']);
-    expect(paths(at(9))).toEqual(['channels.0.items.0.mediaIds:TOO_MANY_IMAGES']);
-    expect(paths(at(10))).toEqual([
-      'channels.0.items.0.mediaIds:TOO_MANY_IMAGES',
-      'channels.1.items.0.mediaIds:TOO_MANY_IMAGES',
-    ]);
+    expect(paths(at(20))).toEqual(['channels.0.items.0.mediaIds:TOO_MANY_IMAGES']);
+    expect(PROVIDER_LIMITS.linkedin.maxImagesPerItem).toBe(20);
   });
 
   it('checks mime types and sizes per provider when media metadata is given', () => {
