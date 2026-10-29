@@ -5,6 +5,7 @@ import { ZodSerializerInterceptor, ZodValidationPipe } from 'nestjs-zod';
 import { AuthModule } from './auth/auth.module';
 import { ProblemDetailsFilter } from './common/filters/problem-details.filter';
 import { buildLoggerParams } from './common/logging/logger.options';
+import { ChannelsModule } from './channels/channels.module';
 import { ConfigModule } from './config/config.module';
 import { type Env } from './config/env.schema';
 import { CryptoModule } from './crypto/crypto.module';
@@ -45,6 +46,7 @@ export class AppModule {
         MediaModule,
         PostsModule,
         ProvidersModule,
+        ChannelsModule,
         ...(env.WORKERS_ENABLED ? [WorkersModule] : []),
         ...(extra.imports ?? []),
       ],
