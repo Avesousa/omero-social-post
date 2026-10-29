@@ -12,7 +12,7 @@
   "create_claude_md": true,
   "status": "build-in-progress",
   "created_at": "2026-10-28T03:35:00Z",
-  "updated_at": "2026-10-29T02:55:05Z",
+  "updated_at": "2026-10-29T02:55:34Z",
   "git": true,
   "roadmap": [
     "mvp/core-publishing — monorepo, X + LinkedIn publishing, composer, calendar, scheduler",
@@ -384,7 +384,7 @@
       "key": "api-client",
       "phase": 1,
       "description": "OpenAPI → typed client pipeline",
-      "status": "pending",
+      "status": "in_progress",
       "depends_on": [
         "T007",
         "T005"
@@ -400,7 +400,8 @@
         "packages/api-client/**",
         "apps/api/scripts/export-openapi.ts",
         "turbo.json"
-      ]
+      ],
+      "started_at": "2026-10-29T02:55:34Z"
     },
     {
       "id": "T013",
@@ -433,7 +434,7 @@
       "key": "auth",
       "phase": 2,
       "description": "Auth module: setup, login, sessions, guards",
-      "status": "pending",
+      "status": "in_progress",
       "depends_on": [
         "T008",
         "T010"
@@ -450,14 +451,15 @@
       "complexity": "L",
       "files_affected": [
         "apps/api/src/auth/**"
-      ]
+      ],
+      "started_at": "2026-10-29T02:55:34Z"
     },
     {
       "id": "T015",
       "key": "settings-slots",
       "phase": 2,
       "description": "Settings and queue slots",
-      "status": "pending",
+      "status": "in_progress",
       "depends_on": [
         "T008"
       ],
@@ -474,14 +476,15 @@
       "files_affected": [
         "apps/api/src/settings/**",
         "apps/api/src/scheduling/next-free-slot.ts"
-      ]
+      ],
+      "started_at": "2026-10-29T02:55:34Z"
     },
     {
       "id": "T016",
       "key": "media",
       "phase": 2,
       "description": "Media module with storage adapter",
-      "status": "pending",
+      "status": "in_progress",
       "depends_on": [
         "T008"
       ],
@@ -497,14 +500,15 @@
       "complexity": "M",
       "files_affected": [
         "apps/api/src/media/**"
-      ]
+      ],
+      "started_at": "2026-10-29T02:55:34Z"
     },
     {
       "id": "T017",
       "key": "providers",
       "phase": 2,
       "description": "Provider framework and OAuth state",
-      "status": "pending",
+      "status": "in_progress",
       "depends_on": [
         "T005",
         "T009",
@@ -522,14 +526,15 @@
       "complexity": "M",
       "files_affected": [
         "apps/api/src/providers/**"
-      ]
+      ],
+      "started_at": "2026-10-29T02:55:34Z"
     },
     {
       "id": "T018",
       "key": "x-adapter",
       "phase": 2,
       "description": "X adapter",
-      "status": "pending",
+      "status": "in_progress",
       "depends_on": [
         "T017"
       ],
@@ -547,14 +552,15 @@
       "files_affected": [
         "apps/api/src/providers/x/**",
         "apps/api/test/msw/x.ts"
-      ]
+      ],
+      "started_at": "2026-10-29T02:55:34Z"
     },
     {
       "id": "T019",
       "key": "linkedin-adapter",
       "phase": 2,
       "description": "LinkedIn adapter",
-      "status": "pending",
+      "status": "in_progress",
       "depends_on": [
         "T017"
       ],
@@ -572,7 +578,8 @@
       "files_affected": [
         "apps/api/src/providers/linkedin/**",
         "apps/api/test/msw/linkedin.ts"
-      ]
+      ],
+      "started_at": "2026-10-29T02:55:34Z"
     },
     {
       "id": "T020",
@@ -604,7 +611,7 @@
       "key": "posts",
       "phase": 2,
       "description": "Posts domain service and endpoints",
-      "status": "pending",
+      "status": "in_progress",
       "depends_on": [
         "T006",
         "T008",
@@ -623,14 +630,15 @@
       "complexity": "L",
       "files_affected": [
         "apps/api/src/posts/**"
-      ]
+      ],
+      "started_at": "2026-10-29T02:55:34Z"
     },
     {
       "id": "T022",
       "key": "notifications",
       "phase": 2,
       "description": "Notifications module and Telegram notifier",
-      "status": "pending",
+      "status": "in_progress",
       "depends_on": [
         "T008",
         "T010"
@@ -647,7 +655,8 @@
       "complexity": "S",
       "files_affected": [
         "apps/api/src/notifications/**"
-      ]
+      ],
+      "started_at": "2026-10-29T02:55:34Z"
     },
     {
       "id": "T023",
@@ -922,7 +931,7 @@
       "key": "test-slots",
       "phase": 4,
       "description": "Unit tests: queue slots and timezones",
-      "status": "pending",
+      "status": "in_progress",
       "depends_on": [
         "T011",
         "T015"
@@ -940,14 +949,15 @@
       "complexity": "S",
       "files_affected": [
         "apps/api/test/settings/**"
-      ]
+      ],
+      "started_at": "2026-10-29T02:55:34Z"
     },
     {
       "id": "T036",
       "key": "test-auth",
       "phase": 4,
       "description": "Integration tests: auth and security",
-      "status": "pending",
+      "status": "in_progress",
       "depends_on": [
         "T011",
         "T014"
@@ -965,7 +975,8 @@
       "complexity": "M",
       "files_affected": [
         "apps/api/test/auth/**"
-      ]
+      ],
+      "started_at": "2026-10-29T02:55:34Z"
     },
     {
       "id": "T037",
@@ -995,7 +1006,7 @@
       "key": "prod-infra",
       "phase": 5,
       "description": "Production images and compose",
-      "status": "pending",
+      "status": "in_progress",
       "depends_on": [
         "T007",
         "T013",
@@ -1016,14 +1027,15 @@
         "apps/web/Dockerfile",
         "infra/docker-compose.yml",
         ".github/workflows/release.yml"
-      ]
+      ],
+      "started_at": "2026-10-29T02:55:34Z"
     },
     {
       "id": "T039",
       "key": "vps",
       "phase": 5,
       "description": "Generic VPS bootstrap and Tailscale exposure",
-      "status": "pending",
+      "status": "in_progress",
       "depends_on": [
         "T038"
       ],
@@ -1042,7 +1054,8 @@
         "infra/bootstrap.sh",
         "infra/backup.sh",
         "infra/tailscale/README.md"
-      ]
+      ],
+      "started_at": "2026-10-29T02:55:34Z"
     },
     {
       "id": "T040",

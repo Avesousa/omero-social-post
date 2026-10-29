@@ -20,8 +20,8 @@ Details are confirmed in each cycle's technical spec under `AiBuild/`.
 ## Project structure
 
 - `AiBuild/` — Spec Driven Development cycles (functional spec, technical spec, plan, meta.json)
-- `apps/web/` — Next.js app (TBD)
-- `apps/api/` — NestJS API and scheduler (TBD)
+- `apps/web/` — Next.js app (see `apps/web/AGENTS.md`, design tokens in `app/globals.css`)
+- `apps/api/` — NestJS API and scheduler (see `apps/api/CONVENTIONS.md`)
 - `apps/mobile/` — Expo app (later stage)
 - `packages/` — shared code (TBD)
 - `infra/` — Docker Compose and server bootstrap (TBD)
