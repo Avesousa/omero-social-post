@@ -12,7 +12,7 @@
   "create_claude_md": true,
   "status": "build-in-progress",
   "created_at": "2026-10-28T03:35:00Z",
-  "updated_at": "2026-10-29T02:40:54Z",
+  "updated_at": "2026-10-29T02:50:12Z",
   "git": true,
   "roadmap": [
     "mvp/core-publishing — monorepo, X + LinkedIn publishing, composer, calendar, scheduler",
@@ -87,7 +87,7 @@
       "key": "hygiene",
       "phase": 0,
       "description": "Open-source hygiene and secret scanning",
-      "status": "in_progress",
+      "status": "done",
       "depends_on": [
         "T001"
       ],
@@ -109,7 +109,20 @@
         ".github/dependabot.yml",
         "infra/.env.example"
       ],
-      "started_at": "2026-10-29T02:19:44Z"
+      "started_at": "2026-10-29T02:19:44Z",
+      "completed_at": "2026-10-29T02:50:12Z",
+      "files_modified": [
+        "README.md",
+        "CONTRIBUTING.md",
+        "CODE_OF_CONDUCT.md",
+        "SECURITY.md",
+        ".gitleaks.toml",
+        "lefthook.yml",
+        ".github",
+        "infra/.env.example",
+        "turbo.json",
+        "package.json"
+      ]
     },
     {
       "id": "T003",
@@ -139,7 +152,7 @@
       "key": "ci",
       "phase": 0,
       "description": "CI pipeline",
-      "status": "in_progress",
+      "status": "done",
       "depends_on": [
         "T001"
       ],
@@ -154,7 +167,20 @@
       "files_affected": [
         ".github/workflows/ci.yml"
       ],
-      "started_at": "2026-10-29T02:19:44Z"
+      "started_at": "2026-10-29T02:19:44Z",
+      "completed_at": "2026-10-29T02:50:12Z",
+      "files_modified": [
+        "README.md",
+        "CONTRIBUTING.md",
+        "CODE_OF_CONDUCT.md",
+        "SECURITY.md",
+        ".gitleaks.toml",
+        "lefthook.yml",
+        ".github",
+        "infra/.env.example",
+        "turbo.json",
+        "package.json"
+      ]
     },
     {
       "id": "T005",
