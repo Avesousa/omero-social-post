@@ -12,7 +12,7 @@
   "create_claude_md": true,
   "status": "build-in-progress",
   "created_at": "2026-10-28T03:35:00Z",
-  "updated_at": "2026-10-29T10:03:42Z",
+  "updated_at": "2026-10-29T10:12:51Z",
   "git": true,
   "roadmap": [
     "mvp/core-publishing — monorepo, X + LinkedIn publishing, composer, calendar, scheduler",
@@ -1140,7 +1140,7 @@
       "key": "docs",
       "phase": 5,
       "description": "Self-hosting documentation",
-      "status": "in_progress",
+      "status": "done",
       "depends_on": [
         "T018",
         "T019",
@@ -1158,7 +1158,12 @@
         "docs/**",
         "README.md"
       ],
-      "started_at": "2026-10-29T10:03:42Z"
+      "started_at": "2026-10-29T10:03:42Z",
+      "completed_at": "2026-10-29T10:12:51Z",
+      "files_modified": [
+        "docs",
+        "README.md"
+      ]
     },
     {
       "id": "T041",
