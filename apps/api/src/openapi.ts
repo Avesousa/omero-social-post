@@ -2,6 +2,7 @@ import { type INestApplication } from '@nestjs/common';
 import { DocumentBuilder, type OpenAPIObject, SwaggerModule } from '@nestjs/swagger';
 import { cleanupOpenApiDoc } from 'nestjs-zod';
 import { z } from 'zod';
+import { SESSION_COOKIE } from './auth/auth.constants';
 import { PROBLEM_CONTENT_TYPE, problemDetailsSchema } from './common/errors/problem-details';
 
 export const API_PREFIX = 'api/v1';
@@ -19,6 +20,8 @@ export function createOpenApiDocument(app: INestApplication): OpenAPIObject {
     .setTitle('omero-social-post API')
     .setDescription('Self-hosted social media publisher. Errors use RFC 9457 problem details.')
     .setVersion('v1')
+    // Referenced by @ApiCookieAuth(SESSION_COOKIE) on private operations.
+    .addCookieAuth(SESSION_COOKIE, { type: 'apiKey', in: 'cookie' }, SESSION_COOKIE)
     .build();
   const document = cleanupOpenApiDoc(SwaggerModule.createDocument(app, config));
   return withProblemDetails(document);

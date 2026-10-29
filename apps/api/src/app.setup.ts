@@ -2,6 +2,9 @@ import { type NestExpressApplication } from '@nestjs/platform-express';
 import cookieParser from 'cookie-parser';
 import type { Express, NextFunction, Request, Response } from 'express';
 import helmet from 'helmet';
+import { originCheckMiddleware } from './auth/origin-check.middleware';
+import { SessionAuthMiddleware } from './auth/session-auth.middleware';
+import { AppConfig } from './config/app-config';
 import { API_PREFIX, createOpenApiDocument, OPENAPI_JSON_PATH } from './openapi';
 import { BULL_BOARD_ROUTE } from './queues/queue.constants';
 
@@ -38,9 +41,21 @@ export function configureApp(app: NestExpressApplication): void {
   );
   app.use(cookieParser());
 
+  const { env } = app.get(AppConfig);
+  // CSRF: cross-origin POST/PUT/PATCH/DELETE get 403 before reaching any route,
+  // Bull Board's actions included.
+  app.use(originCheckMiddleware(env.PUBLIC_BASE_URL));
+
   const document = createOpenApiDocument(app);
   const express = app.getHttpAdapter().getInstance() as Express;
-  express.get(OPENAPI_JSON_PATH, (_req: Request, res: Response) => {
+  // The contract is open in development (orval codegen against `pnpm dev`) and
+  // requires a session everywhere else.
+  const sessionAuth = app.get(SessionAuthMiddleware);
+  const openApiAuth =
+    env.NODE_ENV === 'development'
+      ? []
+      : [(req: Request, res: Response, next: NextFunction) => sessionAuth.use(req, res, next)];
+  express.get(OPENAPI_JSON_PATH, ...openApiAuth, (_req: Request, res: Response) => {
     res.json(document);
   });
 

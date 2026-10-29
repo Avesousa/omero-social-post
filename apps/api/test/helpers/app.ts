@@ -9,12 +9,21 @@ import { type Env } from '../../src/config/env.schema';
 import { type Database, DRIZZLE } from '../../src/db/db.module';
 import { testEnv } from '../setup/test-env';
 
+/** supertest agent (`.get()`, `.post()`, ... with persisted default headers). */
+export type HttpAgent = ReturnType<typeof request.agent>;
+
 export interface TestApp {
   app: NestExpressApplication;
   env: Env;
   db: Database;
-  /** supertest agent bound to the in-process HTTP server. */
-  http: () => ReturnType<typeof request>;
+  /**
+   * supertest agent bound to the in-process HTTP server. Sends `Origin: PUBLIC_BASE_URL`
+   * so mutating requests pass the CSRF check; carries no session (see `loginAs` in
+   * ./auth for an authenticated agent). Remove the header with `.unset('Origin')`.
+   */
+  http: () => HttpAgent;
+  /** Plain supertest without default headers (for CSRF tests). */
+  rawHttp: () => ReturnType<typeof request>;
   close: () => Promise<void>;
 }
 
@@ -48,7 +57,8 @@ export async function createTestApp(options: CreateTestAppOptions = {}): Promise
     app,
     env,
     db: app.get<Database>(DRIZZLE),
-    http: () => request(app.getHttpServer()),
+    http: () => request.agent(app.getHttpServer()).set('Origin', env.PUBLIC_BASE_URL),
+    rawHttp: () => request(app.getHttpServer()),
     close: () => app.close(),
   };
 }
