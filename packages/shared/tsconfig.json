@@ -1,4 +1,7 @@
 {
   "extends": "@omero/config/tsconfig/library.json",
-  "include": ["src"]
+  "compilerOptions": {
+    "types": ["node"]
+  },
+  "include": ["src", "test", "tsup.config.ts", "vitest.config.mts"]
 }
