@@ -7,6 +7,7 @@ import { NotifyService } from '../../src/notifications/notify.service';
 import { QUEUE } from '../../src/queues/queue.constants';
 import { closeRedis, createRedisConnection } from '../../src/redis/redis-connection';
 import { createTestApp, type TestApp } from '../helpers/app';
+import { type AuthedAgent, loginAs } from '../helpers/auth';
 import { resetDb } from '../helpers/db';
 import { getQueue, obliterateQueues } from '../helpers/jobs';
 import { server } from '../msw/server';
@@ -72,6 +73,7 @@ const deliveryFailed = {
 
 describe('notifications with Telegram configured', () => {
   let t: TestApp;
+  let owner: AuthedAgent;
   let queue: Queue;
 
   beforeAll(async () => {
@@ -85,6 +87,7 @@ describe('notifications with Telegram configured', () => {
   });
   beforeEach(async () => {
     await resetDb(t.db);
+    owner = await loginAs(t);
     await obliterateQueues([queue]);
   });
 
@@ -177,6 +180,7 @@ describe('notifications with Telegram configured', () => {
 
 describe('notifications without Telegram', () => {
   let t: TestApp;
+  let owner: AuthedAgent;
 
   beforeAll(async () => {
     t = await createTestApp({
@@ -188,6 +192,7 @@ describe('notifications without Telegram', () => {
   });
   beforeEach(async () => {
     await resetDb(t.db);
+    owner = await loginAs(t);
     await obliterateQueues([getQueue(t.app, QUEUE.notify)]);
   });
 
@@ -220,7 +225,7 @@ describe('notifications without Telegram', () => {
       const b = (await create('b')).notification;
       const c = (await create('c')).notification;
 
-      const all = await t.http().get('/api/v1/notifications').expect(200);
+      const all = await owner.http.get('/api/v1/notifications').expect(200);
       expect(all.body.items.map((n: { id: string }) => n.id)).toEqual([c.id, b.id, a.id]);
       expect(all.body).toMatchObject({ nextCursor: null, unreadCount: 3 });
       expect(all.body.items[0]).toMatchObject({
@@ -230,45 +235,43 @@ describe('notifications without Telegram', () => {
         createdAt: expect.stringMatching(/Z$/),
       });
 
-      const page1 = await t.http().get('/api/v1/notifications?limit=2').expect(200);
+      const page1 = await owner.http.get('/api/v1/notifications?limit=2').expect(200);
       expect(page1.body.items.map((n: { id: string }) => n.id)).toEqual([c.id, b.id]);
       expect(page1.body.nextCursor).toBe(b.id);
-      const page2 = await t
-        .http()
+      const page2 = await owner.http
         .get(`/api/v1/notifications?limit=2&cursor=${page1.body.nextCursor}`)
         .expect(200);
       expect(page2.body.items.map((n: { id: string }) => n.id)).toEqual([a.id]);
       expect(page2.body.nextCursor).toBeNull();
 
-      const read = await t.http().post(`/api/v1/notifications/${b.id}/read`).expect(200);
+      const read = await owner.http.post(`/api/v1/notifications/${b.id}/read`).expect(200);
       expect(read.body).toMatchObject({ id: b.id, readAt: expect.any(String) });
 
-      const unread = await t.http().get('/api/v1/notifications?unread=true').expect(200);
+      const unread = await owner.http.get('/api/v1/notifications?unread=true').expect(200);
       expect(unread.body.items.map((n: { id: string }) => n.id)).toEqual([c.id, a.id]);
       expect(unread.body.unreadCount).toBe(2);
 
-      const readAll = await t.http().post('/api/v1/notifications/read-all').expect(200);
+      const readAll = await owner.http.post('/api/v1/notifications/read-all').expect(200);
       expect(readAll.body).toEqual({ count: 2 });
-      const none = await t.http().get('/api/v1/notifications?unread=true').expect(200);
+      const none = await owner.http.get('/api/v1/notifications?unread=true').expect(200);
       expect(none.body).toMatchObject({ items: [], unreadCount: 0 });
     });
 
     it('keeps the first read time when marking twice', async () => {
       const { notification } = await create('x');
-      const first = await t.http().post(`/api/v1/notifications/${notification.id}/read`);
-      const second = await t.http().post(`/api/v1/notifications/${notification.id}/read`);
+      const first = await owner.http.post(`/api/v1/notifications/${notification.id}/read`);
+      const second = await owner.http.post(`/api/v1/notifications/${notification.id}/read`);
       expect(second.body.readAt).toBe(first.body.readAt);
     });
 
     it('returns 404 for an unknown id and 400 for a malformed one', async () => {
-      const res = await t
-        .http()
+      const res = await owner.http
         .post('/api/v1/notifications/01900000-0000-7000-8000-00000000ffff/read')
         .expect(404)
         .expect('content-type', /application\/problem\+json/);
       expect(res.body.code).toBe('NOT_FOUND');
-      await t.http().post('/api/v1/notifications/not-a-uuid/read').expect(400);
-      await t.http().get('/api/v1/notifications?limit=0').expect(400);
+      await owner.http.post('/api/v1/notifications/not-a-uuid/read').expect(400);
+      await owner.http.get('/api/v1/notifications?limit=0').expect(400);
     });
   });
 });

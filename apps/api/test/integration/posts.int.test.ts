@@ -21,12 +21,14 @@ import {
   createPost,
 } from '../factories';
 import { createTestApp, type TestApp } from '../helpers/app';
+import { type AuthedAgent, loginAs } from '../helpers/auth';
 import { resetDb } from '../helpers/db';
 
 const DAY = 86_400_000;
 
 describe('posts', () => {
   let t: TestApp;
+  let owner: AuthedAgent;
   let x: Channel;
   let linkedin: Channel;
 
@@ -38,11 +40,12 @@ describe('posts', () => {
   });
   beforeEach(async () => {
     await resetDb(t.db);
+    owner = await loginAs(t);
     x = await createChannel(t.db, { provider: 'x', handle: 'omero_x' });
     linkedin = await createChannel(t.db, { provider: 'linkedin', handle: 'omero-li' });
   });
 
-  const createViaApi = (body: object) => t.http().post('/api/v1/posts').send(body);
+  const createViaApi = (body: object) => owner.http.post('/api/v1/posts').send(body);
 
   /** X customized into a 3-item thread, LinkedIn from the base content. */
   async function threadPost() {
@@ -220,7 +223,7 @@ describe('posts', () => {
         { deliveryItemId: firstItem.id, checkpoint: '24h', fetchedAt: new Date(), likes: 9 },
       ]);
 
-      const detail = await t.http().get(`/api/v1/posts/${res.body.id}`).expect(200);
+      const detail = await owner.http.get(`/api/v1/posts/${res.body.id}`).expect(200);
       const d = detail.body.deliveries[0];
       expect(d.attempts.map((a: { attempt: number }) => a.attempt)).toEqual([2, 1]);
       expect(d.items[0].latestMetrics).toMatchObject({ checkpoint: '24h', likes: 9 });
@@ -228,15 +231,14 @@ describe('posts', () => {
     });
 
     it('returns 404 for an unknown post', async () => {
-      await t.http().get('/api/v1/posts/01900000-0000-7000-8000-000000000002').expect(404);
+      await owner.http.get('/api/v1/posts/01900000-0000-7000-8000-000000000002').expect(404);
     });
   });
 
   describe('PUT /posts/:id', () => {
     it('updates at the current version and increments it', async () => {
       const { res } = await threadPost();
-      const updated = await t
-        .http()
+      const updated = await owner.http
         .put(`/api/v1/posts/${res.body.id}`)
         .send({
           version: 1,
@@ -264,13 +266,11 @@ describe('posts', () => {
         baseContent: 'Edit',
         channels: [{ channelId: x.id, customized: false }],
       };
-      await t
-        .http()
+      await owner.http
         .put(`/api/v1/posts/${res.body.id}`)
         .send({ ...body, version: 1 })
         .expect(200);
-      const conflict = await t
-        .http()
+      const conflict = await owner.http
         .put(`/api/v1/posts/${res.body.id}`)
         .send({ ...body, version: 1 })
         .expect(409);
@@ -280,8 +280,7 @@ describe('posts', () => {
     it('keeps a scheduled post scheduled', async () => {
       const at = new Date(Date.now() + DAY);
       const post = await createPost(t.db, { status: 'scheduled', scheduledAt: at, version: 4 });
-      const res = await t
-        .http()
+      const res = await owner.http
         .put(`/api/v1/posts/${post.id}`)
         .send({
           version: 4,
@@ -298,8 +297,7 @@ describe('posts', () => {
 
     it('answers 409 FORBIDDEN_STATE when editing a published post', async () => {
       const post = await createPost(t.db, { status: 'published', publishedAt: new Date() });
-      const res = await t
-        .http()
+      const res = await owner.http
         .put(`/api/v1/posts/${post.id}`)
         .send({
           version: 1,
@@ -312,8 +310,7 @@ describe('posts', () => {
 
     it('removing a channel deletes its delivery', async () => {
       const { res } = await threadPost();
-      const updated = await t
-        .http()
+      const updated = await owner.http
         .put(`/api/v1/posts/${res.body.id}`)
         .send({
           version: 1,
@@ -333,7 +330,7 @@ describe('posts', () => {
   describe('DELETE /posts/:id', () => {
     it('deletes draft, scheduled, failed and missed posts with their rows, keeping media', async () => {
       const { res, m1 } = await threadPost();
-      await t.http().delete(`/api/v1/posts/${res.body.id}`).expect(204);
+      await owner.http.delete(`/api/v1/posts/${res.body.id}`).expect(204);
       expect(await t.db.select().from(posts)).toHaveLength(0);
       expect(await t.db.select().from(deliveries)).toHaveLength(0);
       expect(await t.db.select().from(deliveryItems)).toHaveLength(0);
@@ -341,21 +338,21 @@ describe('posts', () => {
 
       for (const status of ['scheduled', 'failed', 'missed'] as const) {
         const post = await createPost(t.db, { status });
-        await t.http().delete(`/api/v1/posts/${post.id}`).expect(204);
+        await owner.http.delete(`/api/v1/posts/${post.id}`).expect(204);
       }
     });
 
     it('refuses publishing, published and partially published posts with 409', async () => {
       for (const status of ['publishing', 'published', 'partially_published'] as const) {
         const post = await createPost(t.db, { status });
-        const res = await t.http().delete(`/api/v1/posts/${post.id}`).expect(409);
+        const res = await owner.http.delete(`/api/v1/posts/${post.id}`).expect(409);
         expect(res.body.code).toBe('FORBIDDEN_STATE');
       }
       expect(await t.db.select().from(posts)).toHaveLength(3);
     });
 
     it('returns 404 for an unknown post', async () => {
-      await t.http().delete('/api/v1/posts/01900000-0000-7000-8000-000000000003').expect(404);
+      await owner.http.delete('/api/v1/posts/01900000-0000-7000-8000-000000000003').expect(404);
     });
   });
 
@@ -402,7 +399,7 @@ describe('posts', () => {
         publishedAt: new Date(to.getTime() + DAY),
       });
 
-      const res = await t.http().get(`/api/v1/posts?${range}`).expect(200);
+      const res = await owner.http.get(`/api/v1/posts?${range}`).expect(200);
       const items = res.body.items as Array<{
         id: string;
         preview: string;
@@ -417,8 +414,7 @@ describe('posts', () => {
         expect.objectContaining({ provider: 'linkedin', status: 'pending', needsAttention: true }),
       ]);
 
-      const onlyPublished = await t
-        .http()
+      const onlyPublished = await owner.http
         .get(`/api/v1/posts?${range}&status=published`)
         .expect(200);
       expect(onlyPublished.body.items.map((p: { id: string }) => p.id)).toEqual([published.id]);
@@ -428,7 +424,7 @@ describe('posts', () => {
       const pool = t.app.get<Pool>(PG_POOL);
       const countQueries = async () => {
         const spy = vi.spyOn(pool, 'query');
-        const res = await t.http().get(`/api/v1/posts?${range}`).expect(200);
+        const res = await owner.http.get(`/api/v1/posts?${range}`).expect(200);
         const calls = spy.mock.calls.length;
         spy.mockRestore();
         return { calls, posts: res.body.items.length as number };
@@ -448,14 +444,16 @@ describe('posts', () => {
     });
 
     it('rejects ranges longer than 62 days or inverted with 422', async () => {
-      const tooLong = await t.http().get(`/api/v1/posts?from=2026-01-01&to=2026-03-15`).expect(422);
+      const tooLong = await owner.http
+        .get(`/api/v1/posts?from=2026-01-01&to=2026-03-15`)
+        .expect(422);
       expect(tooLong.body.errors[0]).toMatchObject({ path: 'to', code: 'RANGE_TOO_LARGE' });
-      await t.http().get(`/api/v1/posts?from=2026-03-01&to=2026-02-01`).expect(422);
+      await owner.http.get(`/api/v1/posts?from=2026-03-01&to=2026-02-01`).expect(422);
     });
 
     it('requires from and to (400)', async () => {
-      await t.http().get('/api/v1/posts').expect(400);
-      await t.http().get(`/api/v1/posts?${range}&status=bogus`).expect(400);
+      await owner.http.get('/api/v1/posts').expect(400);
+      await owner.http.get(`/api/v1/posts?${range}&status=bogus`).expect(400);
     });
   });
 

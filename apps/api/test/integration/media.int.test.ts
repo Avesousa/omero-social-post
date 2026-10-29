@@ -7,6 +7,7 @@ import { MAX_UPLOAD_BYTES } from '../../src/media/image-pipeline';
 import type { LocalDiskStorage } from '../../src/media/storage/local-disk.storage';
 import { STORAGE_ADAPTER } from '../../src/media/storage/storage-adapter';
 import { createTestApp, type TestApp } from '../helpers/app';
+import { type AuthedAgent, loginAs } from '../helpers/auth';
 import { resetDb } from '../helpers/db';
 
 /** A JPEG carrying EXIF with GPS coordinates and orientation 6 (rotate 90 degrees). */
@@ -38,6 +39,7 @@ async function animatedGif(): Promise<Buffer> {
 
 describe('media', () => {
   let t: TestApp;
+  let owner: AuthedAgent;
   let storage: LocalDiskStorage;
 
   beforeAll(async () => {
@@ -49,10 +51,11 @@ describe('media', () => {
   });
   beforeEach(async () => {
     await resetDb(t.db);
+    owner = await loginAs(t);
   });
 
   const upload = (data: Buffer, filename = 'photo.jpg') =>
-    t.http().post('/api/v1/media').attach('file', data, filename);
+    owner.http.post('/api/v1/media').attach('file', data, filename);
 
   it('strips EXIF/GPS, applies the orientation and stores the processed file', async () => {
     const source = await jpegWithGps();
@@ -131,7 +134,7 @@ describe('media', () => {
   });
 
   it('rejects a request without a file with 400', async () => {
-    await t.http().post('/api/v1/media').field('other', 'x').expect(400);
+    await owner.http.post('/api/v1/media').field('other', 'x').expect(400);
   });
 
   it('streams the stored bytes with type and cache headers', async () => {
@@ -139,8 +142,7 @@ describe('media', () => {
     const [row] = await t.db.select().from(media).where(eq(media.id, created.body.id));
     const stored = await readFile(storage.pathFor(row!.storageKey));
 
-    const res = await t
-      .http()
+    const res = await owner.http
       .get(created.body.url)
       .buffer(true)
       .parse((r, done) => {
@@ -157,7 +159,7 @@ describe('media', () => {
   });
 
   it('returns 404 for an unknown media id and 400 for a malformed one', async () => {
-    await t.http().get('/api/v1/media/01900000-0000-7000-8000-000000000000').expect(404);
-    await t.http().get('/api/v1/media/not-a-uuid').expect(400);
+    await owner.http.get('/api/v1/media/01900000-0000-7000-8000-000000000000').expect(404);
+    await owner.http.get('/api/v1/media/not-a-uuid').expect(400);
   });
 });
