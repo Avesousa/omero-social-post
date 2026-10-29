@@ -1,4 +1,5 @@
 export * from './auth/auth';
+export * from './channels/channels';
 export * from './health/health';
 export * from './media/media';
 export * from './notifications/notifications';

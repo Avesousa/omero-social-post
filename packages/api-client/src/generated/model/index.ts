@@ -6,6 +6,11 @@
  * OpenAPI spec version: v1
  */
 
+export * from './channelDtoOutput';
+export * from './channelDtoOutputProvider';
+export * from './channelDtoOutputSettings';
+export * from './channelDtoOutputStatus';
+export * from './channelsControllerCallbackParams';
 export * from './createPostDto';
 export * from './createPostDtoChannelsItem';
 export * from './createPostDtoChannelsItemItemsItem';
@@ -67,6 +72,8 @@ export * from './settingsDto';
 export * from './settingsDtoOutput';
 export * from './setupDto';
 export * from './setupStatusDtoOutput';
+export * from './updateChannelDto';
+export * from './updateChannelDtoSettings';
 export * from './updatePostDto';
 export * from './updatePostDtoChannelsItem';
 export * from './updatePostDtoChannelsItemItemsItem';
