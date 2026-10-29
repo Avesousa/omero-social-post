@@ -9,9 +9,11 @@ import { type Env } from './config/env.schema';
 import { CryptoModule } from './crypto/crypto.module';
 import { DbModule } from './db/db.module';
 import { HealthModule } from './health/health.module';
+import { NotificationsModule } from './notifications/notifications.module';
 import { QueuesModule } from './queues/queues.module';
 import { WorkersModule } from './queues/workers.module';
 import { RedisModule } from './redis/redis.module';
+import { SettingsModule } from './settings/settings.module';
 
 /**
  * Root module, built from an already validated env so that composition decisions
@@ -32,6 +34,8 @@ export class AppModule {
         CryptoModule,
         QueuesModule,
         HealthModule,
+        SettingsModule,
+        NotificationsModule,
         ...(env.WORKERS_ENABLED ? [WorkersModule] : []),
         ...(extra.imports ?? []),
       ],

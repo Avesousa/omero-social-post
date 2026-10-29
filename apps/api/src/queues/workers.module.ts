@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { NotificationsWorkersModule } from '../notifications/notifications.workers.module';
 import { MaintenanceProcessor } from './processors/maintenance.processor';
 
 /**
@@ -14,7 +15,7 @@ import { MaintenanceProcessor } from './processors/maintenance.processor';
  *   3. Add that module to `imports` below.
  */
 @Module({
-  imports: [],
+  imports: [NotificationsWorkersModule],
   providers: [MaintenanceProcessor],
 })
 export class WorkersModule {}
