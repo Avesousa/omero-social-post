@@ -1,0 +1,1239 @@
+{
+  "project": "omero-social-post",
+  "feature": "core-publishing",
+  "ticket_id": null,
+  "raw_input": "New open source app built from scratch (Next.js + NestJS, Postiz as reference): multi-network publishing (X, LinkedIn, Instagram, Facebook) with calendar and per-network OAuth, daily AI news digest over chosen sources (X accounts, websites/RSS), React Native/Expo mobile app. Self-hosted single-user, private behind Tailscale on a Hostinger KVM 1 VPS. Built in public. Split into stages; this first cycle is stage 1: monorepo + X/LinkedIn publishing + composer + calendar + scheduler.",
+  "type": "mvp",
+  "branch": "mvp/core-publishing",
+  "main_branch": "main",
+  "tests_required": false,
+  "language": "en",
+  "conversation_language": "es",
+  "create_claude_md": true,
+  "status": "build-in-progress",
+  "created_at": "2026-10-28T03:35:00Z",
+  "updated_at": "2026-10-31T11:14:20Z",
+  "git": true,
+  "roadmap": [
+    "mvp/core-publishing — monorepo, X + LinkedIn publishing, composer, calendar, scheduler",
+    "feature/news-digest — sources, AI research, drafts into the calendar",
+    "feature/mobile-app — Expo app: approve drafts, read digest, share-sheet drafts, push",
+    "feature/meta-networks — Instagram + Facebook Pages"
+  ],
+  "steps": {
+    "functional_spec": "done",
+    "technical_spec": "done",
+    "plan": "done",
+    "build": "in_progress",
+    "finish": "pending"
+  },
+  "open_questions": [],
+  "remote": "git@github.com:Avesousa/omero-social-post.git",
+  "decisions": {
+    "license": "AGPL-3.0",
+    "ui_language": "es first, i18n-ready",
+    "queues": "BullMQ + Redis 8",
+    "orm": "Drizzle",
+    "api_contract": "REST + OpenAPI (orval client)",
+    "media": "local disk behind StorageAdapter",
+    "auth": "own sessions (argon2id + httpOnly cookie)",
+    "architecture": "modular monolith + provider adapters",
+    "ui": "Tailwind + shadcn/ui",
+    "tests": "critical paths: Vitest + Testcontainers + msw",
+    "x_premium": "decide later; default 280 with per-channel toggle",
+    "grace_window": "6h default",
+    "queue_slots_default": "none, one-click preset"
+  },
+  "tasks": [
+    {
+      "id": "T001",
+      "key": "monorepo",
+      "phase": 0,
+      "description": "Scaffold the pnpm + Turborepo monorepo",
+      "status": "done",
+      "depends_on": [],
+      "can_parallelize_with": [],
+      "done_when": "`pnpm install && pnpm lint && pnpm typecheck` pass on a clean clone.",
+      "complexity": "M",
+      "files_affected": [
+        "package.json",
+        "pnpm-workspace.yaml",
+        "turbo.json",
+        "packages/config/**",
+        ".nvmrc",
+        ".editorconfig",
+        ".gitignore"
+      ],
+      "started_at": "2026-10-29T02:18:15Z",
+      "completed_at": "2026-10-29T02:19:06Z",
+      "files_modified": [
+        "package.json",
+        "pnpm-workspace.yaml",
+        "turbo.json",
+        "packages/config",
+        ".nvmrc",
+        ".editorconfig",
+        ".gitignore",
+        ".prettierrc.json",
+        ".prettierignore",
+        "eslint.config.mjs",
+        "apps/api",
+        "apps/web",
+        "packages/shared"
+      ]
+    },
+    {
+      "id": "T002",
+      "key": "hygiene",
+      "phase": 0,
+      "description": "Open-source hygiene and secret scanning",
+      "status": "done",
+      "depends_on": [
+        "T001"
+      ],
+      "can_parallelize_with": [
+        "T003",
+        "T004",
+        "T005",
+        "T013"
+      ],
+      "done_when": "A commit containing a fake `X_CLIENT_SECRET=...` value is blocked by the pre-commit hook; all docs render on GitHub.",
+      "complexity": "S",
+      "files_affected": [
+        "README.md",
+        "CONTRIBUTING.md",
+        "CODE_OF_CONDUCT.md",
+        "SECURITY.md",
+        ".gitleaks.toml",
+        "lefthook.yml",
+        ".github/dependabot.yml",
+        "infra/.env.example"
+      ],
+      "started_at": "2026-10-29T02:19:44Z",
+      "completed_at": "2026-10-29T02:50:12Z",
+      "files_modified": [
+        "README.md",
+        "CONTRIBUTING.md",
+        "CODE_OF_CONDUCT.md",
+        "SECURITY.md",
+        ".gitleaks.toml",
+        "lefthook.yml",
+        ".github",
+        "infra/.env.example",
+        "turbo.json",
+        "package.json"
+      ]
+    },
+    {
+      "id": "T003",
+      "key": "devinfra",
+      "phase": 0,
+      "description": "Local dev infrastructure (Postgres + Redis)",
+      "status": "done",
+      "depends_on": [
+        "T001"
+      ],
+      "can_parallelize_with": [
+        "T002",
+        "T004",
+        "T005",
+        "T013"
+      ],
+      "done_when": "`pnpm infra:up` brings both services to healthy; `redis-cli CONFIG GET maxmemory-policy` returns noeviction.",
+      "complexity": "S",
+      "files_affected": [
+        "infra/docker-compose.dev.yml",
+        "package.json"
+      ],
+      "started_at": "2026-10-29T02:19:44Z",
+      "completed_at": "2026-10-29T02:55:05Z",
+      "files_modified": [
+        "infra/docker-compose.dev.yml",
+        "apps/api"
+      ]
+    },
+    {
+      "id": "T004",
+      "key": "ci",
+      "phase": 0,
+      "description": "CI pipeline",
+      "status": "done",
+      "depends_on": [
+        "T001"
+      ],
+      "can_parallelize_with": [
+        "T002",
+        "T003",
+        "T005",
+        "T013"
+      ],
+      "done_when": "Workflow is green on the branch; a failing lint makes it red.",
+      "complexity": "S",
+      "files_affected": [
+        ".github/workflows/ci.yml"
+      ],
+      "started_at": "2026-10-29T02:19:44Z",
+      "completed_at": "2026-10-29T02:50:12Z",
+      "files_modified": [
+        "README.md",
+        "CONTRIBUTING.md",
+        "CODE_OF_CONDUCT.md",
+        "SECURITY.md",
+        ".gitleaks.toml",
+        "lefthook.yml",
+        ".github",
+        "infra/.env.example",
+        "turbo.json",
+        "package.json"
+      ]
+    },
+    {
+      "id": "T005",
+      "key": "shared-contracts",
+      "phase": 1,
+      "description": "Shared contracts package",
+      "status": "done",
+      "depends_on": [
+        "T001"
+      ],
+      "can_parallelize_with": [
+        "T002",
+        "T003",
+        "T004",
+        "T013"
+      ],
+      "done_when": "Package builds and is importable from both apps/api and apps/web; schemas exported with inferred types.",
+      "complexity": "M",
+      "files_affected": [
+        "packages/shared/src/**"
+      ],
+      "started_at": "2026-10-29T02:19:44Z",
+      "completed_at": "2026-10-29T02:38:09Z",
+      "files_modified": [
+        "packages/shared"
+      ]
+    },
+    {
+      "id": "T006",
+      "key": "shared-text",
+      "phase": 1,
+      "description": "X weighted counter, thread splitter and per-provider validation",
+      "status": "done",
+      "depends_on": [
+        "T005"
+      ],
+      "can_parallelize_with": [
+        "T007"
+      ],
+      "done_when": "Vitest suite passes with cases for URLs, emoji/CJK, exact-limit boundaries, splitter never producing an over-limit item, and validation error paths.",
+      "complexity": "M",
+      "files_affected": [
+        "packages/shared/src/text/**",
+        "packages/shared/test/**"
+      ],
+      "started_at": "2026-10-29T02:19:44Z",
+      "completed_at": "2026-10-29T02:38:09Z",
+      "files_modified": [
+        "packages/shared"
+      ]
+    },
+    {
+      "id": "T007",
+      "key": "api-scaffold",
+      "phase": 1,
+      "description": "NestJS API scaffold",
+      "status": "done",
+      "depends_on": [
+        "T001",
+        "T003"
+      ],
+      "can_parallelize_with": [
+        "T006"
+      ],
+      "done_when": "`pnpm --filter api dev` starts; GET /api/v1/health returns 200 with db and redis ok; a missing required env var aborts startup with a clear message.",
+      "complexity": "M",
+      "files_affected": [
+        "apps/api/src/main.ts",
+        "apps/api/src/app.module.ts",
+        "apps/api/src/config/**",
+        "apps/api/src/common/**",
+        "apps/api/src/health/**"
+      ],
+      "started_at": "2026-10-29T02:19:44Z",
+      "completed_at": "2026-10-29T02:55:05Z",
+      "files_modified": [
+        "infra/docker-compose.dev.yml",
+        "apps/api"
+      ]
+    },
+    {
+      "id": "T008",
+      "key": "db",
+      "phase": 1,
+      "description": "Drizzle schema, indexes and migrations",
+      "status": "done",
+      "depends_on": [
+        "T007"
+      ],
+      "can_parallelize_with": [
+        "T009",
+        "T010",
+        "T012"
+      ],
+      "done_when": "Fresh DB migrates on API start; starting two API instances concurrently runs migrations once; `\\d posts` shows the (status, scheduled_at) index.",
+      "complexity": "M",
+      "files_affected": [
+        "apps/api/src/db/schema/**",
+        "apps/api/drizzle/**",
+        "apps/api/drizzle.config.ts",
+        "apps/api/src/db/**"
+      ],
+      "started_at": "2026-10-29T02:19:44Z",
+      "completed_at": "2026-10-29T02:55:05Z",
+      "files_modified": [
+        "infra/docker-compose.dev.yml",
+        "apps/api"
+      ]
+    },
+    {
+      "id": "T009",
+      "key": "crypto",
+      "phase": 1,
+      "description": "Token encryption service",
+      "status": "done",
+      "depends_on": [
+        "T007"
+      ],
+      "can_parallelize_with": [
+        "T008",
+        "T010",
+        "T012"
+      ],
+      "done_when": "Tests pass; decrypting a tampered ciphertext throws.",
+      "complexity": "S",
+      "files_affected": [
+        "apps/api/src/crypto/**"
+      ],
+      "started_at": "2026-10-29T02:19:44Z",
+      "completed_at": "2026-10-29T02:55:05Z",
+      "files_modified": [
+        "infra/docker-compose.dev.yml",
+        "apps/api"
+      ]
+    },
+    {
+      "id": "T010",
+      "key": "queues",
+      "phase": 1,
+      "description": "Redis and BullMQ infrastructure module",
+      "status": "done",
+      "depends_on": [
+        "T007"
+      ],
+      "can_parallelize_with": [
+        "T008",
+        "T009",
+        "T012"
+      ],
+      "done_when": "API starts with workers on and off; Bull Board lists the four queues; lock helper unit-tested.",
+      "complexity": "S",
+      "files_affected": [
+        "apps/api/src/queues/**",
+        "apps/api/src/common/redis-lock.ts"
+      ],
+      "started_at": "2026-10-29T02:19:44Z",
+      "completed_at": "2026-10-29T02:55:05Z",
+      "files_modified": [
+        "infra/docker-compose.dev.yml",
+        "apps/api"
+      ]
+    },
+    {
+      "id": "T011",
+      "key": "harness",
+      "phase": 1,
+      "description": "Test harness for the API",
+      "status": "done",
+      "depends_on": [
+        "T008",
+        "T010"
+      ],
+      "can_parallelize_with": [
+        "T014",
+        "T015",
+        "T016",
+        "T017",
+        "T022",
+        "T038"
+      ],
+      "done_when": "A sample integration test inserts a post via factory and runs a no-op job end to end, green in CI.",
+      "complexity": "M",
+      "files_affected": [
+        "apps/api/vitest.config.ts",
+        "apps/api/test/**"
+      ],
+      "started_at": "2026-10-29T02:19:44Z",
+      "completed_at": "2026-10-29T02:55:05Z",
+      "files_modified": [
+        "infra/docker-compose.dev.yml",
+        "apps/api"
+      ]
+    },
+    {
+      "id": "T012",
+      "key": "api-client",
+      "phase": 1,
+      "description": "OpenAPI → typed client pipeline",
+      "status": "done",
+      "depends_on": [
+        "T007",
+        "T005"
+      ],
+      "can_parallelize_with": [
+        "T008",
+        "T009",
+        "T010"
+      ],
+      "done_when": "`pnpm generate` produces hooks for /health; changing an endpoint without regenerating fails CI.",
+      "complexity": "S",
+      "files_affected": [
+        "packages/api-client/**",
+        "apps/api/scripts/export-openapi.ts",
+        "turbo.json"
+      ],
+      "started_at": "2026-10-29T02:55:34Z",
+      "completed_at": "2026-10-29T10:03:29Z",
+      "files_modified": [
+        "packages/api-client",
+        "apps/api/Dockerfile",
+        "apps/web/Dockerfile",
+        "infra"
+      ]
+    },
+    {
+      "id": "T013",
+      "key": "web-scaffold",
+      "phase": 1,
+      "description": "Next.js scaffold and design system",
+      "status": "done",
+      "depends_on": [
+        "T001"
+      ],
+      "can_parallelize_with": [
+        "T002",
+        "T003",
+        "T004",
+        "T005"
+      ],
+      "done_when": "`pnpm --filter web dev` serves a themed placeholder page in Spanish and English via locale switch; `/api/v1/health` proxied through the web returns 200.",
+      "complexity": "M",
+      "files_affected": [
+        "apps/web/**"
+      ],
+      "started_at": "2026-10-29T02:19:44Z",
+      "completed_at": "2026-10-29T02:40:54Z",
+      "files_modified": [
+        "apps/web"
+      ]
+    },
+    {
+      "id": "T014",
+      "key": "auth",
+      "phase": 2,
+      "description": "Auth module: setup, login, sessions, guards",
+      "status": "done",
+      "depends_on": [
+        "T008",
+        "T010"
+      ],
+      "can_parallelize_with": [
+        "T011",
+        "T015",
+        "T016",
+        "T017",
+        "T022",
+        "T038"
+      ],
+      "done_when": "Manual run: setup works once then returns 409; protected routes return 401 without cookie; 6th bad login in 15 min returns 429; POST with foreign Origin returns 403.",
+      "complexity": "L",
+      "files_affected": [
+        "apps/api/src/auth/**"
+      ],
+      "started_at": "2026-10-29T02:55:34Z",
+      "completed_at": "2026-10-29T09:57:45Z",
+      "files_modified": [
+        "apps/api/src/auth",
+        "apps/api/test/helpers/auth.ts"
+      ]
+    },
+    {
+      "id": "T015",
+      "key": "settings-slots",
+      "phase": 2,
+      "description": "Settings and queue slots",
+      "status": "done",
+      "depends_on": [
+        "T008"
+      ],
+      "can_parallelize_with": [
+        "T011",
+        "T014",
+        "T016",
+        "T017",
+        "T022",
+        "T038"
+      ],
+      "done_when": "Endpoints work; nextFreeSlot unit cases for weekday wrap, occupied slots and a DST transition pass.",
+      "complexity": "M",
+      "files_affected": [
+        "apps/api/src/settings/**",
+        "apps/api/src/scheduling/next-free-slot.ts"
+      ],
+      "started_at": "2026-10-29T02:55:34Z",
+      "completed_at": "2026-10-29T09:49:17Z",
+      "files_modified": [
+        "apps/api/src/settings",
+        "apps/api/src/notifications",
+        "apps/api/src/scheduling/next-free-slot.ts"
+      ]
+    },
+    {
+      "id": "T016",
+      "key": "media",
+      "phase": 2,
+      "description": "Media module with storage adapter",
+      "status": "done",
+      "depends_on": [
+        "T008"
+      ],
+      "can_parallelize_with": [
+        "T011",
+        "T014",
+        "T015",
+        "T017",
+        "T022",
+        "T038"
+      ],
+      "done_when": "Uploading a JPEG with GPS EXIF returns a file without EXIF; a renamed .exe is rejected with 415; a 20 MB file with 413; the same image twice returns the same media id.",
+      "complexity": "M",
+      "files_affected": [
+        "apps/api/src/media/**"
+      ],
+      "started_at": "2026-10-29T02:55:34Z",
+      "completed_at": "2026-10-29T09:52:05Z",
+      "files_modified": [
+        "apps/api/src/media",
+        "apps/api/src/posts"
+      ]
+    },
+    {
+      "id": "T017",
+      "key": "providers",
+      "phase": 2,
+      "description": "Provider framework and OAuth state",
+      "status": "done",
+      "depends_on": [
+        "T005",
+        "T009",
+        "T010"
+      ],
+      "can_parallelize_with": [
+        "T011",
+        "T014",
+        "T015",
+        "T016",
+        "T022",
+        "T038"
+      ],
+      "done_when": "GET /providers reports configured=false for a provider without env vars; state store rejects unknown or expired state in unit tests.",
+      "complexity": "M",
+      "files_affected": [
+        "apps/api/src/providers/**"
+      ],
+      "started_at": "2026-10-29T02:55:34Z",
+      "completed_at": "2026-10-29T10:00:00Z",
+      "files_modified": [
+        "apps/api/src/providers",
+        "packages/shared/src/providers.ts"
+      ]
+    },
+    {
+      "id": "T018",
+      "key": "x-adapter",
+      "phase": 2,
+      "description": "X adapter",
+      "status": "done",
+      "depends_on": [
+        "T017"
+      ],
+      "can_parallelize_with": [
+        "T019",
+        "T020",
+        "T021",
+        "T027",
+        "T035",
+        "T036",
+        "T039"
+      ],
+      "done_when": "Adapter unit tests with msw cover each method and every error class; a manual run against a real X dev app publishes a 2-item thread.",
+      "complexity": "L",
+      "files_affected": [
+        "apps/api/src/providers/x/**",
+        "apps/api/test/msw/x.ts"
+      ],
+      "started_at": "2026-10-29T02:55:34Z",
+      "completed_at": "2026-10-29T10:00:00Z",
+      "files_modified": [
+        "apps/api/src/providers",
+        "packages/shared/src/providers.ts"
+      ]
+    },
+    {
+      "id": "T019",
+      "key": "linkedin-adapter",
+      "phase": 2,
+      "description": "LinkedIn adapter",
+      "status": "done",
+      "depends_on": [
+        "T017"
+      ],
+      "can_parallelize_with": [
+        "T018",
+        "T020",
+        "T021",
+        "T027",
+        "T035",
+        "T036",
+        "T039"
+      ],
+      "done_when": "Unit tests with msw pass; a manual run publishes a text + image post to the owner's profile.",
+      "complexity": "M",
+      "files_affected": [
+        "apps/api/src/providers/linkedin/**",
+        "apps/api/test/msw/linkedin.ts"
+      ],
+      "started_at": "2026-10-29T02:55:34Z",
+      "completed_at": "2026-10-29T10:00:00Z",
+      "files_modified": [
+        "apps/api/src/providers",
+        "packages/shared/src/providers.ts"
+      ]
+    },
+    {
+      "id": "T020",
+      "key": "channels",
+      "phase": 2,
+      "description": "Channels module and token service",
+      "status": "done",
+      "depends_on": [
+        "T014",
+        "T017"
+      ],
+      "can_parallelize_with": [
+        "T018",
+        "T019",
+        "T021",
+        "T027",
+        "T035",
+        "T036",
+        "T039"
+      ],
+      "done_when": "Connecting via the X adapter mock creates one channel; reconnecting updates the same row; concurrent getValidTokens calls trigger exactly one refresh.",
+      "complexity": "M",
+      "files_affected": [
+        "apps/api/src/channels/**"
+      ],
+      "started_at": "2026-10-29T10:03:42Z",
+      "completed_at": "2026-10-31T10:52:06Z",
+      "files_modified": [
+        "apps/api/src/channels"
+      ]
+    },
+    {
+      "id": "T021",
+      "key": "posts",
+      "phase": 2,
+      "description": "Posts domain service and endpoints",
+      "status": "done",
+      "depends_on": [
+        "T006",
+        "T008",
+        "T016"
+      ],
+      "can_parallelize_with": [
+        "T018",
+        "T019",
+        "T020",
+        "T027",
+        "T035",
+        "T036",
+        "T039"
+      ],
+      "done_when": "Endpoints behave per the API table; a range query for a month issues a constant number of SQL queries regardless of post count (verified via query log).",
+      "complexity": "L",
+      "files_affected": [
+        "apps/api/src/posts/**"
+      ],
+      "started_at": "2026-10-29T02:55:34Z",
+      "completed_at": "2026-10-29T09:52:05Z",
+      "files_modified": [
+        "apps/api/src/media",
+        "apps/api/src/posts"
+      ]
+    },
+    {
+      "id": "T022",
+      "key": "notifications",
+      "phase": 2,
+      "description": "Notifications module and Telegram notifier",
+      "status": "done",
+      "depends_on": [
+        "T008",
+        "T010"
+      ],
+      "can_parallelize_with": [
+        "T011",
+        "T014",
+        "T015",
+        "T016",
+        "T017",
+        "T038"
+      ],
+      "done_when": "With a test bot configured, a notify call delivers one Telegram message and one notification row; with no config, only the row is created.",
+      "complexity": "S",
+      "files_affected": [
+        "apps/api/src/notifications/**"
+      ],
+      "started_at": "2026-10-29T02:55:34Z",
+      "completed_at": "2026-10-29T09:49:17Z",
+      "files_modified": [
+        "apps/api/src/settings",
+        "apps/api/src/notifications",
+        "apps/api/src/scheduling/next-free-slot.ts"
+      ]
+    },
+    {
+      "id": "T023",
+      "key": "scheduling",
+      "phase": 3,
+      "description": "Scheduling service and publish-post flow",
+      "status": "done",
+      "depends_on": [
+        "T015",
+        "T021",
+        "T010"
+      ],
+      "can_parallelize_with": [
+        "T028",
+        "T029",
+        "T040"
+      ],
+      "done_when": "Rescheduling twice leaves exactly one delayed job; a stale job runs as a no-op; scheduling in the past returns 422.",
+      "complexity": "L",
+      "files_affected": [
+        "apps/api/src/scheduling/**"
+      ],
+      "started_at": "2026-10-29T10:03:42Z",
+      "completed_at": "2026-10-31T11:07:27Z",
+      "files_modified": [
+        "apps/api/src/scheduling",
+        "apps/api/src/posts/post-lifecycle.ts"
+      ]
+    },
+    {
+      "id": "T024",
+      "key": "worker",
+      "phase": 3,
+      "description": "publish-delivery worker",
+      "status": "in_progress",
+      "depends_on": [
+        "T023",
+        "T020",
+        "T018",
+        "T019",
+        "T022"
+      ],
+      "can_parallelize_with": [
+        "T030",
+        "T031"
+      ],
+      "done_when": "With msw: a 3-item thread publishes in order with correct reply ids; a 503 on item 2 retries and resumes at item 2 without duplicating item 1; a 401 marks needs_reconnect without retry and sends one notification.",
+      "complexity": "XL",
+      "files_affected": [
+        "apps/api/src/scheduling/publish-delivery.processor.ts",
+        "apps/api/src/scheduling/**"
+      ],
+      "started_at": "2026-10-31T11:07:35Z"
+    },
+    {
+      "id": "T025",
+      "key": "reconciler",
+      "phase": 3,
+      "description": "Reconciler and token-expiry jobs",
+      "status": "pending",
+      "depends_on": [
+        "T024"
+      ],
+      "can_parallelize_with": [
+        "T026",
+        "T034"
+      ],
+      "done_when": "Deleting Redis data and restarting re-creates the delayed jobs; an overdue post inside the window publishes, outside it becomes missed.",
+      "complexity": "M",
+      "files_affected": [
+        "apps/api/src/maintenance/**"
+      ]
+    },
+    {
+      "id": "T026",
+      "key": "metrics",
+      "phase": 3,
+      "description": "X metrics worker and manual refresh",
+      "status": "pending",
+      "depends_on": [
+        "T024",
+        "T018"
+      ],
+      "can_parallelize_with": [
+        "T025",
+        "T034"
+      ],
+      "done_when": "Three items due together produce one X request; a second manual refresh within 15 min returns 429.",
+      "complexity": "M",
+      "files_affected": [
+        "apps/api/src/metrics/**"
+      ]
+    },
+    {
+      "id": "T027",
+      "key": "web-shell",
+      "phase": 3,
+      "description": "Web: auth screens, app shell and notifications tray",
+      "status": "done",
+      "depends_on": [
+        "T013",
+        "T012",
+        "T014",
+        "T022"
+      ],
+      "can_parallelize_with": [
+        "T018",
+        "T019",
+        "T020",
+        "T021",
+        "T035",
+        "T036",
+        "T039"
+      ],
+      "done_when": "Fresh install routes to /setup, then /login, then /calendar; logout returns to /login; a backend notification appears in the tray within 30 s.",
+      "complexity": "M",
+      "files_affected": [
+        "apps/web/app/(auth)/**",
+        "apps/web/app/(app)/layout.tsx",
+        "apps/web/components/shell/**",
+        "apps/web/middleware.ts"
+      ],
+      "started_at": "2026-10-29T10:03:42Z",
+      "completed_at": "2026-10-31T11:14:20Z",
+      "files_modified": [
+        "apps/web"
+      ]
+    },
+    {
+      "id": "T028",
+      "key": "web-settings",
+      "phase": 3,
+      "description": "Web: settings screens",
+      "status": "in_progress",
+      "depends_on": [
+        "T027",
+        "T020",
+        "T015"
+      ],
+      "can_parallelize_with": [
+        "T023",
+        "T029",
+        "T040"
+      ],
+      "done_when": "Connecting X from the UI round-trips through OAuth and shows the channel; queue slots persist and the preview updates.",
+      "complexity": "M",
+      "files_affected": [
+        "apps/web/app/(app)/settings/**"
+      ],
+      "started_at": "2026-10-31T11:14:20Z"
+    },
+    {
+      "id": "T029",
+      "key": "web-composer",
+      "phase": 3,
+      "description": "Web: composer editor",
+      "status": "done",
+      "depends_on": [
+        "T027",
+        "T006",
+        "T021",
+        "T016"
+      ],
+      "can_parallelize_with": [
+        "T023",
+        "T028",
+        "T040"
+      ],
+      "done_when": "Typing over 280 chars in an X item turns its counter red and blocks submit; auto-split produces valid items; images upload and show thumbnails.",
+      "complexity": "L",
+      "files_affected": [
+        "apps/web/app/(app)/posts/**",
+        "apps/web/components/composer/**"
+      ],
+      "started_at": "2026-10-29T10:03:42Z",
+      "completed_at": "2026-10-31T11:14:20Z",
+      "files_modified": [
+        "apps/web"
+      ]
+    },
+    {
+      "id": "T030",
+      "key": "web-composer-actions",
+      "phase": 3,
+      "description": "Web: previews and composer actions",
+      "status": "in_progress",
+      "depends_on": [
+        "T029",
+        "T023"
+      ],
+      "can_parallelize_with": [
+        "T024",
+        "T031"
+      ],
+      "done_when": "Each action produces the expected post status visible in the calendar; scheduling in the past is prevented in the picker and by the API.",
+      "complexity": "M",
+      "files_affected": [
+        "apps/web/components/composer/**"
+      ],
+      "started_at": "2026-10-31T11:14:20Z"
+    },
+    {
+      "id": "T031",
+      "key": "web-calendar",
+      "phase": 3,
+      "description": "Web: calendar",
+      "status": "in_progress",
+      "depends_on": [
+        "T027",
+        "T021",
+        "T023"
+      ],
+      "can_parallelize_with": [
+        "T024",
+        "T030"
+      ],
+      "done_when": "Dragging a scheduled post moves it and undo restores it; month and week views show the same posts for overlapping ranges.",
+      "complexity": "L",
+      "files_affected": [
+        "apps/web/app/(app)/calendar/**",
+        "apps/web/components/calendar/**"
+      ],
+      "started_at": "2026-10-31T11:14:20Z"
+    },
+    {
+      "id": "T032",
+      "key": "web-post-detail",
+      "phase": 3,
+      "description": "Web: post detail view",
+      "status": "pending",
+      "depends_on": [
+        "T027",
+        "T024",
+        "T026"
+      ],
+      "can_parallelize_with": [
+        "T033",
+        "T037",
+        "T041"
+      ],
+      "done_when": "A failed thread shows which item failed and retrying from the UI resumes it; metrics render after a refresh.",
+      "complexity": "M",
+      "files_affected": [
+        "apps/web/app/(app)/posts/[id]/**"
+      ]
+    },
+    {
+      "id": "T033",
+      "key": "test-scheduling",
+      "phase": 4,
+      "description": "Integration tests: scheduling, worker and reconciler",
+      "status": "pending",
+      "depends_on": [
+        "T011",
+        "T024",
+        "T025"
+      ],
+      "can_parallelize_with": [
+        "T032",
+        "T037",
+        "T041"
+      ],
+      "done_when": "All listed scenarios covered and green in CI.",
+      "complexity": "L",
+      "files_affected": [
+        "apps/api/test/scheduling/**"
+      ]
+    },
+    {
+      "id": "T034",
+      "key": "test-tokens",
+      "phase": 4,
+      "description": "Integration tests: channels and tokens",
+      "status": "pending",
+      "depends_on": [
+        "T011",
+        "T020",
+        "T024"
+      ],
+      "can_parallelize_with": [
+        "T025",
+        "T026"
+      ],
+      "done_when": "Scenarios green in CI.",
+      "complexity": "M",
+      "files_affected": [
+        "apps/api/test/channels/**"
+      ]
+    },
+    {
+      "id": "T035",
+      "key": "test-slots",
+      "phase": 4,
+      "description": "Unit tests: queue slots and timezones",
+      "status": "done",
+      "depends_on": [
+        "T011",
+        "T015"
+      ],
+      "can_parallelize_with": [
+        "T018",
+        "T019",
+        "T020",
+        "T021",
+        "T027",
+        "T036",
+        "T039"
+      ],
+      "done_when": "Scenarios green in CI.",
+      "complexity": "S",
+      "files_affected": [
+        "apps/api/test/settings/**"
+      ],
+      "started_at": "2026-10-29T02:55:34Z",
+      "completed_at": "2026-10-29T09:49:17Z",
+      "files_modified": [
+        "apps/api/src/settings",
+        "apps/api/src/notifications",
+        "apps/api/src/scheduling/next-free-slot.ts"
+      ]
+    },
+    {
+      "id": "T036",
+      "key": "test-auth",
+      "phase": 4,
+      "description": "Integration tests: auth and security",
+      "status": "done",
+      "depends_on": [
+        "T011",
+        "T014"
+      ],
+      "can_parallelize_with": [
+        "T018",
+        "T019",
+        "T020",
+        "T021",
+        "T027",
+        "T035",
+        "T039"
+      ],
+      "done_when": "Scenarios green in CI.",
+      "complexity": "M",
+      "files_affected": [
+        "apps/api/test/auth/**"
+      ],
+      "started_at": "2026-10-29T02:55:34Z",
+      "completed_at": "2026-10-29T09:57:45Z",
+      "files_modified": [
+        "apps/api/src/auth",
+        "apps/api/test/helpers/auth.ts"
+      ]
+    },
+    {
+      "id": "T037",
+      "key": "contract-check",
+      "phase": 4,
+      "description": "API contract completeness",
+      "status": "pending",
+      "depends_on": [
+        "T012",
+        "T024",
+        "T026",
+        "T025"
+      ],
+      "can_parallelize_with": [
+        "T032",
+        "T033",
+        "T041"
+      ],
+      "done_when": "Contract test green; `pnpm generate && pnpm typecheck` clean.",
+      "complexity": "S",
+      "files_affected": [
+        "apps/api/test/contract/**"
+      ]
+    },
+    {
+      "id": "T038",
+      "key": "prod-infra",
+      "phase": 5,
+      "description": "Production images and compose",
+      "status": "done",
+      "depends_on": [
+        "T007",
+        "T013",
+        "T008"
+      ],
+      "can_parallelize_with": [
+        "T011",
+        "T014",
+        "T015",
+        "T016",
+        "T017",
+        "T022"
+      ],
+      "done_when": "`docker compose up` on a 1 vCPU / 4 GB machine is healthy and `docker stats` shows total idle memory ≤ 1.2 GB.",
+      "complexity": "M",
+      "files_affected": [
+        "apps/api/Dockerfile",
+        "apps/web/Dockerfile",
+        "infra/docker-compose.yml",
+        ".github/workflows/release.yml"
+      ],
+      "started_at": "2026-10-29T02:55:34Z",
+      "completed_at": "2026-10-29T10:03:29Z",
+      "files_modified": [
+        "packages/api-client",
+        "apps/api/Dockerfile",
+        "apps/web/Dockerfile",
+        "infra"
+      ]
+    },
+    {
+      "id": "T039",
+      "key": "vps",
+      "phase": 5,
+      "description": "Generic VPS bootstrap and Tailscale exposure",
+      "status": "done",
+      "depends_on": [
+        "T038"
+      ],
+      "can_parallelize_with": [
+        "T018",
+        "T019",
+        "T020",
+        "T021",
+        "T027",
+        "T035",
+        "T036"
+      ],
+      "done_when": "Script is idempotent (second run makes no changes) on a fresh Ubuntu 24.04 VM; the app is reachable only via the tailnet hostname.",
+      "complexity": "M",
+      "files_affected": [
+        "infra/bootstrap.sh",
+        "infra/backup.sh",
+        "infra/tailscale/README.md"
+      ],
+      "started_at": "2026-10-29T02:55:34Z",
+      "completed_at": "2026-10-29T10:03:29Z",
+      "files_modified": [
+        "packages/api-client",
+        "apps/api/Dockerfile",
+        "apps/web/Dockerfile",
+        "infra"
+      ]
+    },
+    {
+      "id": "T040",
+      "key": "docs",
+      "phase": 5,
+      "description": "Self-hosting documentation",
+      "status": "done",
+      "depends_on": [
+        "T018",
+        "T019",
+        "T022",
+        "T039"
+      ],
+      "can_parallelize_with": [
+        "T023",
+        "T028",
+        "T029"
+      ],
+      "done_when": "A reader can go from zero to a connected X channel following only the docs (dry run by the owner).",
+      "complexity": "M",
+      "files_affected": [
+        "docs/**",
+        "README.md"
+      ],
+      "started_at": "2026-10-29T10:03:42Z",
+      "completed_at": "2026-10-29T10:12:51Z",
+      "files_modified": [
+        "docs",
+        "README.md"
+      ]
+    },
+    {
+      "id": "T041",
+      "key": "observability",
+      "phase": 5,
+      "description": "Observability and cleanup",
+      "status": "pending",
+      "depends_on": [
+        "T024",
+        "T025",
+        "T026"
+      ],
+      "can_parallelize_with": [
+        "T032",
+        "T033",
+        "T037"
+      ],
+      "done_when": "A failed publish produces a single log trail searchable by post id; no secrets in logs during a full test run.",
+      "complexity": "S",
+      "files_affected": [
+        "apps/api/src/**"
+      ]
+    },
+    {
+      "id": "T042",
+      "key": "acceptance",
+      "phase": 5,
+      "description": "Acceptance run on the VPS",
+      "status": "pending",
+      "depends_on": [
+        "T028",
+        "T030",
+        "T031",
+        "T032",
+        "T033",
+        "T034",
+        "T035",
+        "T036",
+        "T037",
+        "T039",
+        "T040",
+        "T041"
+      ],
+      "can_parallelize_with": [],
+      "done_when": "All 16 acceptance criteria checked off with evidence (screens or links).",
+      "complexity": "M",
+      "files_affected": [
+        "AiBuild/mvp/core-publishing/WIP/acceptance.md"
+      ]
+    }
+  ]
+}

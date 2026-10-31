@@ -1,0 +1,11 @@
+{
+  "extends": "@omero/config/tsconfig/nest.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "outDir": "dist",
+    "types": ["node"]
+  },
+  "include": ["src", "scripts", "drizzle.config.ts"],
+  // Tests run as ESM through Vite and are type-checked by test/tsconfig.json.
+  "exclude": ["node_modules", "dist", "**/*.test.ts"]
+}

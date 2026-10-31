@@ -1,0 +1,31 @@
+{
+  "name": "omero-social-post",
+  "private": true,
+  "description": "Open-source, self-hosted social media publisher: compose, schedule and publish to X and LinkedIn from your own server.",
+  "license": "AGPL-3.0-only",
+  "packageManager": "pnpm@10.28.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "generate": "pnpm --filter @omero/shared build && pnpm --filter @omero/api generate && pnpm --filter @omero/api-client generate && pnpm --filter @omero/api-client build",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "infra:up": "docker compose -f infra/docker-compose.dev.yml up -d --wait",
+    "infra:down": "docker compose -f infra/docker-compose.dev.yml down",
+    "prepare": "lefthook install || echo \"lefthook: git hooks were not installed (run 'pnpm exec lefthook install' inside a git checkout)\""
+  },
+  "devDependencies": {
+    "@omero/config": "workspace:*",
+    "eslint": "^9.0.0",
+    "lefthook": "^2.2.2",
+    "prettier": "^3.0.0",
+    "turbo": "^2.0.0",
+    "typescript": "^5.6.0"
+  }
+}

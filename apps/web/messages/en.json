@@ -1,0 +1,407 @@
+{
+  "Metadata": {
+    "title": "omero",
+    "description": "Self-hosted social media publisher: write, schedule and publish to X and LinkedIn from your own server."
+  },
+  "Common": {
+    "appName": "omero",
+    "comingSoon": "Coming soon",
+    "close": "Close",
+    "cancel": "Cancel",
+    "openMenu": "Open menu"
+  },
+  "Nav": {
+    "label": "Main navigation",
+    "designSystem": "Design system",
+    "calendar": "Calendar",
+    "newPost": "New post",
+    "settings": "Settings",
+    "onThisPage": "On this page",
+    "instance": "Local instance"
+  },
+  "Locale": {
+    "label": "Language",
+    "es": "Español",
+    "en": "English"
+  },
+  "Theme": {
+    "label": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "Status": {
+    "draft": "Draft",
+    "scheduled": "Scheduled",
+    "publishing": "Publishing",
+    "published": "Published",
+    "partially_published": "Partially published",
+    "failed": "Failed",
+    "missed": "Missed"
+  },
+  "StatusHint": {
+    "draft": "Saved, no date yet.",
+    "scheduled": "Waiting for its time slot.",
+    "publishing": "Being sent to the network.",
+    "published": "Live on every selected network.",
+    "partially_published": "Live on some networks; others failed.",
+    "failed": "Could not be published after retries.",
+    "missed": "The server was down at that time."
+  },
+  "Network": {
+    "x": "X",
+    "linkedin": "LinkedIn",
+    "instagram": "Instagram",
+    "facebook": "Facebook"
+  },
+  "DesignSystem": {
+    "header": {
+      "title": "Design system",
+      "subtitle": "omero's color, type and components, in light and dark."
+    },
+    "hero": {
+      "title": "Write once and publish to X and LinkedIn from your own server.",
+      "body": "Every post has a version per network, a time slot and a status you can read at a glance. These are the pieces the calendar and the composer are built from.",
+      "primaryCta": "New post",
+      "secondaryCta": "View calendar"
+    },
+    "samplePost": {
+      "author": "Omero Demo",
+      "handle": "@omero_demo",
+      "body": "I moved the scheduler to queues with retries: three attempts with backoff and no cron at all. Here is how, in a thread.",
+      "when": "Today, 09:00",
+      "thread": "Thread of {count} posts",
+      "single": "Single post",
+      "characters": "{used} of {limit} characters",
+      "deliveries": "Deliveries"
+    },
+    "palette": {
+      "title": "Palette",
+      "description": "Roasted coffee for the brand, vivid colors for action.",
+      "brand": "Brand",
+      "semantic": "Semantic",
+      "names": {
+        "espresso": "Espresso",
+        "roast": "Roast",
+        "lagoon": "Lagoon",
+        "crema": "Crema",
+        "berry": "Berry",
+        "iris": "Iris"
+      },
+      "roles": {
+        "espresso": "Sidebar and brand surfaces",
+        "roast": "Warm details",
+        "lagoon": "Primary actions and focus",
+        "crema": "Energetic accent",
+        "berry": "Highlights and charts",
+        "iris": "Scheduling"
+      },
+      "semanticNames": {
+        "success": "Success",
+        "warning": "Warning",
+        "danger": "Error",
+        "info": "Info"
+      }
+    },
+    "statuses": {
+      "title": "Post statuses",
+      "description": "Each network gets its own delivery; the post status is derived from them.",
+      "calendarPreview": "How they look on the calendar"
+    },
+    "networks": {
+      "title": "Networks",
+      "description": "X and LinkedIn in this stage. Instagram and Facebook come later.",
+      "available": "Available",
+      "later": "Later"
+    },
+    "components": {
+      "title": "Components",
+      "description": "shadcn/ui pieces with omero's tokens.",
+      "buttons": "Buttons",
+      "forms": "Forms",
+      "overlays": "Overlays and notices",
+      "button": {
+        "primary": "Schedule",
+        "crema": "Publish now",
+        "secondary": "Save draft",
+        "outline": "Add to queue",
+        "ghost": "Cancel",
+        "destructive": "Delete",
+        "link": "View details",
+        "small": "Small",
+        "large": "Large",
+        "edit": "Edit",
+        "duplicate": "Duplicate"
+      },
+      "form": {
+        "channel": "Channel",
+        "channelPlaceholder": "Choose a channel",
+        "content": "Internal title",
+        "contentPlaceholder": "Version 0.1 launch",
+        "longPosts": "Long posts on X",
+        "longPostsHint": "Only for X Premium accounts."
+      },
+      "tabs": {
+        "base": "Base",
+        "baseBody": "The base text is used on every network that has no version of its own.",
+        "xBody": "On X you can split the text into a thread; each part stays within the character limit.",
+        "linkedinBody": "On LinkedIn the post is a single item and allows longer text."
+      },
+      "dialog": {
+        "trigger": "Delete post",
+        "title": "Delete this scheduled post?",
+        "description": "It will be removed from the queue and the calendar. This cannot be undone.",
+        "confirm": "Delete",
+        "done": "Post deleted"
+      },
+      "dropdown": {
+        "trigger": "Actions",
+        "edit": "Edit",
+        "duplicate": "Duplicate",
+        "reschedule": "Reschedule",
+        "delete": "Delete"
+      },
+      "popover": {
+        "trigger": "Next slot",
+        "title": "Next free slot",
+        "body": "Tomorrow at 09:00, based on your queue times."
+      },
+      "tooltip": {
+        "trigger": "Link cost",
+        "content": "On the X API, posts with links cost more."
+      },
+      "toast": {
+        "trigger": "Show notice",
+        "title": "Post scheduled",
+        "description": "It will be published today at 09:00."
+      }
+    },
+    "type": {
+      "title": "Type and shape",
+      "description": "Bricolage Grotesque for headings and numbers; Figtree for the interface.",
+      "display": "Display",
+      "body": "Body",
+      "sampleDisplay": "Tuesday, 09:00",
+      "sampleBody": "Three posts scheduled this week. The next one goes out early tomorrow on X and LinkedIn.",
+      "radius": "Radius",
+      "shadow": "Shadows"
+    }
+  },
+  "Auth": {
+    "footer": "omero · open-source, self-hosted social publisher",
+    "fields": {
+      "username": "Username",
+      "password": "Password",
+      "confirmPassword": "Repeat the password",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password"
+    },
+    "validation": {
+      "usernameFormat": "Use 3 to 32 characters: lowercase letters, numbers, dot, dash or underscore.",
+      "passwordMin": "The password needs at least 12 characters.",
+      "confirmMismatch": "The passwords do not match."
+    },
+    "strength": {
+      "empty": "At least 12 characters. A long phrase beats a strange word.",
+      "label": "Strength: {level}",
+      "weak": "weak",
+      "fair": "fair",
+      "good": "good",
+      "strong": "excellent"
+    },
+    "setup": {
+      "metaTitle": "Create account",
+      "title": "Create your account",
+      "subtitle": "This instance is yours: a single owner, a single login.",
+      "usernameHint": "3 to 32 characters: lowercase letters, numbers, dot, dash or underscore.",
+      "submit": "Create account and sign in",
+      "submitting": "Creating your account…",
+      "timezoneNote": "Detected time zone: {timezone}. You can change it in Settings.",
+      "timezoneNotSaved": "Your time zone could not be saved. You can set it later in Settings.",
+      "alreadyDone": "This instance already has an owner. Sign in.",
+      "failed": "We could not create the account. Check your connection and try again."
+    },
+    "login": {
+      "metaTitle": "Sign in",
+      "title": "Welcome back",
+      "subtitle": "Sign in to write, schedule and publish.",
+      "submit": "Sign in",
+      "submitting": "Signing in…",
+      "problem": {
+        "invalid": "Wrong username or password. Check your details and try again.",
+        "throttled": "Too many failed attempts. Wait about 15 minutes before trying again.",
+        "generic": "We could not sign you in right now. Try again in a moment."
+      }
+    }
+  },
+  "Shell": {
+    "menuDescription": "Browse the sections of omero.",
+    "titles": {
+      "calendar": "Calendar",
+      "newPost": "New post",
+      "editPost": "Edit post",
+      "settings": "Settings",
+      "post": "Post"
+    },
+    "user": {
+      "menu": "{username}'s account",
+      "signedInAs": "Signed in as",
+      "logout": "Sign out",
+      "logoutFailed": "Could not sign out. Try again."
+    }
+  },
+  "Notifications": {
+    "trigger": "Notifications",
+    "triggerWithCount": "Notifications, {count} unread",
+    "title": "Notifications",
+    "markAllRead": "Mark all",
+    "markRead": "Mark as read",
+    "open": "View details",
+    "emptyTitle": "All clear",
+    "emptyBody": "Publishing failures and channel alerts will show up here.",
+    "error": "Notifications could not be loaded."
+  },
+  "Placeholder": {
+    "calendar": {
+      "title": "The calendar is on its way",
+      "body": "You will see your posts by week and month here. Meanwhile, you can start writing one.",
+      "cta": "New post"
+    },
+    "settings": {
+      "title": "Settings are on their way",
+      "body": "Connected channels, queue slots and time zone will live in this section."
+    }
+  },
+  "Composer": {
+    "linkCost": "Posts with links cost more on the X API.",
+    "content": {
+      "title": "Content"
+    },
+    "counter": {
+      "count": "{used} of {limit} characters",
+      "over": "{used} of {limit} characters: {excess} over the limit"
+    },
+    "channels": {
+      "title": "Channels",
+      "label": "Channels to publish to",
+      "loadError": "Your channels could not be loaded. Reload the page.",
+      "emptyTitle": "No channels connected yet",
+      "emptyBody": "Connect X or LinkedIn to choose where to publish.",
+      "emptyCta": "Go to Settings",
+      "needsReconnect": "Needs reconnecting",
+      "disconnected": "Disconnected"
+    },
+    "tabs": {
+      "base": "Base",
+      "customizedDot": "Has its own version",
+      "hasIssues": "Has problems"
+    },
+    "base": {
+      "label": "Base text",
+      "placeholder": "Write what you want to say. Every network uses this text unless you customize it.",
+      "outcomeLabel": "Result on each network",
+      "ownVersion": "{network}: own version",
+      "singleOf": "{used} of {limit}",
+      "pickChannels": "Pick at least one channel to see how it will look on each network.",
+      "imagesTitle": "Images"
+    },
+    "channelTab": {
+      "customize": "Customize for {network}",
+      "customizedXHint": "Edit each post of the thread on its own: add, remove and reorder.",
+      "customizedHint": "This text replaces the base text on {network}.",
+      "derivedHint": "{network} uses the base text. Turn this on to write its own version."
+    },
+    "thread": {
+      "threadOf": "Thread of {count} posts",
+      "itemLabel": "Thread post {number}",
+      "singleLabel": "Post text",
+      "itemPlaceholder": "Write this post of the thread…",
+      "singlePlaceholder": "Write the post…",
+      "emptyDerived": "No text yet",
+      "autoSplit": "Auto-split",
+      "autoSplitHint": "Splits the posts that go over {limit} characters.",
+      "autoSplitNothing": "No post is over the limit.",
+      "autoSplitDone": "Thread split",
+      "resetFromBase": "Reset from base",
+      "addItem": "Add post to thread",
+      "moveUp": "Move post {number} up",
+      "moveDown": "Move post {number} down",
+      "remove": "Remove post {number}"
+    },
+    "images": {
+      "thumbAlt": "Attached image",
+      "remove": "Remove image",
+      "uploading": "Uploading image",
+      "addShort": "Image",
+      "dropHint": "Drag images here or click to choose them",
+      "none": "No images",
+      "limitLine": "up to {count, plural, one {# image} other {# images}} per post, {size} each ({types})",
+      "unsupported": "{name}: unsupported format. Use JPG, PNG, WebP or GIF.",
+      "tooLarge": "{name} is too large. The maximum is 15 MB.",
+      "uploadFailed": "Could not upload {name}. Try again."
+    },
+    "issues": {
+      "NO_CHANNELS": "Pick at least one channel.",
+      "DUPLICATE_CHANNEL": "This channel is selected more than once.",
+      "UNKNOWN_CHANNEL": "This channel no longer exists.",
+      "ITEMS_REQUIRED": "A customized channel needs at least one post.",
+      "TOO_MANY_ITEMS": "This network publishes a single post: remove the others.",
+      "EMPTY_ITEM": "Write some text or attach an image.",
+      "TEXT_TOO_LONG": "The text is {length} characters and the limit is {limit}.",
+      "TOO_MANY_IMAGES": "This network allows at most {max} images per post.",
+      "MEDIA_NOT_FOUND": "One of the images was not found. Remove it and upload it again.",
+      "UNSUPPORTED_MEDIA_TYPE": "This network does not support the {mime} format.",
+      "MEDIA_TOO_LARGE": "An image is larger than {max}, this network's maximum.",
+      "CHANNEL_DISCONNECTED": "This channel is disconnected. Reconnect it or remove it from the post."
+    },
+    "summary": {
+      "title": "Summary",
+      "noChannels": "Pick channels and write something to see the summary.",
+      "singlePost": "Single post",
+      "characters": "{count, plural, one {# character} other {# characters}}",
+      "customized": "own version",
+      "problems": "{count, plural, one {# problem} other {# problems}}",
+      "ready": "Ready",
+      "fixBeforeSaving": "{count, plural, one {Fix this problem before saving} other {Fix these # problems before saving}}",
+      "moreProblems": "and {count} more",
+      "save": {
+        "unsaved": "Not saved yet.",
+        "saved": "All changes are saved.",
+        "dirty": "You have unsaved changes."
+      }
+    },
+    "actions": {
+      "saveDraft": "Save draft",
+      "saving": "Saving…",
+      "schedule": "Schedule",
+      "queue": "Add to queue",
+      "publishNow": "Publish now",
+      "soon": "Coming soon"
+    },
+    "save": {
+      "blocked": "Fix {count, plural, one {the marked problem} other {the # marked problems}} before saving.",
+      "created": "Draft saved",
+      "updated": "Changes saved",
+      "rejected": "The server rejected the post. Check the marked fields.",
+      "notEditable": "This post can no longer be edited.",
+      "gone": "This post no longer exists.",
+      "failed": "Could not save. Try again."
+    },
+    "conflict": {
+      "title": "This post changed while you were editing",
+      "body": "A newer version is saved on the server. Reload it to continue from there; you will lose any changes you have not saved. You can also keep editing and copy what you need.",
+      "keep": "Keep editing",
+      "reload": "Load the new version"
+    },
+    "edit": {
+      "notFoundTitle": "We could not find this post",
+      "notFoundBody": "It may have been deleted. Go back to the calendar to see your posts.",
+      "errorTitle": "The post could not be loaded",
+      "errorBody": "Check your connection and try again.",
+      "lockedTitle": "This post can no longer be edited",
+      "lockedBody": "Published, failed or missed posts can only be viewed.",
+      "publishingBody": "It is being published right now. You can view it when it finishes.",
+      "backToCalendar": "Back to the calendar"
+    }
+  }
+}

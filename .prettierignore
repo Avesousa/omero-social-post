@@ -1,0 +1,8 @@
+pnpm-lock.yaml
+LICENSE
+AiBuild/
+packages/api-client/src/generated/
+apps/api/openapi.json
+apps/api/drizzle/
+.claude/
+**/next-env.d.ts

@@ -1,0 +1,17 @@
+node_modules/
+dist/
+build/
+.next/
+out/
+coverage/
+.turbo/
+*.tsbuildinfo
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store
+media-data/
+.idea/
+.vscode/*
+!.vscode/extensions.json
