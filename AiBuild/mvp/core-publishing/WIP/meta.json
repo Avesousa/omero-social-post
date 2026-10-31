@@ -12,7 +12,7 @@
   "create_claude_md": true,
   "status": "build-in-progress",
   "created_at": "2026-10-28T03:35:00Z",
-  "updated_at": "2026-10-31T11:07:35Z",
+  "updated_at": "2026-10-31T11:14:20Z",
   "git": true,
   "roadmap": [
     "mvp/core-publishing — monorepo, X + LinkedIn publishing, composer, calendar, scheduler",
@@ -809,7 +809,7 @@
       "key": "web-shell",
       "phase": 3,
       "description": "Web: auth screens, app shell and notifications tray",
-      "status": "in_progress",
+      "status": "done",
       "depends_on": [
         "T013",
         "T012",
@@ -833,14 +833,18 @@
         "apps/web/components/shell/**",
         "apps/web/middleware.ts"
       ],
-      "started_at": "2026-10-29T10:03:42Z"
+      "started_at": "2026-10-29T10:03:42Z",
+      "completed_at": "2026-10-31T11:14:20Z",
+      "files_modified": [
+        "apps/web"
+      ]
     },
     {
       "id": "T028",
       "key": "web-settings",
       "phase": 3,
       "description": "Web: settings screens",
-      "status": "pending",
+      "status": "in_progress",
       "depends_on": [
         "T027",
         "T020",
@@ -855,14 +859,15 @@
       "complexity": "M",
       "files_affected": [
         "apps/web/app/(app)/settings/**"
-      ]
+      ],
+      "started_at": "2026-10-31T11:14:20Z"
     },
     {
       "id": "T029",
       "key": "web-composer",
       "phase": 3,
       "description": "Web: composer editor",
-      "status": "in_progress",
+      "status": "done",
       "depends_on": [
         "T027",
         "T006",
@@ -880,14 +885,18 @@
         "apps/web/app/(app)/posts/**",
         "apps/web/components/composer/**"
       ],
-      "started_at": "2026-10-29T10:03:42Z"
+      "started_at": "2026-10-29T10:03:42Z",
+      "completed_at": "2026-10-31T11:14:20Z",
+      "files_modified": [
+        "apps/web"
+      ]
     },
     {
       "id": "T030",
       "key": "web-composer-actions",
       "phase": 3,
       "description": "Web: previews and composer actions",
-      "status": "pending",
+      "status": "in_progress",
       "depends_on": [
         "T029",
         "T023"
@@ -900,14 +909,15 @@
       "complexity": "M",
       "files_affected": [
         "apps/web/components/composer/**"
-      ]
+      ],
+      "started_at": "2026-10-31T11:14:20Z"
     },
     {
       "id": "T031",
       "key": "web-calendar",
       "phase": 3,
       "description": "Web: calendar",
-      "status": "pending",
+      "status": "in_progress",
       "depends_on": [
         "T027",
         "T021",
@@ -922,7 +932,8 @@
       "files_affected": [
         "apps/web/app/(app)/calendar/**",
         "apps/web/components/calendar/**"
-      ]
+      ],
+      "started_at": "2026-10-31T11:14:20Z"
     },
     {
       "id": "T032",
