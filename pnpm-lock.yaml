@@ -189,6 +189,9 @@ importers:
       '@omero/api-client':
         specifier: workspace:*
         version: link:../../packages/api-client
+      '@omero/shared':
+        specifier: workspace:*
+        version: link:../../packages/shared
       '@tanstack/react-query':
         specifier: 5.105.0
         version: 5.105.0(@types/react@19.3.0)(react@19.3.1)

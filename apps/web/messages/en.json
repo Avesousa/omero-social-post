@@ -271,5 +271,137 @@
       "title": "Settings are on their way",
       "body": "Connected channels, queue slots and time zone will live in this section."
     }
+  },
+  "Composer": {
+    "linkCost": "Posts with links cost more on the X API.",
+    "content": {
+      "title": "Content"
+    },
+    "counter": {
+      "count": "{used} of {limit} characters",
+      "over": "{used} of {limit} characters: {excess} over the limit"
+    },
+    "channels": {
+      "title": "Channels",
+      "label": "Channels to publish to",
+      "loadError": "Your channels could not be loaded. Reload the page.",
+      "emptyTitle": "No channels connected yet",
+      "emptyBody": "Connect X or LinkedIn to choose where to publish.",
+      "emptyCta": "Go to Settings",
+      "needsReconnect": "Needs reconnecting",
+      "disconnected": "Disconnected"
+    },
+    "tabs": {
+      "base": "Base",
+      "customizedDot": "Has its own version",
+      "hasIssues": "Has problems"
+    },
+    "base": {
+      "label": "Base text",
+      "placeholder": "Write what you want to say. Every network uses this text unless you customize it.",
+      "outcomeLabel": "Result on each network",
+      "ownVersion": "{network}: own version",
+      "singleOf": "{used} of {limit}",
+      "pickChannels": "Pick at least one channel to see how it will look on each network.",
+      "imagesTitle": "Images"
+    },
+    "channelTab": {
+      "customize": "Customize for {network}",
+      "customizedXHint": "Edit each post of the thread on its own: add, remove and reorder.",
+      "customizedHint": "This text replaces the base text on {network}.",
+      "derivedHint": "{network} uses the base text. Turn this on to write its own version."
+    },
+    "thread": {
+      "threadOf": "Thread of {count} posts",
+      "itemLabel": "Thread post {number}",
+      "singleLabel": "Post text",
+      "itemPlaceholder": "Write this post of the thread…",
+      "singlePlaceholder": "Write the post…",
+      "emptyDerived": "No text yet",
+      "autoSplit": "Auto-split",
+      "autoSplitHint": "Splits the posts that go over {limit} characters.",
+      "autoSplitNothing": "No post is over the limit.",
+      "autoSplitDone": "Thread split",
+      "resetFromBase": "Reset from base",
+      "addItem": "Add post to thread",
+      "moveUp": "Move post {number} up",
+      "moveDown": "Move post {number} down",
+      "remove": "Remove post {number}"
+    },
+    "images": {
+      "thumbAlt": "Attached image",
+      "remove": "Remove image",
+      "uploading": "Uploading image",
+      "addShort": "Image",
+      "dropHint": "Drag images here or click to choose them",
+      "none": "No images",
+      "limitLine": "up to {count, plural, one {# image} other {# images}} per post, {size} each ({types})",
+      "unsupported": "{name}: unsupported format. Use JPG, PNG, WebP or GIF.",
+      "tooLarge": "{name} is too large. The maximum is 15 MB.",
+      "uploadFailed": "Could not upload {name}. Try again."
+    },
+    "issues": {
+      "NO_CHANNELS": "Pick at least one channel.",
+      "DUPLICATE_CHANNEL": "This channel is selected more than once.",
+      "UNKNOWN_CHANNEL": "This channel no longer exists.",
+      "ITEMS_REQUIRED": "A customized channel needs at least one post.",
+      "TOO_MANY_ITEMS": "This network publishes a single post: remove the others.",
+      "EMPTY_ITEM": "Write some text or attach an image.",
+      "TEXT_TOO_LONG": "The text is {length} characters and the limit is {limit}.",
+      "TOO_MANY_IMAGES": "This network allows at most {max} images per post.",
+      "MEDIA_NOT_FOUND": "One of the images was not found. Remove it and upload it again.",
+      "UNSUPPORTED_MEDIA_TYPE": "This network does not support the {mime} format.",
+      "MEDIA_TOO_LARGE": "An image is larger than {max}, this network's maximum.",
+      "CHANNEL_DISCONNECTED": "This channel is disconnected. Reconnect it or remove it from the post."
+    },
+    "summary": {
+      "title": "Summary",
+      "noChannels": "Pick channels and write something to see the summary.",
+      "singlePost": "Single post",
+      "characters": "{count, plural, one {# character} other {# characters}}",
+      "customized": "own version",
+      "problems": "{count, plural, one {# problem} other {# problems}}",
+      "ready": "Ready",
+      "fixBeforeSaving": "{count, plural, one {Fix this problem before saving} other {Fix these # problems before saving}}",
+      "moreProblems": "and {count} more",
+      "save": {
+        "unsaved": "Not saved yet.",
+        "saved": "All changes are saved.",
+        "dirty": "You have unsaved changes."
+      }
+    },
+    "actions": {
+      "saveDraft": "Save draft",
+      "saving": "Saving…",
+      "schedule": "Schedule",
+      "queue": "Add to queue",
+      "publishNow": "Publish now",
+      "soon": "Coming soon"
+    },
+    "save": {
+      "blocked": "Fix {count, plural, one {the marked problem} other {the # marked problems}} before saving.",
+      "created": "Draft saved",
+      "updated": "Changes saved",
+      "rejected": "The server rejected the post. Check the marked fields.",
+      "notEditable": "This post can no longer be edited.",
+      "gone": "This post no longer exists.",
+      "failed": "Could not save. Try again."
+    },
+    "conflict": {
+      "title": "This post changed while you were editing",
+      "body": "A newer version is saved on the server. Reload it to continue from there; you will lose any changes you have not saved. You can also keep editing and copy what you need.",
+      "keep": "Keep editing",
+      "reload": "Load the new version"
+    },
+    "edit": {
+      "notFoundTitle": "We could not find this post",
+      "notFoundBody": "It may have been deleted. Go back to the calendar to see your posts.",
+      "errorTitle": "The post could not be loaded",
+      "errorBody": "Check your connection and try again.",
+      "lockedTitle": "This post can no longer be edited",
+      "lockedBody": "Published, failed or missed posts can only be viewed.",
+      "publishingBody": "It is being published right now. You can view it when it finishes.",
+      "backToCalendar": "Back to the calendar"
+    }
   }
 }
