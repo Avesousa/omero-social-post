@@ -20,12 +20,16 @@ import {
   PostListDto,
   UpdatePostDto,
 } from './posts.dto';
+import { PostLifecycle } from './post-lifecycle';
 import { PostsService } from './posts.service';
 
 @ApiTags('posts')
 @Controller('posts')
 export class PostsController {
-  constructor(private readonly posts: PostsService) {}
+  constructor(
+    private readonly posts: PostsService,
+    private readonly lifecycle: PostLifecycle,
+  ) {}
 
   /** Calendar range (max 62 days) with a deliveries summary per post. */
   @Get()
@@ -54,8 +58,11 @@ export class PostsController {
    */
   @Put(':id')
   @ZodResponse({ status: HttpStatus.OK, type: PostDetailDto, description: 'The updated post' })
-  update(@Param() { id }: PostIdParamDto, @Body() body: UpdatePostDto) {
-    return this.posts.update(id, body);
+  async update(@Param() { id }: PostIdParamDto, @Body() body: UpdatePostDto) {
+    const post = await this.posts.update(id, body);
+    // A scheduled post's queued job is keyed by version: the scheduler re-enqueues it.
+    await this.lifecycle.emitUpdated({ postId: id });
+    return post;
   }
 
   /** Deletes a draft, scheduled, failed or missed post (409 FORBIDDEN_STATE otherwise). */
@@ -63,7 +70,8 @@ export class PostsController {
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiNoContentResponse({ description: 'Deleted' })
   async remove(@Param() { id }: PostIdParamDto): Promise<void> {
-    // TODO(T023): also remove the queued publish job (a stale job is a no-op anyway).
-    await this.posts.delete(id);
+    const deleted = await this.posts.delete(id);
+    // The scheduler drops the queued publish job (a stale job would be a no-op anyway).
+    await this.lifecycle.emitDeleted({ post: deleted });
   }
 }

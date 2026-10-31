@@ -718,11 +718,15 @@ function forbiddenState(status: PostStatus, action: string): ProblemException {
   return ProblemException.conflict(FORBIDDEN_STATE, `A ${status} post cannot be ${action}.`);
 }
 
-function assertState(status: PostStatus, allowed: readonly PostStatus[], action: string): void {
+export function assertState(
+  status: PostStatus,
+  allowed: readonly PostStatus[],
+  action: string,
+): void {
   if (!allowed.includes(status)) throw forbiddenState(status, action);
 }
 
-function versionConflict(current: number): ProblemException {
+export function versionConflict(current: number): ProblemException {
   return ProblemException.conflict(
     VERSION_CONFLICT,
     `The post was modified elsewhere (current version ${current}). Reload it and try again.`,

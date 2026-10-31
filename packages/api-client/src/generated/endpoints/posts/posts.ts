@@ -30,6 +30,11 @@ import type {
   PostListDtoOutput,
   PostsControllerListParams,
   ProblemDetails,
+  PublishNowDto,
+  QueuePostDto,
+  QueuedPostDtoOutput,
+  SchedulePostDto,
+  UnschedulePostDto,
   UpdatePostDto
 } from '../../model';
 
@@ -480,4 +485,332 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
         TContext
       > => {
       return useMutation(getPostsControllerRemoveMutationOptions(options), queryClient);
+    }
+    export const getSchedulingControllerScheduleUrl = (id: string,) => {
+
+
+
+
+  return `/api/v1/posts/${id}/schedule`
+}
+
+export const schedulingControllerSchedule = async (id: string,
+    schedulePostDto: SchedulePostDto, options?: Parameters<typeof apiFetch>[1]): Promise<PostDetailDtoOutput> => {
+
+    const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {
+    if (!h) return {};
+    if (h instanceof Headers) return Object.fromEntries(h.entries());
+    if (Symbol.iterator in h) {
+      return Object.fromEntries(
+        Array.from(h as Iterable<Iterable<string>>, (entry) => Array.from(entry) as [string, string]),
+      );
+    }
+    const headers: Record<string, string | readonly string[]> = {};
+    for (const [name, value] of Object.entries<string | readonly string[] | undefined>(h)) {
+      if (value !== undefined) headers[name] = value;
+    }
+    return headers;
+  };
+return apiFetch<PostDetailDtoOutput>(getSchedulingControllerScheduleUrl(id),
+  {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...getHeaders(options?.headers) },
+    body: JSON.stringify(schedulePostDto)
+  }
+);}
+
+
+
+
+
+export const getSchedulingControllerScheduleMutationKey = () => ['schedulingControllerSchedule'] as const;
+
+export const getSchedulingControllerScheduleMutationOptions = <TError = ErrorType<ProblemDetails>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof schedulingControllerSchedule>>, TError,SchedulingControllerScheduleMutationVariables, TContext>, request?: SecondParameter<typeof apiFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof schedulingControllerSchedule>>, TError,SchedulingControllerScheduleMutationVariables, TContext> => {
+
+const mutationKey = getSchedulingControllerScheduleMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof schedulingControllerSchedule>>, SchedulingControllerScheduleMutationVariables> = (props) => {
+          const {id,data} = props ?? {};
+
+          return  schedulingControllerSchedule(id,data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type SchedulingControllerScheduleMutationResult = NonNullable<Awaited<ReturnType<typeof schedulingControllerSchedule>>>
+    export type SchedulingControllerScheduleMutationBody = BodyType<SchedulePostDto>
+    export type SchedulingControllerScheduleMutationError = ErrorType<ProblemDetails>
+    export type SchedulingControllerScheduleMutationVariables = {id: string;data: BodyType<SchedulePostDto>}
+
+    export const useSchedulingControllerSchedule = <TError = ErrorType<ProblemDetails>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof schedulingControllerSchedule>>, TError,SchedulingControllerScheduleMutationVariables, TContext>, request?: SecondParameter<typeof apiFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof schedulingControllerSchedule>>,
+        TError,
+        SchedulingControllerScheduleMutationVariables,
+        TContext
+      > => {
+      return useMutation(getSchedulingControllerScheduleMutationOptions(options), queryClient);
+    }
+    export const getSchedulingControllerQueueUrl = (id: string,) => {
+
+
+
+
+  return `/api/v1/posts/${id}/queue`
+}
+
+export const schedulingControllerQueue = async (id: string,
+    queuePostDto: QueuePostDto, options?: Parameters<typeof apiFetch>[1]): Promise<QueuedPostDtoOutput> => {
+
+    const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {
+    if (!h) return {};
+    if (h instanceof Headers) return Object.fromEntries(h.entries());
+    if (Symbol.iterator in h) {
+      return Object.fromEntries(
+        Array.from(h as Iterable<Iterable<string>>, (entry) => Array.from(entry) as [string, string]),
+      );
+    }
+    const headers: Record<string, string | readonly string[]> = {};
+    for (const [name, value] of Object.entries<string | readonly string[] | undefined>(h)) {
+      if (value !== undefined) headers[name] = value;
+    }
+    return headers;
+  };
+return apiFetch<QueuedPostDtoOutput>(getSchedulingControllerQueueUrl(id),
+  {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...getHeaders(options?.headers) },
+    body: JSON.stringify(queuePostDto)
+  }
+);}
+
+
+
+
+
+export const getSchedulingControllerQueueMutationKey = () => ['schedulingControllerQueue'] as const;
+
+export const getSchedulingControllerQueueMutationOptions = <TError = ErrorType<ProblemDetails>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof schedulingControllerQueue>>, TError,SchedulingControllerQueueMutationVariables, TContext>, request?: SecondParameter<typeof apiFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof schedulingControllerQueue>>, TError,SchedulingControllerQueueMutationVariables, TContext> => {
+
+const mutationKey = getSchedulingControllerQueueMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof schedulingControllerQueue>>, SchedulingControllerQueueMutationVariables> = (props) => {
+          const {id,data} = props ?? {};
+
+          return  schedulingControllerQueue(id,data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type SchedulingControllerQueueMutationResult = NonNullable<Awaited<ReturnType<typeof schedulingControllerQueue>>>
+    export type SchedulingControllerQueueMutationBody = BodyType<QueuePostDto>
+    export type SchedulingControllerQueueMutationError = ErrorType<ProblemDetails>
+    export type SchedulingControllerQueueMutationVariables = {id: string;data: BodyType<QueuePostDto>}
+
+    export const useSchedulingControllerQueue = <TError = ErrorType<ProblemDetails>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof schedulingControllerQueue>>, TError,SchedulingControllerQueueMutationVariables, TContext>, request?: SecondParameter<typeof apiFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof schedulingControllerQueue>>,
+        TError,
+        SchedulingControllerQueueMutationVariables,
+        TContext
+      > => {
+      return useMutation(getSchedulingControllerQueueMutationOptions(options), queryClient);
+    }
+    export const getSchedulingControllerPublishNowUrl = (id: string,) => {
+
+
+
+
+  return `/api/v1/posts/${id}/publish-now`
+}
+
+export const schedulingControllerPublishNow = async (id: string,
+    publishNowDto: PublishNowDto, options?: Parameters<typeof apiFetch>[1]): Promise<PostDetailDtoOutput> => {
+
+    const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {
+    if (!h) return {};
+    if (h instanceof Headers) return Object.fromEntries(h.entries());
+    if (Symbol.iterator in h) {
+      return Object.fromEntries(
+        Array.from(h as Iterable<Iterable<string>>, (entry) => Array.from(entry) as [string, string]),
+      );
+    }
+    const headers: Record<string, string | readonly string[]> = {};
+    for (const [name, value] of Object.entries<string | readonly string[] | undefined>(h)) {
+      if (value !== undefined) headers[name] = value;
+    }
+    return headers;
+  };
+return apiFetch<PostDetailDtoOutput>(getSchedulingControllerPublishNowUrl(id),
+  {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...getHeaders(options?.headers) },
+    body: JSON.stringify(publishNowDto)
+  }
+);}
+
+
+
+
+
+export const getSchedulingControllerPublishNowMutationKey = () => ['schedulingControllerPublishNow'] as const;
+
+export const getSchedulingControllerPublishNowMutationOptions = <TError = ErrorType<ProblemDetails>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof schedulingControllerPublishNow>>, TError,SchedulingControllerPublishNowMutationVariables, TContext>, request?: SecondParameter<typeof apiFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof schedulingControllerPublishNow>>, TError,SchedulingControllerPublishNowMutationVariables, TContext> => {
+
+const mutationKey = getSchedulingControllerPublishNowMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof schedulingControllerPublishNow>>, SchedulingControllerPublishNowMutationVariables> = (props) => {
+          const {id,data} = props ?? {};
+
+          return  schedulingControllerPublishNow(id,data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type SchedulingControllerPublishNowMutationResult = NonNullable<Awaited<ReturnType<typeof schedulingControllerPublishNow>>>
+    export type SchedulingControllerPublishNowMutationBody = BodyType<PublishNowDto>
+    export type SchedulingControllerPublishNowMutationError = ErrorType<ProblemDetails>
+    export type SchedulingControllerPublishNowMutationVariables = {id: string;data: BodyType<PublishNowDto>}
+
+    export const useSchedulingControllerPublishNow = <TError = ErrorType<ProblemDetails>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof schedulingControllerPublishNow>>, TError,SchedulingControllerPublishNowMutationVariables, TContext>, request?: SecondParameter<typeof apiFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof schedulingControllerPublishNow>>,
+        TError,
+        SchedulingControllerPublishNowMutationVariables,
+        TContext
+      > => {
+      return useMutation(getSchedulingControllerPublishNowMutationOptions(options), queryClient);
+    }
+    export const getSchedulingControllerUnscheduleUrl = (id: string,) => {
+
+
+
+
+  return `/api/v1/posts/${id}/unschedule`
+}
+
+export const schedulingControllerUnschedule = async (id: string,
+    unschedulePostDto: UnschedulePostDto, options?: Parameters<typeof apiFetch>[1]): Promise<PostDetailDtoOutput> => {
+
+    const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {
+    if (!h) return {};
+    if (h instanceof Headers) return Object.fromEntries(h.entries());
+    if (Symbol.iterator in h) {
+      return Object.fromEntries(
+        Array.from(h as Iterable<Iterable<string>>, (entry) => Array.from(entry) as [string, string]),
+      );
+    }
+    const headers: Record<string, string | readonly string[]> = {};
+    for (const [name, value] of Object.entries<string | readonly string[] | undefined>(h)) {
+      if (value !== undefined) headers[name] = value;
+    }
+    return headers;
+  };
+return apiFetch<PostDetailDtoOutput>(getSchedulingControllerUnscheduleUrl(id),
+  {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...getHeaders(options?.headers) },
+    body: JSON.stringify(unschedulePostDto)
+  }
+);}
+
+
+
+
+
+export const getSchedulingControllerUnscheduleMutationKey = () => ['schedulingControllerUnschedule'] as const;
+
+export const getSchedulingControllerUnscheduleMutationOptions = <TError = ErrorType<ProblemDetails>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof schedulingControllerUnschedule>>, TError,SchedulingControllerUnscheduleMutationVariables, TContext>, request?: SecondParameter<typeof apiFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof schedulingControllerUnschedule>>, TError,SchedulingControllerUnscheduleMutationVariables, TContext> => {
+
+const mutationKey = getSchedulingControllerUnscheduleMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof schedulingControllerUnschedule>>, SchedulingControllerUnscheduleMutationVariables> = (props) => {
+          const {id,data} = props ?? {};
+
+          return  schedulingControllerUnschedule(id,data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type SchedulingControllerUnscheduleMutationResult = NonNullable<Awaited<ReturnType<typeof schedulingControllerUnschedule>>>
+    export type SchedulingControllerUnscheduleMutationBody = BodyType<UnschedulePostDto>
+    export type SchedulingControllerUnscheduleMutationError = ErrorType<ProblemDetails>
+    export type SchedulingControllerUnscheduleMutationVariables = {id: string;data: BodyType<UnschedulePostDto>}
+
+    export const useSchedulingControllerUnschedule = <TError = ErrorType<ProblemDetails>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof schedulingControllerUnschedule>>, TError,SchedulingControllerUnscheduleMutationVariables, TContext>, request?: SecondParameter<typeof apiFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof schedulingControllerUnschedule>>,
+        TError,
+        SchedulingControllerUnscheduleMutationVariables,
+        TContext
+      > => {
+      return useMutation(getSchedulingControllerUnscheduleMutationOptions(options), queryClient);
     }

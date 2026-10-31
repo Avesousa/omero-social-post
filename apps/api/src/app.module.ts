@@ -18,6 +18,7 @@ import { ProvidersModule } from './providers/providers.module';
 import { QueuesModule } from './queues/queues.module';
 import { WorkersModule } from './queues/workers.module';
 import { RedisModule } from './redis/redis.module';
+import { SchedulingModule } from './scheduling/scheduling.module';
 import { SettingsModule } from './settings/settings.module';
 
 /**
@@ -45,6 +46,7 @@ export class AppModule {
         NotificationsModule,
         MediaModule,
         PostsModule,
+        SchedulingModule,
         ProvidersModule,
         ChannelsModule,
         ...(env.WORKERS_ENABLED ? [WorkersModule] : []),

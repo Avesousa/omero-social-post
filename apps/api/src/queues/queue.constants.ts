@@ -14,10 +14,12 @@ export const QUEUE_NAMES: readonly QueueName[] = Object.values(QUEUE);
 
 /** Job names per the technical spec's scheduling design. */
 export const JOB = {
-  /** publish: parent job, delayed until `scheduled_at`, `jobId = post:{id}:v{version}`. */
+  /** publish: delayed until `scheduled_at`, `jobId = post_{id}_v{version}` (see scheduling/). */
   publishPost: 'publish-post',
-  /** publish: child job, one per delivery. */
+  /** publish: child job, one per delivery, `jobId = delivery_{id}_v{version}`. */
   publishDelivery: 'publish-delivery',
+  /** publish: flow parent that runs once every delivery child has ended; refreshes post status. */
+  publishPostFinalize: 'publish-post-finalize',
   /** metrics: `jobId = metrics:{itemId}:{checkpoint}`. */
   fetchMetrics: 'fetch-metrics',
   /** maintenance: repeatable every 5 min (Job Scheduler) and on boot. */
