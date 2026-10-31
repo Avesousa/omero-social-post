@@ -186,5 +186,90 @@
       "radius": "Radios",
       "shadow": "Sombras"
     }
+  },
+  "Auth": {
+    "footer": "omero · publicador de redes de código abierto y autoalojado",
+    "fields": {
+      "username": "Usuario",
+      "password": "Contraseña",
+      "confirmPassword": "Repite la contraseña",
+      "showPassword": "Mostrar contraseña",
+      "hidePassword": "Ocultar contraseña"
+    },
+    "validation": {
+      "usernameFormat": "Usa de 3 a 32 caracteres: minúsculas, números, punto, guion o guion bajo.",
+      "passwordMin": "La contraseña necesita al menos 12 caracteres.",
+      "confirmMismatch": "Las contraseñas no coinciden."
+    },
+    "strength": {
+      "empty": "Mínimo 12 caracteres. Mejor una frase larga que una palabra rara.",
+      "label": "Seguridad: {level}",
+      "weak": "débil",
+      "fair": "aceptable",
+      "good": "buena",
+      "strong": "excelente"
+    },
+    "setup": {
+      "metaTitle": "Crear cuenta",
+      "title": "Crea tu cuenta",
+      "subtitle": "Esta instancia es tuya: un único propietario, un único acceso.",
+      "usernameHint": "De 3 a 32 caracteres: minúsculas, números, punto, guion o guion bajo.",
+      "submit": "Crear cuenta y entrar",
+      "submitting": "Creando tu cuenta…",
+      "timezoneNote": "Zona horaria detectada: {timezone}. Podrás cambiarla en Ajustes.",
+      "timezoneNotSaved": "No se pudo guardar tu zona horaria. Puedes ajustarla más tarde en Ajustes.",
+      "alreadyDone": "Esta instancia ya tiene propietario. Inicia sesión.",
+      "failed": "No pudimos crear la cuenta. Revisa la conexión e inténtalo de nuevo."
+    },
+    "login": {
+      "metaTitle": "Iniciar sesión",
+      "title": "Bienvenido de nuevo",
+      "subtitle": "Entra para escribir, programar y publicar.",
+      "submit": "Entrar",
+      "submitting": "Entrando…",
+      "problem": {
+        "invalid": "Usuario o contraseña incorrectos. Revisa los datos e inténtalo de nuevo.",
+        "throttled": "Demasiados intentos fallidos. Espera unos 15 minutos antes de volver a probar.",
+        "generic": "No pudimos iniciar sesión ahora mismo. Inténtalo de nuevo en un momento."
+      }
+    }
+  },
+  "Shell": {
+    "menuDescription": "Navega por las secciones de omero.",
+    "titles": {
+      "calendar": "Calendario",
+      "newPost": "Nuevo post",
+      "editPost": "Editar post",
+      "settings": "Ajustes",
+      "post": "Post"
+    },
+    "user": {
+      "menu": "Cuenta de {username}",
+      "signedInAs": "Sesión iniciada como",
+      "logout": "Cerrar sesión",
+      "logoutFailed": "No se pudo cerrar la sesión. Inténtalo de nuevo."
+    }
+  },
+  "Notifications": {
+    "trigger": "Notificaciones",
+    "triggerWithCount": "Notificaciones, {count} sin leer",
+    "title": "Notificaciones",
+    "markAllRead": "Marcar todo",
+    "markRead": "Marcar como leída",
+    "open": "Ver detalle",
+    "emptyTitle": "Todo en orden",
+    "emptyBody": "Aquí aparecerán los fallos de publicación y los avisos de tus canales.",
+    "error": "No se pudieron cargar las notificaciones."
+  },
+  "Placeholder": {
+    "calendar": {
+      "title": "El calendario está en camino",
+      "body": "Aquí verás tus posts por semana y por mes. Mientras tanto, puedes empezar a escribir uno.",
+      "cta": "Nuevo post"
+    },
+    "settings": {
+      "title": "Los ajustes están en camino",
+      "body": "Canales conectados, horarios de la cola y zona horaria vivirán en esta sección."
+    }
   }
 }

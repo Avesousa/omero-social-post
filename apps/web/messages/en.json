@@ -186,5 +186,90 @@
       "radius": "Radius",
       "shadow": "Shadows"
     }
+  },
+  "Auth": {
+    "footer": "omero · open-source, self-hosted social publisher",
+    "fields": {
+      "username": "Username",
+      "password": "Password",
+      "confirmPassword": "Repeat the password",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password"
+    },
+    "validation": {
+      "usernameFormat": "Use 3 to 32 characters: lowercase letters, numbers, dot, dash or underscore.",
+      "passwordMin": "The password needs at least 12 characters.",
+      "confirmMismatch": "The passwords do not match."
+    },
+    "strength": {
+      "empty": "At least 12 characters. A long phrase beats a strange word.",
+      "label": "Strength: {level}",
+      "weak": "weak",
+      "fair": "fair",
+      "good": "good",
+      "strong": "excellent"
+    },
+    "setup": {
+      "metaTitle": "Create account",
+      "title": "Create your account",
+      "subtitle": "This instance is yours: a single owner, a single login.",
+      "usernameHint": "3 to 32 characters: lowercase letters, numbers, dot, dash or underscore.",
+      "submit": "Create account and sign in",
+      "submitting": "Creating your account…",
+      "timezoneNote": "Detected time zone: {timezone}. You can change it in Settings.",
+      "timezoneNotSaved": "Your time zone could not be saved. You can set it later in Settings.",
+      "alreadyDone": "This instance already has an owner. Sign in.",
+      "failed": "We could not create the account. Check your connection and try again."
+    },
+    "login": {
+      "metaTitle": "Sign in",
+      "title": "Welcome back",
+      "subtitle": "Sign in to write, schedule and publish.",
+      "submit": "Sign in",
+      "submitting": "Signing in…",
+      "problem": {
+        "invalid": "Wrong username or password. Check your details and try again.",
+        "throttled": "Too many failed attempts. Wait about 15 minutes before trying again.",
+        "generic": "We could not sign you in right now. Try again in a moment."
+      }
+    }
+  },
+  "Shell": {
+    "menuDescription": "Browse the sections of omero.",
+    "titles": {
+      "calendar": "Calendar",
+      "newPost": "New post",
+      "editPost": "Edit post",
+      "settings": "Settings",
+      "post": "Post"
+    },
+    "user": {
+      "menu": "{username}'s account",
+      "signedInAs": "Signed in as",
+      "logout": "Sign out",
+      "logoutFailed": "Could not sign out. Try again."
+    }
+  },
+  "Notifications": {
+    "trigger": "Notifications",
+    "triggerWithCount": "Notifications, {count} unread",
+    "title": "Notifications",
+    "markAllRead": "Mark all",
+    "markRead": "Mark as read",
+    "open": "View details",
+    "emptyTitle": "All clear",
+    "emptyBody": "Publishing failures and channel alerts will show up here.",
+    "error": "Notifications could not be loaded."
+  },
+  "Placeholder": {
+    "calendar": {
+      "title": "The calendar is on its way",
+      "body": "You will see your posts by week and month here. Meanwhile, you can start writing one.",
+      "cta": "New post"
+    },
+    "settings": {
+      "title": "Settings are on their way",
+      "body": "Connected channels, queue slots and time zone will live in this section."
+    }
   }
 }
