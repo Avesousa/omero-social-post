@@ -1,6 +1,6 @@
-import { DesignSystemShowcase } from '@/components/design-system/showcase';
+import { redirect } from 'next/navigation';
 
-// Placeholder home: renders the design system until the app shell and calendar land.
+// The calendar is the landing page; the proxy sends visitors without a session to /login first.
 export default function HomePage() {
-  return <DesignSystemShowcase />;
+  redirect('/calendar');
 }
