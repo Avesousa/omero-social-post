@@ -1,14 +1,10 @@
-import { InjectFlowProducer } from '@nestjs/bullmq';
 import { Injectable, Logger } from '@nestjs/common';
-import { type FlowProducer } from 'bullmq';
 import { type PostStatus } from '../db/schema';
 import { ProblemException } from '../common/errors/problem.exception';
 import { PostsService } from '../posts/posts.service';
 import { buildPublishFlow } from './publish-flow';
+import { PublishFlowProducer } from './publish-flow.producer';
 import { type PublishPostFinalizeJobData, type PublishPostJobData } from './scheduling.types';
-
-/** Name of the FlowProducer registered by SchedulingModule. */
-export const PUBLISH_FLOW_PRODUCER = 'publish-flow';
 
 export type PublishPostResult =
   | { outcome: 'skipped'; reason: 'post_missing' | 'not_scheduled' | 'stale_version' | 'raced' }
@@ -25,7 +21,7 @@ export class PublishFlowService {
 
   constructor(
     private readonly posts: PostsService,
-    @InjectFlowProducer(PUBLISH_FLOW_PRODUCER) private readonly flows: FlowProducer,
+    private readonly flows: PublishFlowProducer,
   ) {}
 
   /**

@@ -1,8 +1,8 @@
-import { BullModule } from '@nestjs/bullmq';
 import { Module } from '@nestjs/common';
 import { PostsModule } from '../posts/posts.module';
 import { SettingsModule } from '../settings/settings.module';
-import { PUBLISH_FLOW_PRODUCER, PublishFlowService } from './publish-flow.service';
+import { PublishFlowProducer } from './publish-flow.producer';
+import { PublishFlowService } from './publish-flow.service';
 import { SchedulingController } from './scheduling.controller';
 import { SchedulingService } from './scheduling.service';
 
@@ -12,13 +12,9 @@ import { SchedulingService } from './scheduling.service';
  * SchedulingWorkersModule, loaded only when WORKERS_ENABLED=true.
  */
 @Module({
-  imports: [
-    PostsModule,
-    SettingsModule,
-    BullModule.registerFlowProducer({ name: PUBLISH_FLOW_PRODUCER }),
-  ],
+  imports: [PostsModule, SettingsModule],
   controllers: [SchedulingController],
-  providers: [SchedulingService, PublishFlowService],
+  providers: [SchedulingService, PublishFlowService, PublishFlowProducer],
   exports: [SchedulingService, PublishFlowService],
 })
 export class SchedulingModule {}
