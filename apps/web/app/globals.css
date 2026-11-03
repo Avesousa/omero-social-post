@@ -1,0 +1,335 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+/*
+ * omero design tokens
+ * ------------------------------------------------------------------
+ * Direction: "Java + café" on a clean, vibrant dashboard.
+ *   - Cool, airy canvas with white cards (light) / roasted espresso surfaces (dark).
+ *   - Espresso sidebar as the signature surface.
+ *   - Lagoon teal for primary actions, crema gold and berry as energetic accents.
+ *
+ * Raw values live in :root / .dark as CSS variables; `@theme inline` maps them to
+ * Tailwind utilities (bg-primary, text-status-failed, shadow-md, font-display, ...).
+ */
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  /* Brand palette */
+  --espresso: #2a1c16;
+  --roast: #6b4636;
+  --lagoon: #0b7a80;
+  --crema: #f2a93b;
+  --berry: #e0457b;
+  --iris: #5b5bd6;
+
+  /* Surfaces and text (shadcn/ui contract) */
+  --background: #f4f6fa;
+  --foreground: #17202e;
+  --card: #ffffff;
+  --card-foreground: #17202e;
+  --popover: #ffffff;
+  --popover-foreground: #17202e;
+  --primary: #0b7a80;
+  --primary-foreground: #ffffff;
+  --secondary: #eaeef4;
+  --secondary-foreground: #17202e;
+  --muted: #eef1f6;
+  --muted-foreground: #5d6a7e;
+  --accent: #e3f3f3;
+  --accent-foreground: #075a5f;
+  --destructive: #e5484d;
+  --destructive-foreground: #ffffff;
+  --border: #e3e8ef;
+  --input: #d5dce6;
+  --ring: #0b7a80;
+
+  /* Sidebar (espresso) */
+  --sidebar: #2a1c16;
+  --sidebar-foreground: #f6ede6;
+  --sidebar-muted: #b9a596;
+  --sidebar-accent: #3b2a21;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-primary: #f2a93b;
+  --sidebar-primary-foreground: #2a1c16;
+  --sidebar-border: #3f2d24;
+
+  /* Semantic */
+  --success: #1e9e5a;
+  --warning: #e9730c;
+  --danger: #e5484d;
+  --info: #3474e8;
+
+  /* Post status (drives badges, calendar events, dots) */
+  --status-draft: #8391a7;
+  --status-scheduled: #5b5bd6;
+  --status-publishing: #e59a1f;
+  --status-published: #1e9e5a;
+  --status-partially-published: #e9730c;
+  --status-failed: #e5484d;
+  --status-missed: #a35bd8;
+
+  /* Network accents */
+  --network-x: #0f1419;
+  --network-linkedin: #0a66c2;
+  --network-instagram: #e1306c;
+  --network-facebook: #1877f2;
+
+  /* Elevation (cool-tinted, soft) */
+  --elevation-xs: 0 1px 2px rgb(23 32 46 / 0.05);
+  --elevation-sm: 0 1px 2px rgb(23 32 46 / 0.04), 0 2px 8px -2px rgb(23 32 46 / 0.06);
+  --elevation-md: 0 1px 3px rgb(23 32 46 / 0.04), 0 10px 28px -8px rgb(23 32 46 / 0.12);
+  --elevation-lg: 0 2px 6px rgb(23 32 46 / 0.05), 0 28px 56px -16px rgb(23 32 46 / 0.22);
+}
+
+.dark {
+  --espresso: #3a281f;
+  --roast: #9a6d57;
+  --lagoon: #2db8b5;
+  --crema: #f5b451;
+  --berry: #f0659a;
+  --iris: #8b8bf5;
+
+  --background: #120f0d;
+  --foreground: #f3ede7;
+  --card: #1c1714;
+  --card-foreground: #f3ede7;
+  --popover: #221c18;
+  --popover-foreground: #f3ede7;
+  --primary: #2db8b5;
+  --primary-foreground: #04282a;
+  --secondary: #2a221d;
+  --secondary-foreground: #f3ede7;
+  --muted: #251e1a;
+  --muted-foreground: #ab9d92;
+  --accent: #17393a;
+  --accent-foreground: #a6e7e3;
+  --destructive: #f06368;
+  --destructive-foreground: #1c0b0c;
+  --border: #30271f;
+  --input: #3b3129;
+  --ring: #2db8b5;
+
+  --sidebar: #0c0a08;
+  --sidebar-foreground: #f3ede7;
+  --sidebar-muted: #9d8c80;
+  --sidebar-accent: #1f1915;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-primary: #f5b451;
+  --sidebar-primary-foreground: #1a120e;
+  --sidebar-border: #241d18;
+
+  --success: #3cc27a;
+  --warning: #f68a2e;
+  --danger: #f06368;
+  --info: #6aa0ff;
+
+  --status-draft: #94a0b4;
+  --status-scheduled: #8b8bf5;
+  --status-publishing: #f5b451;
+  --status-published: #3cc27a;
+  --status-partially-published: #f68a2e;
+  --status-failed: #f06368;
+  --status-missed: #c084f5;
+
+  --network-x: #e7e9ea;
+  --network-linkedin: #4a95e0;
+  --network-instagram: #f0508a;
+  --network-facebook: #4a93f5;
+
+  --elevation-xs: 0 1px 2px rgb(0 0 0 / 0.3);
+  --elevation-sm: 0 1px 2px rgb(0 0 0 / 0.3), 0 2px 8px -2px rgb(0 0 0 / 0.35);
+  --elevation-md: 0 1px 3px rgb(0 0 0 / 0.3), 0 12px 28px -8px rgb(0 0 0 / 0.5);
+  --elevation-lg: 0 2px 6px rgb(0 0 0 / 0.35), 0 28px 56px -16px rgb(0 0 0 / 0.65);
+}
+
+@theme inline {
+  --font-sans: var(--font-figtree), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-bricolage), var(--font-figtree), ui-sans-serif, system-ui, sans-serif;
+
+  --color-espresso: var(--espresso);
+  --color-roast: var(--roast);
+  --color-lagoon: var(--lagoon);
+  --color-crema: var(--crema);
+  --color-berry: var(--berry);
+  --color-iris: var(--iris);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-muted: var(--sidebar-muted);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  --color-info: var(--info);
+
+  --color-status-draft: var(--status-draft);
+  --color-status-scheduled: var(--status-scheduled);
+  --color-status-publishing: var(--status-publishing);
+  --color-status-published: var(--status-published);
+  --color-status-partially-published: var(--status-partially-published);
+  --color-status-failed: var(--status-failed);
+  --color-status-missed: var(--status-missed);
+
+  --color-network-x: var(--network-x);
+  --color-network-linkedin: var(--network-linkedin);
+  --color-network-instagram: var(--network-instagram);
+  --color-network-facebook: var(--network-facebook);
+
+  --shadow-xs: var(--elevation-xs);
+  --shadow-sm: var(--elevation-sm);
+  --shadow-md: var(--elevation-md);
+  --shadow-lg: var(--elevation-lg);
+}
+
+/* Radius scale: by hierarchy. Chips use rounded-full. */
+@theme {
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-2xl: 28px;
+}
+
+/*
+ * Tones: any element with data-status / data-network gets `--tone`, and the
+ * tone-* utilities derive soft backgrounds and readable text from it.
+ *   <span data-status="failed" class="tone-soft">…</span>
+ */
+[data-status='draft'] {
+  --tone: var(--status-draft);
+}
+[data-status='scheduled'] {
+  --tone: var(--status-scheduled);
+}
+[data-status='publishing'] {
+  --tone: var(--status-publishing);
+}
+[data-status='published'] {
+  --tone: var(--status-published);
+}
+[data-status='partially_published'] {
+  --tone: var(--status-partially-published);
+}
+[data-status='failed'] {
+  --tone: var(--status-failed);
+}
+[data-status='missed'] {
+  --tone: var(--status-missed);
+}
+[data-network='x'] {
+  --tone: var(--network-x);
+}
+[data-network='linkedin'] {
+  --tone: var(--network-linkedin);
+}
+[data-network='instagram'] {
+  --tone: var(--network-instagram);
+}
+[data-network='facebook'] {
+  --tone: var(--network-facebook);
+}
+
+@utility tone-soft {
+  background-color: color-mix(in oklab, var(--tone) 13%, transparent);
+  color: color-mix(in oklab, var(--tone) 78%, var(--foreground));
+}
+
+/* X is near-white in dark mode, so its solid tone needs dark text. */
+.dark [data-network='x'] {
+  --tone-contrast: #0f1419;
+}
+
+@utility tone-solid {
+  background-color: var(--tone);
+  color: var(--tone-contrast, #ffffff);
+}
+
+@utility tone-text {
+  color: var(--tone);
+}
+
+@utility tone-bg {
+  background-color: var(--tone);
+}
+
+@utility tone-border {
+  border-color: color-mix(in oklab, var(--tone) 35%, transparent);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: 'ss01', 'cv11';
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display;
+    font-optical-sizing: auto;
+    text-wrap: balance;
+  }
+
+  ::selection {
+    background-color: color-mix(in oklab, var(--crema) 45%, transparent);
+  }
+}
+
+/* The single ambient motion: a breathing dot for work in progress (publishing). */
+@keyframes omero-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--tone) 55%, transparent);
+  }
+  60% {
+    box-shadow: 0 0 0 5px color-mix(in oklab, var(--tone) 0%, transparent);
+  }
+}
+
+@utility animate-omero-pulse {
+  animation: omero-pulse 1.6s ease-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-omero-pulse {
+    animation: none;
+  }
+}

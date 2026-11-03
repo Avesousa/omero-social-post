@@ -1,0 +1,591 @@
+{
+  "Metadata": {
+    "title": "omero",
+    "description": "Publicador de redes sociales autoalojado: escribe, programa y publica en X y LinkedIn desde tu propio servidor."
+  },
+  "Common": {
+    "appName": "omero",
+    "comingSoon": "Disponible pronto",
+    "close": "Cerrar",
+    "cancel": "Cancelar",
+    "openMenu": "Abrir menú"
+  },
+  "Nav": {
+    "label": "Navegación principal",
+    "designSystem": "Sistema de diseño",
+    "calendar": "Calendario",
+    "newPost": "Nuevo post",
+    "settings": "Ajustes",
+    "onThisPage": "En esta página",
+    "instance": "Instancia local"
+  },
+  "Locale": {
+    "label": "Idioma",
+    "es": "Español",
+    "en": "English"
+  },
+  "Theme": {
+    "label": "Tema",
+    "light": "Claro",
+    "dark": "Oscuro",
+    "system": "Sistema"
+  },
+  "Status": {
+    "draft": "Borrador",
+    "scheduled": "Programado",
+    "publishing": "Publicando",
+    "published": "Publicado",
+    "partially_published": "Publicado en parte",
+    "failed": "Falló",
+    "missed": "Perdido"
+  },
+  "StatusHint": {
+    "draft": "Guardado, todavía sin fecha.",
+    "scheduled": "Espera su horario en la cola.",
+    "publishing": "Se está enviando a la red.",
+    "published": "Salió en todas las redes elegidas.",
+    "partially_published": "Salió en algunas redes; otras fallaron.",
+    "failed": "No se pudo publicar tras los reintentos.",
+    "missed": "El servidor estaba apagado a esa hora."
+  },
+  "Network": {
+    "x": "X",
+    "linkedin": "LinkedIn",
+    "instagram": "Instagram",
+    "facebook": "Facebook"
+  },
+  "DesignSystem": {
+    "header": {
+      "title": "Sistema de diseño",
+      "subtitle": "Color, tipografía y componentes de omero, en claro y oscuro."
+    },
+    "hero": {
+      "title": "Escribe una vez y publica en X y LinkedIn desde tu propio servidor.",
+      "body": "Cada post tiene una versión por red, un horario y un estado que se lee de un vistazo. Aquí están las piezas con las que se construyen el calendario y el editor.",
+      "primaryCta": "Nuevo post",
+      "secondaryCta": "Ver calendario"
+    },
+    "samplePost": {
+      "author": "Omero Demo",
+      "handle": "@omero_demo",
+      "body": "Migré el scheduler a colas con reintentos: tres intentos con backoff y ningún cron. Te cuento cómo en un hilo.",
+      "when": "Hoy, 09:00",
+      "thread": "Hilo de {count} posts",
+      "single": "Post único",
+      "characters": "{used} de {limit} caracteres",
+      "deliveries": "Entregas"
+    },
+    "palette": {
+      "title": "Paleta",
+      "description": "Café tostado para la marca, colores vivos para la acción.",
+      "brand": "Marca",
+      "semantic": "Semánticos",
+      "names": {
+        "espresso": "Espresso",
+        "roast": "Tostado",
+        "lagoon": "Laguna",
+        "crema": "Crema",
+        "berry": "Frutos rojos",
+        "iris": "Iris"
+      },
+      "roles": {
+        "espresso": "Barra lateral y superficies de marca",
+        "roast": "Detalles cálidos",
+        "lagoon": "Acciones principales y foco",
+        "crema": "Acento enérgico",
+        "berry": "Destacados y gráficos",
+        "iris": "Programación"
+      },
+      "semanticNames": {
+        "success": "Éxito",
+        "warning": "Aviso",
+        "danger": "Error",
+        "info": "Información"
+      }
+    },
+    "statuses": {
+      "title": "Estados de un post",
+      "description": "Cada red recibe su propia entrega; el estado del post se deriva de ellas.",
+      "calendarPreview": "Así se ven en el calendario"
+    },
+    "networks": {
+      "title": "Redes",
+      "description": "X y LinkedIn en esta etapa. Instagram y Facebook llegan más adelante.",
+      "available": "Disponible",
+      "later": "Más adelante"
+    },
+    "components": {
+      "title": "Componentes",
+      "description": "Piezas de shadcn/ui con los tokens de omero.",
+      "buttons": "Botones",
+      "forms": "Formularios",
+      "overlays": "Capas y avisos",
+      "button": {
+        "primary": "Programar",
+        "crema": "Publicar ahora",
+        "secondary": "Guardar borrador",
+        "outline": "Añadir a la cola",
+        "ghost": "Cancelar",
+        "destructive": "Eliminar",
+        "link": "Ver detalle",
+        "small": "Pequeño",
+        "large": "Grande",
+        "edit": "Editar",
+        "duplicate": "Duplicar"
+      },
+      "form": {
+        "channel": "Canal",
+        "channelPlaceholder": "Elige un canal",
+        "content": "Título interno",
+        "contentPlaceholder": "Lanzamiento de la versión 0.1",
+        "longPosts": "Posts largos en X",
+        "longPostsHint": "Solo para cuentas con X Premium."
+      },
+      "tabs": {
+        "base": "Base",
+        "baseBody": "El texto base se usa en todas las redes que no tengan una versión propia.",
+        "xBody": "En X puedes dividir el texto en un hilo; cada parte respeta el límite de caracteres.",
+        "linkedinBody": "En LinkedIn el post es único y admite textos más largos."
+      },
+      "dialog": {
+        "trigger": "Eliminar post",
+        "title": "¿Eliminar este post programado?",
+        "description": "Se quitará de la cola y del calendario. No se puede deshacer.",
+        "confirm": "Eliminar",
+        "done": "Post eliminado"
+      },
+      "dropdown": {
+        "trigger": "Acciones",
+        "edit": "Editar",
+        "duplicate": "Duplicar",
+        "reschedule": "Reprogramar",
+        "delete": "Eliminar"
+      },
+      "popover": {
+        "trigger": "Próximo hueco",
+        "title": "Próximo hueco libre",
+        "body": "Mañana a las 09:00, según tus horarios de la cola."
+      },
+      "tooltip": {
+        "trigger": "Coste de enlaces",
+        "content": "En la API de X, los posts con enlaces cuestan más."
+      },
+      "toast": {
+        "trigger": "Mostrar aviso",
+        "title": "Post programado",
+        "description": "Se publicará hoy a las 09:00."
+      }
+    },
+    "type": {
+      "title": "Tipografía y forma",
+      "description": "Bricolage Grotesque para titulares y cifras; Figtree para la interfaz.",
+      "display": "Titular",
+      "body": "Texto",
+      "sampleDisplay": "Martes, 09:00",
+      "sampleBody": "Tres posts programados esta semana. El próximo sale mañana temprano en X y LinkedIn.",
+      "radius": "Radios",
+      "shadow": "Sombras"
+    }
+  },
+  "Auth": {
+    "footer": "omero · publicador de redes de código abierto y autoalojado",
+    "fields": {
+      "username": "Usuario",
+      "password": "Contraseña",
+      "confirmPassword": "Repite la contraseña",
+      "showPassword": "Mostrar contraseña",
+      "hidePassword": "Ocultar contraseña"
+    },
+    "validation": {
+      "usernameFormat": "Usa de 3 a 32 caracteres: minúsculas, números, punto, guion o guion bajo.",
+      "passwordMin": "La contraseña necesita al menos 12 caracteres.",
+      "confirmMismatch": "Las contraseñas no coinciden."
+    },
+    "strength": {
+      "empty": "Mínimo 12 caracteres. Mejor una frase larga que una palabra rara.",
+      "label": "Seguridad: {level}",
+      "weak": "débil",
+      "fair": "aceptable",
+      "good": "buena",
+      "strong": "excelente"
+    },
+    "setup": {
+      "metaTitle": "Crear cuenta",
+      "title": "Crea tu cuenta",
+      "subtitle": "Esta instancia es tuya: un único propietario, un único acceso.",
+      "usernameHint": "De 3 a 32 caracteres: minúsculas, números, punto, guion o guion bajo.",
+      "submit": "Crear cuenta y entrar",
+      "submitting": "Creando tu cuenta…",
+      "timezoneNote": "Zona horaria detectada: {timezone}. Podrás cambiarla en Ajustes.",
+      "timezoneNotSaved": "No se pudo guardar tu zona horaria. Puedes ajustarla más tarde en Ajustes.",
+      "alreadyDone": "Esta instancia ya tiene propietario. Inicia sesión.",
+      "failed": "No pudimos crear la cuenta. Revisa la conexión e inténtalo de nuevo."
+    },
+    "login": {
+      "metaTitle": "Iniciar sesión",
+      "title": "Bienvenido de nuevo",
+      "subtitle": "Entra para escribir, programar y publicar.",
+      "submit": "Entrar",
+      "submitting": "Entrando…",
+      "problem": {
+        "invalid": "Usuario o contraseña incorrectos. Revisa los datos e inténtalo de nuevo.",
+        "throttled": "Demasiados intentos fallidos. Espera unos 15 minutos antes de volver a probar.",
+        "generic": "No pudimos iniciar sesión ahora mismo. Inténtalo de nuevo en un momento."
+      }
+    }
+  },
+  "Shell": {
+    "menuDescription": "Navega por las secciones de omero.",
+    "titles": {
+      "calendar": "Calendario",
+      "newPost": "Nuevo post",
+      "editPost": "Editar post",
+      "settings": "Ajustes",
+      "post": "Post"
+    },
+    "user": {
+      "menu": "Cuenta de {username}",
+      "signedInAs": "Sesión iniciada como",
+      "logout": "Cerrar sesión",
+      "logoutFailed": "No se pudo cerrar la sesión. Inténtalo de nuevo."
+    }
+  },
+  "Settings": {
+    "nav": {
+      "label": "Secciones de ajustes",
+      "channels": "Canales",
+      "queue": "Cola",
+      "general": "General"
+    },
+    "channels": {
+      "title": "Canales",
+      "description": "Conecta las cuentas donde vas a publicar. Usamos el acceso oficial de cada red y puedes revocarlo cuando quieras.",
+      "loadError": "No se pudieron cargar los canales.",
+      "retry": "Reintentar",
+      "empty": {
+        "title": "Conecta tu primera red",
+        "body": "Todavía no tienes ninguna cuenta conectada. Conecta X o LinkedIn y empieza a escribir y programar tus posts desde un solo lugar."
+      },
+      "status": {
+        "connected": "Conectado",
+        "needs_reconnect": "Necesita reconexión",
+        "disconnected": "Desconectado",
+        "notConnected": "Sin conectar"
+      },
+      "card": {
+        "avatarAlt": "Foto de perfil de {name}",
+        "notConnectedBody": "Conecta tu cuenta de {network} para escribir, programar y publicar desde omero.",
+        "disconnectedBody": "Desconectaste esta cuenta. Conéctala de nuevo para volver a publicar en ella.",
+        "needsReconnectBody": "Esta cuenta necesita volver a autorizarse. Mientras tanto no podremos publicar en ella.",
+        "connect": "Conectar",
+        "reconnect": "Reconectar",
+        "redirecting": "Redirigiendo…",
+        "connectAria": "Conectar {network}",
+        "reconnectAria": "Reconectar {handle}",
+        "disconnect": "Desconectar",
+        "disconnectAria": "Desconectar {handle}"
+      },
+      "expiry": {
+        "linkedin": "Reconectar antes del {date}",
+        "daysLeft": "{days, plural, one {Queda # día} other {Quedan # días}}",
+        "autoRenew": "El acceso se renueva automáticamente."
+      },
+      "notConfigured": {
+        "title": "Falta configurar {network}",
+        "body": "Define estas variables de entorno en el servidor y reinicia la API:",
+        "docs": "Ver la guía de self-hosting"
+      },
+      "longPosts": {
+        "label": "Posts largos (X Premium)",
+        "description": "Permite superar los 280 caracteres en cada post de X. Actívalo solo si tu cuenta tiene X Premium.",
+        "saveError": "No se pudo guardar el ajuste. Inténtalo de nuevo."
+      },
+      "disconnectDialog": {
+        "title": "¿Desconectar {handle}?",
+        "body": "Borraremos los tokens de acceso y dejaremos de poder publicar en esta cuenta.",
+        "scheduledNote": "Los posts programados para este canal quedarán marcados para que los revises y no se publicarán. Tu historial se conserva.",
+        "confirm": "Sí, desconectar",
+        "done": "Canal desconectado.",
+        "error": "No se pudo desconectar el canal. Inténtalo de nuevo."
+      },
+      "connectResult": {
+        "connected": "{network} conectado correctamente.",
+        "errorTitle": "No se pudo conectar el canal",
+        "errors": {
+          "access_denied": "Cancelaste la autorización, así que no conectamos la cuenta. Puedes intentarlo de nuevo cuando quieras.",
+          "provider_error": "La red devolvió un error al autorizar. Inténtalo de nuevo en unos minutos.",
+          "state_invalid": "La solicitud de conexión caducó o ya se usó. Empieza la conexión de nuevo.",
+          "state_mismatch": "La solicitud de conexión no corresponde a esta sesión. Empieza la conexión de nuevo.",
+          "missing_code": "La red no nos envió el código de autorización. Inténtalo de nuevo.",
+          "exchange_failed": "No pudimos completar la autorización con la red. Revisa las credenciales de la app y vuelve a intentarlo.",
+          "profile_failed": "La cuenta se autorizó, pero no pudimos leer su perfil. Inténtalo de nuevo.",
+          "not_configured": "Esa red no tiene credenciales configuradas en el servidor.",
+          "unknown": "Algo salió mal al conectar la cuenta. Inténtalo de nuevo."
+        }
+      }
+    },
+    "queue": {
+      "title": "Cola de publicación",
+      "description": "Define los horarios semanales para “Añadir a la cola”: cada post toma el primer hueco libre a partir de ahora.",
+      "loadError": "No se pudo cargar la cola.",
+      "preset": "Lun–Vie 09:00 y 18:00",
+      "presetHint": "Reemplaza todos los horarios de la semana.",
+      "weekdays": {
+        "monday": "Lunes",
+        "tuesday": "Martes",
+        "wednesday": "Miércoles",
+        "thursday": "Jueves",
+        "friday": "Viernes",
+        "saturday": "Sábado",
+        "sunday": "Domingo"
+      },
+      "slotCount": "{count, plural, =0 {Sin horarios} one {# horario} other {# horarios}}",
+      "noSlotsDay": "Sin horarios este día",
+      "addTime": "Añadir hora",
+      "addTimeAria": "Añadir una hora el {day}",
+      "timeLabel": "Hora del hueco",
+      "confirmAdd": "Añadir",
+      "cancelAdd": "Cancelar",
+      "duplicate": "Ya hay un hueco a las {time} ese día.",
+      "invalidTime": "Escribe una hora válida.",
+      "slotAria": "{day} a las {time}",
+      "enableSlot": "Hueco activo: {day} a las {time}",
+      "removeSlot": "Quitar el hueco de las {time} del {day}",
+      "empty": {
+        "title": "Todavía no tienes huecos",
+        "body": "Sin huecos, “Añadir a la cola” no tiene dónde colocar tus posts. Empieza con el preset y ajústalo a tu gusto."
+      },
+      "unsaved": "Tienes cambios sin guardar",
+      "discard": "Descartar",
+      "save": "Guardar cola",
+      "saving": "Guardando…",
+      "saved": "Cola guardada.",
+      "saveError": "No se pudo guardar la cola. Inténtalo de nuevo.",
+      "errorsTitle": "Revisa los horarios",
+      "preview": {
+        "label": "Próximo hueco libre",
+        "none": "No hay huecos libres en los próximos 30 días.",
+        "noSlots": "Añade horarios para ver cuál es el siguiente hueco libre.",
+        "savedOnly": "Calculado con la cola guardada.",
+        "error": "No se pudo calcular el siguiente hueco."
+      },
+      "timezone": {
+        "label": "Zona horaria",
+        "change": "Cambiar en General"
+      }
+    },
+    "general": {
+      "title": "General",
+      "description": "La zona horaria con la que se muestran y programan tus posts, y cuánto margen damos a los posts atrasados.",
+      "loadError": "No se pudieron cargar los ajustes.",
+      "timezone": {
+        "label": "Zona horaria",
+        "help": "El calendario, la cola y el selector de fecha usan esta zona. Los posts se guardan en UTC, así que cambiarla no mueve nada que ya esté programado.",
+        "search": "Buscar zona (por ejemplo, Buenos Aires)",
+        "noResults": "No hay zonas que coincidan.",
+        "useBrowser": "Usar la del navegador",
+        "browserIs": "Tu navegador usa {timezone}.",
+        "nowIn": "Ahora allí son las {time}.",
+        "listLabel": "Zonas horarias"
+      },
+      "grace": {
+        "label": "Margen para posts atrasados",
+        "unit": "horas",
+        "help": "Si el servidor estuvo apagado y un post quedó atrasado, lo publicamos al volver siempre que haya pasado menos tiempo que este margen. Si pasó más, queda como “perdido” y te avisamos. Entre 1 y 48 horas.",
+        "invalid": "Escribe un número entero de horas entre 1 y 48."
+      },
+      "save": "Guardar cambios",
+      "saving": "Guardando…",
+      "saved": "Ajustes guardados.",
+      "saveError": "No se pudieron guardar los ajustes. Inténtalo de nuevo."
+    }
+  },
+  "Notifications": {
+    "trigger": "Notificaciones",
+    "triggerWithCount": "Notificaciones, {count} sin leer",
+    "title": "Notificaciones",
+    "markAllRead": "Marcar todo",
+    "markRead": "Marcar como leída",
+    "open": "Ver detalle",
+    "emptyTitle": "Todo en orden",
+    "emptyBody": "Aquí aparecerán los fallos de publicación y los avisos de tus canales.",
+    "error": "No se pudieron cargar las notificaciones."
+  },
+  "Placeholder": {
+    "calendar": {
+      "title": "El calendario está en camino",
+      "body": "Aquí verás tus posts por semana y por mes. Mientras tanto, puedes empezar a escribir uno.",
+      "cta": "Nuevo post"
+    },
+    "settings": {
+      "title": "Los ajustes están en camino",
+      "body": "Canales conectados, horarios de la cola y zona horaria vivirán en esta sección."
+    }
+  },
+  "Composer": {
+    "linkCost": "Los posts con enlaces cuestan más en la API de X.",
+    "content": {
+      "title": "Contenido"
+    },
+    "counter": {
+      "count": "{used} de {limit} caracteres",
+      "over": "{used} de {limit} caracteres: te pasas por {excess}"
+    },
+    "channels": {
+      "title": "Canales",
+      "label": "Canales donde publicar",
+      "loadError": "No se pudieron cargar tus canales. Recarga la página.",
+      "emptyTitle": "Todavía no hay canales conectados",
+      "emptyBody": "Conecta X o LinkedIn para elegir dónde publicar.",
+      "emptyCta": "Ir a Ajustes",
+      "needsReconnect": "Necesita reconectarse",
+      "disconnected": "Desconectado"
+    },
+    "tabs": {
+      "base": "Base",
+      "customizedDot": "Con versión propia",
+      "hasIssues": "Tiene problemas"
+    },
+    "base": {
+      "label": "Texto base",
+      "placeholder": "Escribe lo que quieres contar. Cada red usará este texto salvo que la personalices.",
+      "outcomeLabel": "Resultado en cada red",
+      "ownVersion": "{network}: versión propia",
+      "singleOf": "{used} de {limit}",
+      "pickChannels": "Elige al menos un canal para ver cómo quedará en cada red.",
+      "imagesTitle": "Imágenes"
+    },
+    "channelTab": {
+      "customize": "Personalizar para {network}",
+      "customizedXHint": "Edita cada post del hilo por separado: añade, quita y reordena.",
+      "customizedHint": "Este texto sustituye al texto base en {network}.",
+      "derivedHint": "{network} usa el texto base. Activa la opción para escribir una versión propia."
+    },
+    "thread": {
+      "threadOf": "Hilo de {count} posts",
+      "itemLabel": "Post {number} del hilo",
+      "singleLabel": "Texto del post",
+      "itemPlaceholder": "Escribe este post del hilo…",
+      "singlePlaceholder": "Escribe el post…",
+      "emptyDerived": "Sin texto todavía",
+      "autoSplit": "Auto-dividir",
+      "autoSplitHint": "Parte los posts que superan los {limit} caracteres.",
+      "autoSplitNothing": "Ningún post supera el límite.",
+      "autoSplitDone": "Hilo dividido",
+      "resetFromBase": "Restablecer desde el base",
+      "addItem": "Añadir post al hilo",
+      "moveUp": "Subir el post {number}",
+      "moveDown": "Bajar el post {number}",
+      "remove": "Quitar el post {number}"
+    },
+    "images": {
+      "thumbAlt": "Imagen adjunta",
+      "remove": "Quitar imagen",
+      "uploading": "Subiendo imagen",
+      "addShort": "Imagen",
+      "dropHint": "Arrastra imágenes o haz clic para elegirlas",
+      "none": "Sin imágenes",
+      "limitLine": "hasta {count, plural, one {# imagen} other {# imágenes}} por post, {size} cada una ({types})",
+      "unsupported": "{name}: formato no admitido. Usa JPG, PNG, WebP o GIF.",
+      "tooLarge": "{name} pesa demasiado. El máximo es 15 MB.",
+      "uploadFailed": "No se pudo subir {name}. Inténtalo de nuevo."
+    },
+    "issues": {
+      "NO_CHANNELS": "Elige al menos un canal.",
+      "DUPLICATE_CHANNEL": "Este canal está elegido más de una vez.",
+      "UNKNOWN_CHANNEL": "Este canal ya no existe.",
+      "ITEMS_REQUIRED": "Un canal personalizado necesita al menos un post.",
+      "TOO_MANY_ITEMS": "Esta red publica un solo post: quita los demás.",
+      "EMPTY_ITEM": "Escribe un texto o adjunta una imagen.",
+      "TEXT_TOO_LONG": "El texto tiene {length} caracteres y el límite es {limit}.",
+      "TOO_MANY_IMAGES": "Esta red admite como máximo {max} imágenes por post.",
+      "MEDIA_NOT_FOUND": "No se encontró una de las imágenes. Quítala y súbela otra vez.",
+      "UNSUPPORTED_MEDIA_TYPE": "Esta red no admite el formato {mime}.",
+      "MEDIA_TOO_LARGE": "Una imagen pesa más de {max}, el máximo de esta red.",
+      "CHANNEL_DISCONNECTED": "Este canal está desconectado. Reconéctalo o quítalo del post."
+    },
+    "summary": {
+      "title": "Resumen",
+      "noChannels": "Elige canales y escribe algo para ver el resumen.",
+      "singlePost": "Post único",
+      "characters": "{count, plural, one {# carácter} other {# caracteres}}",
+      "customized": "versión propia",
+      "problems": "{count, plural, one {# problema} other {# problemas}}",
+      "ready": "Listo",
+      "fixBeforeSaving": "{count, plural, one {Corrige este problema antes de guardar} other {Corrige estos # problemas antes de guardar}}",
+      "moreProblems": "y {count} más",
+      "save": {
+        "unsaved": "Sin guardar todavía.",
+        "saved": "Todos los cambios están guardados.",
+        "dirty": "Tienes cambios sin guardar."
+      }
+    },
+    "actions": {
+      "saveDraft": "Guardar borrador",
+      "saving": "Guardando…",
+      "schedule": "Programar",
+      "queue": "Añadir a la cola",
+      "publishNow": "Publicar ahora",
+      "soon": "Próximamente"
+    },
+    "save": {
+      "blocked": "Corrige {count, plural, one {el problema marcado} other {los # problemas marcados}} antes de guardar.",
+      "created": "Borrador guardado",
+      "updated": "Cambios guardados",
+      "rejected": "El servidor rechazó el post. Revisa los campos marcados.",
+      "notEditable": "Este post ya no se puede editar.",
+      "gone": "Este post ya no existe.",
+      "failed": "No se pudo guardar. Inténtalo de nuevo."
+    },
+    "conflict": {
+      "title": "Este post cambió mientras lo editabas",
+      "body": "Hay una versión más reciente guardada en el servidor. Recárgala para continuar desde ahí; perderás los cambios que no hayas guardado. También puedes seguir editando y copiar lo que necesites.",
+      "keep": "Seguir editando",
+      "reload": "Cargar la versión nueva"
+    },
+    "edit": {
+      "notFoundTitle": "No encontramos este post",
+      "notFoundBody": "Puede que se haya eliminado. Vuelve al calendario para ver tus posts.",
+      "errorTitle": "No se pudo cargar el post",
+      "errorBody": "Revisa la conexión e inténtalo de nuevo.",
+      "lockedTitle": "Este post ya no se puede editar",
+      "lockedBody": "Los posts publicados, fallidos o perdidos solo se pueden consultar.",
+      "publishingBody": "Se está publicando ahora mismo. Podrás consultarlo cuando termine.",
+      "backToCalendar": "Volver al calendario"
+    }
+  },
+  "Calendar": {
+    "title": "Calendario",
+    "prev": "Periodo anterior",
+    "next": "Periodo siguiente",
+    "today": "Hoy",
+    "viewLabel": "Vista del calendario",
+    "views": {
+      "timeGridDay": "Día",
+      "timeGridWeek": "Semana",
+      "dayGridMonth": "Mes"
+    },
+    "needsAttention": "Necesita atención",
+    "noText": "Sin texto",
+    "loadError": "No se pudieron cargar los posts. Se reintentará en unos segundos.",
+    "intendedTime": "Hora prevista: {when}",
+    "drop": {
+      "moved": "Post reprogramado",
+      "undo": "Deshacer",
+      "undone": "Se restauró la hora original",
+      "undoFailed": "No se pudo deshacer el cambio",
+      "past": "No puedes programar un post en el pasado.",
+      "conflict": "El post cambió mientras lo movías. Se recargó el calendario.",
+      "failed": "No se pudo reprogramar el post."
+    },
+    "click": {
+      "past": "Elige un horario futuro para programar."
+    },
+    "drafts": {
+      "title": "Borradores",
+      "empty": "No tienes borradores recientes.",
+      "error": "No se pudieron cargar los borradores.",
+      "noText": "Sin texto"
+    }
+  }
+}

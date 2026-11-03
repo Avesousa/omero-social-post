@@ -1,0 +1,28 @@
+# gitleaks configuration for omero-social-post.
+# Used by the lefthook pre-commit hook and by the `gitleaks` job in CI.
+# Requires gitleaks >= 8.25 (multiple `[[allowlists]]` with `condition`).
+
+title = "omero-social-post gitleaks config"
+
+[extend]
+# Start from the full default rule set shipped with gitleaks and only add allowlists on top.
+useDefault = true
+
+# Placeholder values in `.env.example` files. Only lines that clearly carry a placeholder are
+# allowed, and only inside `.env.example`, so a real value pasted there is still caught.
+[[allowlists]]
+description = "Placeholder values in .env.example files"
+condition = "AND"
+paths = ['''(^|/)\.env\.example$''']
+regexTarget = "line"
+regexes = [
+  '''(?i)change[-_]?me''',
+  '''(?i)replace[-_]?me''',
+  '''<[A-Za-z0-9_.:/-]+>''',
+  '''\$\{[A-Z0-9_]+\}''',
+]
+
+# SDD specs and plans under AiBuild/ describe configuration with example values, never real ones.
+[[allowlists]]
+description = "Spec Driven Development documents"
+paths = ['''^AiBuild/''']

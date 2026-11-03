@@ -1,0 +1,55 @@
+# Local development services: `pnpm infra:up` / `pnpm infra:down` from the repo root.
+# Only Postgres and Redis run here; the API and web run on the host (`pnpm dev`).
+# Ports are published on 127.0.0.1 only. Credentials are dev-only placeholders that
+# match apps/api/.env.example; production uses infra/docker-compose.yml + real secrets.
+name: omero-dev
+
+services:
+  postgres:
+    image: postgres:17
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: omero
+      POSTGRES_PASSWORD: omero
+      POSTGRES_DB: omero
+    # Sized for the 1 vCPU / 4 GB target (~300 MB budget).
+    command: ['postgres', '-c', 'shared_buffers=256MB']
+    ports:
+      - '127.0.0.1:5432:5432'
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      # Creates the `omero_test` database used by the API test suite.
+      - ./postgres/init-test-db.sql:/docker-entrypoint-initdb.d/10-init-test-db.sql:ro
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U omero -d omero']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+  redis:
+    image: redis:8
+    restart: unless-stopped
+    # AOF keeps delayed BullMQ jobs across restarts; BullMQ requires noeviction.
+    command:
+      - redis-server
+      - --appendonly
+      - 'yes'
+      - --maxmemory
+      - 128mb
+      - --maxmemory-policy
+      - noeviction
+    ports:
+      - '127.0.0.1:6379:6379'
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 5s
+
+volumes:
+  postgres-data:
+  redis-data:

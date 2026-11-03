@@ -1,0 +1,88 @@
+name: Release images
+
+# Builds the production images and pushes them to GHCR. The VPS only pulls them
+# (see infra/README.md); nothing is built on the 1 vCPU server.
+#
+#   push to main  -> :latest, :main, :sha-<short>
+#   tag v1.2.3    -> :1.2.3, :1.2, :1, :sha-<short>
+#   manual run    -> :<branch>, :sha-<short>
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  REGISTRY: ghcr.io
+  # GHCR image names must be lowercase.
+  IMAGE_PREFIX: ghcr.io/avesousa/omero-social-post
+
+jobs:
+  image:
+    name: Build and push ${{ matrix.app }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        app:
+          - api
+          - web
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v4
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Image metadata
+        id: meta
+        uses: docker/metadata-action@v6
+        with:
+          images: ${{ env.IMAGE_PREFIX }}-${{ matrix.app }}
+          tags: |
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=ref,event=branch
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}},enable=${{ !startsWith(github.ref, 'refs/tags/v0.') }}
+            type=sha,prefix=sha-,format=short
+          labels: |
+            org.opencontainers.image.title=omero-social-post-${{ matrix.app }}
+            org.opencontainers.image.licenses=AGPL-3.0-only
+
+      - name: Build and push
+        uses: docker/build-push-action@v7
+        with:
+          # Both Dockerfiles build from the repo root (pnpm workspace + lockfile).
+          context: .
+          file: apps/${{ matrix.app }}/Dockerfile
+          # The target VPS is amd64. Add linux/arm64 (plus docker/setup-qemu-action) if needed.
+          platforms: linux/amd64
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          # The web image bakes the /api/* rewrite target in at build time (compose service name).
+          build-args: |
+            API_INTERNAL_URL=http://api:4000
+          cache-from: type=gha,scope=${{ matrix.app }}
+          cache-to: type=gha,scope=${{ matrix.app }},mode=max
+          provenance: true

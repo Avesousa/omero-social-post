@@ -1,0 +1,92 @@
+/* FullCalendar skin: maps its CSS variables onto the omero design tokens (light and dark). */
+.omero-calendar {
+  --fc-border-color: var(--border);
+  --fc-page-bg-color: var(--card);
+  --fc-neutral-bg-color: var(--muted);
+  --fc-today-bg-color: color-mix(in oklab, var(--primary) 8%, transparent);
+  --fc-now-indicator-color: var(--berry);
+  --fc-event-bg-color: transparent;
+  --fc-event-border-color: transparent;
+  --fc-small-font-size: 0.75rem;
+  font-family: var(--font-sans);
+}
+.omero-calendar .fc-theme-standard td,
+.omero-calendar .fc-theme-standard th,
+.omero-calendar .fc-theme-standard .fc-scrollgrid {
+  border-color: var(--border);
+}
+.omero-calendar .fc-col-header-cell {
+  padding: 0.5rem 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  background: var(--muted);
+}
+.omero-calendar .fc-timegrid-slot-label,
+.omero-calendar .fc-timegrid-axis {
+  font-size: 0.7rem;
+  color: var(--muted-foreground);
+}
+.omero-calendar .fc-timegrid-slot {
+  height: 2.75rem;
+}
+.omero-calendar .fc-daygrid-day-number {
+  padding: 0.35rem 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.omero-calendar .fc-day-today .fc-daygrid-day-number {
+  margin: 0.25rem;
+  padding: 0.1rem 0.45rem;
+  border-radius: 9999px;
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+.omero-calendar .fc-day-other .fc-daygrid-day-top {
+  opacity: 0.45;
+}
+.omero-calendar .fc-event {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  margin: 1px 2px;
+}
+.omero-calendar .fc-event-dragging .omero-event {
+  box-shadow: var(--elevation-lg);
+}
+.omero-calendar .fc-event-draggable {
+  cursor: grab;
+}
+.omero-calendar .fc-more-link {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+.omero-calendar .fc-timegrid-now-indicator-arrow {
+  border-color: var(--berry);
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+}
+.omero-calendar .fc-popover {
+  background: var(--popover);
+  border-color: var(--border);
+  box-shadow: var(--elevation-md);
+  border-radius: var(--radius-lg);
+}
+.omero-calendar .fc-popover-header {
+  background: var(--muted);
+  color: var(--foreground);
+}
+.omero-calendar .fc-scrollgrid {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.omero-event {
+  border-left: 3px solid var(--tone);
+  background: color-mix(in oklab, var(--tone) 14%, var(--card));
+  color: var(--foreground);
+  border-radius: 6px;
+  overflow: hidden;
+}

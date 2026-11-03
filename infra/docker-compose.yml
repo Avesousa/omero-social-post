@@ -1,0 +1,133 @@
+# Production stack for a small VPS (1 vCPU / 4 GB). See infra/README.md.
+#
+#     cd /opt/omero
+#     docker compose pull && docker compose up -d
+#
+# Images are built by .github/workflows/release.yml and pulled from GHCR; the VPS never builds.
+# Configuration lives in `.env` next to this file (copy of infra/.env.example). Compose reads it
+# both as the api's environment (env_file) and for ${...} interpolation below.
+#
+# Exposure: only `web` publishes a port, and only on 127.0.0.1. `tailscale serve` terminates
+# HTTPS on the tailnet and forwards to it. Postgres, Redis and the API are reachable only on
+# the internal compose network.
+name: omero
+
+x-logging: &logging
+  driver: json-file
+  options:
+    max-size: 10m
+    max-file: '3'
+
+services:
+  postgres:
+    image: postgres:17
+    restart: unless-stopped
+    # Only the variables the image needs; the app secrets in .env stay out of this container.
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:?set POSTGRES_USER in .env}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+      POSTGRES_DB: ${POSTGRES_DB:?set POSTGRES_DB in .env}
+    command: ['postgres', '-c', 'shared_buffers=256MB']
+    # The default 64 MB /dev/shm is too small for parallel queries with this buffer size.
+    shm_size: 256mb
+    mem_limit: 512m
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U "$${POSTGRES_USER}" -d "$${POSTGRES_DB}"']
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+    logging: *logging
+
+  redis:
+    image: redis:8
+    restart: unless-stopped
+    # AOF keeps delayed BullMQ jobs across restarts; BullMQ requires noeviction.
+    command:
+      - redis-server
+      - --appendonly
+      - 'yes'
+      - --maxmemory
+      - 128mb
+      - --maxmemory-policy
+      - noeviction
+    mem_limit: 192m
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 10s
+      timeout: 3s
+      retries: 10
+      start_period: 5s
+    logging: *logging
+
+  api:
+    image: ghcr.io/avesousa/omero-social-post-api:${OMERO_VERSION:-latest}
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      # Fixed by the image layout; not meant to be changed from .env.
+      HOST: 0.0.0.0
+      PORT: 4000
+      MEDIA_DIR: /data/media
+      NODE_OPTIONS: --max-old-space-size=512
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    mem_limit: 640m
+    volumes:
+      - media-data:/data/media
+    # No `ports`: the web container reaches it as http://api:4000 on the compose network.
+    healthcheck:
+      test:
+        [
+          'CMD',
+          'node',
+          '-e',
+          "fetch('http://127.0.0.1:4000/api/v1/health').then(r=>process.exit(r.ok?0:1),()=>process.exit(1))",
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 60s
+    logging: *logging
+
+  web:
+    # The /api/* rewrite to http://api:4000 is baked into this image at build time.
+    image: ghcr.io/avesousa/omero-social-post-web:${OMERO_VERSION:-latest}
+    restart: unless-stopped
+    # No env_file: the web server needs no secrets.
+    environment:
+      HOSTNAME: 0.0.0.0
+      PORT: 3000
+      NODE_OPTIONS: --max-old-space-size=384
+    depends_on:
+      api:
+        condition: service_healthy
+    mem_limit: 512m
+    ports:
+      # Loopback only: `tailscale serve --bg --https=443 http://127.0.0.1:3000` publishes it on the tailnet.
+      - '127.0.0.1:3000:3000'
+    healthcheck:
+      test:
+        [
+          'CMD',
+          'node',
+          '-e',
+          "fetch('http://127.0.0.1:3000/',{redirect:'manual'}).then(r=>process.exit(r.status<500?0:1),()=>process.exit(1))",
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+    logging: *logging
+
+volumes:
+  postgres-data:
+  redis-data:
+  media-data:

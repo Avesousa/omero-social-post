@@ -1,0 +1,76 @@
+# Dependabot version updates.
+# Minor and patch updates are grouped into one weekly PR per ecosystem; major updates arrive as
+# individual PRs so they can be reviewed on their own.
+version: 2
+
+updates:
+  # JavaScript dependencies of the whole pnpm workspace (root pnpm-lock.yaml).
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: '06:00'
+      timezone: America/Argentina/Buenos_Aires
+    open-pull-requests-limit: 10
+    commit-message:
+      prefix: chore(deps)
+    groups:
+      npm-minor-and-patch:
+        update-types:
+          - minor
+          - patch
+
+  # Actions used in .github/workflows.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: '06:00'
+      timezone: America/Argentina/Buenos_Aires
+    commit-message:
+      prefix: ci(deps)
+    groups:
+      actions-minor-and-patch:
+        update-types:
+          - minor
+          - patch
+
+  # Base images of the app Dockerfiles (apps/api, apps/web).
+  - package-ecosystem: docker
+    directories:
+      - /apps/*
+    schedule:
+      interval: weekly
+      day: monday
+      time: '06:00'
+      timezone: America/Argentina/Buenos_Aires
+    commit-message:
+      prefix: chore(deps)
+    groups:
+      docker-minor-and-patch:
+        update-types:
+          - minor
+          - patch
+
+  # Images referenced by the Compose files in infra/ (postgres, redis, app images).
+  - package-ecosystem: docker-compose
+    directory: /infra
+    schedule:
+      interval: weekly
+      day: monday
+      time: '06:00'
+      timezone: America/Argentina/Buenos_Aires
+    commit-message:
+      prefix: chore(deps)
+    groups:
+      compose-minor-and-patch:
+        update-types:
+          - minor
+          - patch
+    ignore:
+      # A Postgres major upgrade needs a dump/restore of the data volume; do it by hand.
+      - dependency-name: postgres
+        update-types:
+          - version-update:semver-major
