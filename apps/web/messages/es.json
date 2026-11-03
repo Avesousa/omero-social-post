@@ -403,5 +403,39 @@
       "publishingBody": "Se está publicando ahora mismo. Podrás consultarlo cuando termine.",
       "backToCalendar": "Volver al calendario"
     }
+  },
+  "Calendar": {
+    "title": "Calendario",
+    "prev": "Periodo anterior",
+    "next": "Periodo siguiente",
+    "today": "Hoy",
+    "viewLabel": "Vista del calendario",
+    "views": {
+      "timeGridDay": "Día",
+      "timeGridWeek": "Semana",
+      "dayGridMonth": "Mes"
+    },
+    "needsAttention": "Necesita atención",
+    "noText": "Sin texto",
+    "loadError": "No se pudieron cargar los posts. Se reintentará en unos segundos.",
+    "intendedTime": "Hora prevista: {when}",
+    "drop": {
+      "moved": "Post reprogramado",
+      "undo": "Deshacer",
+      "undone": "Se restauró la hora original",
+      "undoFailed": "No se pudo deshacer el cambio",
+      "past": "No puedes programar un post en el pasado.",
+      "conflict": "El post cambió mientras lo movías. Se recargó el calendario.",
+      "failed": "No se pudo reprogramar el post."
+    },
+    "click": {
+      "past": "Elige un horario futuro para programar."
+    },
+    "drafts": {
+      "title": "Borradores",
+      "empty": "No tienes borradores recientes.",
+      "error": "No se pudieron cargar los borradores.",
+      "noText": "Sin texto"
+    }
   }
 }

@@ -403,5 +403,39 @@
       "publishingBody": "It is being published right now. You can view it when it finishes.",
       "backToCalendar": "Back to the calendar"
     }
+  },
+  "Calendar": {
+    "title": "Calendar",
+    "prev": "Previous period",
+    "next": "Next period",
+    "today": "Today",
+    "viewLabel": "Calendar view",
+    "views": {
+      "timeGridDay": "Day",
+      "timeGridWeek": "Week",
+      "dayGridMonth": "Month"
+    },
+    "needsAttention": "Needs attention",
+    "noText": "No text",
+    "loadError": "Could not load posts. It will retry in a few seconds.",
+    "intendedTime": "Planned time: {when}",
+    "drop": {
+      "moved": "Post rescheduled",
+      "undo": "Undo",
+      "undone": "Original time restored",
+      "undoFailed": "Could not undo the change",
+      "past": "You can't schedule a post in the past.",
+      "conflict": "The post changed while you were moving it. The calendar was reloaded.",
+      "failed": "Could not reschedule the post."
+    },
+    "click": {
+      "past": "Pick a future time to schedule."
+    },
+    "drafts": {
+      "title": "Drafts",
+      "empty": "You have no recent drafts.",
+      "error": "Could not load drafts.",
+      "noText": "No text"
+    }
   }
 }

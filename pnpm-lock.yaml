@@ -186,6 +186,24 @@ importers:
       '@fontsource-variable/figtree':
         specifier: 5.3.0
         version: 5.3.0
+      '@fullcalendar/core':
+        specifier: 6.1.22
+        version: 6.1.22
+      '@fullcalendar/daygrid':
+        specifier: 6.1.22
+        version: 6.1.22(@fullcalendar/core@6.1.22)
+      '@fullcalendar/interaction':
+        specifier: 6.1.22
+        version: 6.1.22(@fullcalendar/core@6.1.22)
+      '@fullcalendar/luxon3':
+        specifier: 6.1.22
+        version: 6.1.22(@fullcalendar/core@6.1.22)(luxon@3.7.2)
+      '@fullcalendar/react':
+        specifier: 6.1.22
+        version: 6.1.22(@fullcalendar/core@6.1.22)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+      '@fullcalendar/timegrid':
+        specifier: 6.1.22
+        version: 6.1.22(@fullcalendar/core@6.1.22)
       '@omero/api-client':
         specifier: workspace:*
         version: link:../../packages/api-client
@@ -204,6 +222,9 @@ importers:
       lucide-react:
         specifier: 1.63.0
         version: 1.63.0(@types/react@19.3.0)(react@19.3.1)
+      luxon:
+        specifier: 3.7.2
+        version: 3.7.2
       next:
         specifier: 16.4.3
         version: 16.4.3(@babel/core@7.29.7)(@types/node@22.20.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
@@ -238,6 +259,9 @@ importers:
       '@tailwindcss/postcss':
         specifier: 4.3.3
         version: 4.3.3
+      '@types/luxon':
+        specifier: 3.7.6
+        version: 3.7.6
       '@types/node':
         specifier: ^22.20.5
         version: 22.20.5
@@ -1192,6 +1216,37 @@ packages:
 
   '@formatjs/intl-localematcher@0.8.14':
     resolution: {integrity: sha512-8O7V38QmbB11+ryJ3KM/znrzXtiqgpXzqNoqDsndHZZ5/zDKTTL+cf5F0mzXkQEwhx8IlWnqYvEovf2S5EwLTw==}
+
+  '@fullcalendar/core@6.1.22':
+    resolution: {integrity: sha512-ju5PJUE++zr8XXCGtlXlrodF6doUy9BDfzx+VmE0B+XDBM2A5cUi/aU3M1ANfw/StmKhwqew7Ps7bXMiv/JREg==}
+
+  '@fullcalendar/daygrid@6.1.22':
+    resolution: {integrity: sha512-cpom5+bAvsGG5nX+snsCtpMIyyhAr+QlseD9mhz5Vq7rMBTzx43mSkz6IBvQ3vz5h2idbDmT1cggEn/dzZwt9Q==}
+    peerDependencies:
+      '@fullcalendar/core': ~6.1.22
+
+  '@fullcalendar/interaction@6.1.22':
+    resolution: {integrity: sha512-r8Njw8aPNFGRwDjVAh9NTh3ZJib5tcUoLi/BM4uYJt5Cs9tDiirmImaqxhx56hclVFX7ktd5CdaMX0+ArSbm5A==}
+    peerDependencies:
+      '@fullcalendar/core': ~6.1.22
+
+  '@fullcalendar/luxon3@6.1.22':
+    resolution: {integrity: sha512-or43T5SQAzb3d8U6Th6Q3vclas8rGEYSsJsUohC+jySJyJuqCLcqgW+NnbrSYIYXx3MUUk32h8au+BEjfjuo1A==}
+    peerDependencies:
+      '@fullcalendar/core': ~6.1.22
+      luxon: ^3.0.0
+
+  '@fullcalendar/react@6.1.22':
+    resolution: {integrity: sha512-H7woM4nhvXjyM4Up2D3iSp5f8o3pRPGkiHRixvxxvIMdSMBxboGTqCI7T/vjnAfz5TCxXdeX5HxmSHeANsa6gg==}
+    peerDependencies:
+      '@fullcalendar/core': ~6.1.22
+      react: ^16.7.0 || ^17 || ^18 || ^19
+      react-dom: ^16.7.0 || ^17 || ^18 || ^19
+
+  '@fullcalendar/timegrid@6.1.22':
+    resolution: {integrity: sha512-gNMtkXrkfN3iszXty+pYbJwGxcozL0xBVKYmEd1lm0DMEbrffpVJyV+vifmtl/eIbWCNRWrMWUtGLbYy/ukykA==}
+    peerDependencies:
+      '@fullcalendar/core': ~6.1.22
 
   '@grpc/grpc-js@1.14.6':
     resolution: {integrity: sha512-SgC/B3/VZ8lTyOZ4Cwk6f1skWhmkNAaVfiX90qd5u1rRXGKk1//8FTUEN9GvOUq7rfWIqAYkA3CoyumYVpOS6g==}
@@ -3441,6 +3496,9 @@ packages:
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
 
+  '@types/luxon@3.7.6':
+    resolution: {integrity: sha512-6KSjliQAXK8ZLgFQO4B7iE4Rpf/B3rItzCFuXezBY/XIAGxOdLd7vRNK9/StRPwiS/yJsVbB7HKpW46B8tcEuQ==}
+
   '@types/methods@1.1.4':
     resolution: {integrity: sha512-ymXWVrDiCxTBE3+RIrrP533E70eA+9qu7zdWoHuOmGujkYtzf4HQF96b8nwHLqhuf4ykX61IGRIB38CC6/sImQ==}
 
@@ -5642,6 +5700,9 @@ packages:
     resolution: {integrity: sha512-9ZhXKM/rw350N1ovuWHbGxnGh/SNJ4cnxHiM0rxE4VN41wsg8P8zWn9hv/buK00RP4WvlOyr/RBDiptyxVbkZQ==}
     engines: {node: '>=0.10.0'}
 
+  preact@10.12.1:
+    resolution: {integrity: sha512-l8386ixSsBdbreOAkqtrwqHwdvR35ID8c3rKPa8lCWuO86dBi32QWHV4vfsZK1utLLFMvw+Z5Ad4XLkZzchscg==}
+
   prelude-ls@1.2.1:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
@@ -7313,6 +7374,34 @@ snapshots:
   '@formatjs/intl-localematcher@0.8.14':
     dependencies:
       '@formatjs/fast-memoize': 3.1.7
+
+  '@fullcalendar/core@6.1.22':
+    dependencies:
+      preact: 10.12.1
+
+  '@fullcalendar/daygrid@6.1.22(@fullcalendar/core@6.1.22)':
+    dependencies:
+      '@fullcalendar/core': 6.1.22
+
+  '@fullcalendar/interaction@6.1.22(@fullcalendar/core@6.1.22)':
+    dependencies:
+      '@fullcalendar/core': 6.1.22
+
+  '@fullcalendar/luxon3@6.1.22(@fullcalendar/core@6.1.22)(luxon@3.7.2)':
+    dependencies:
+      '@fullcalendar/core': 6.1.22
+      luxon: 3.7.2
+
+  '@fullcalendar/react@6.1.22(@fullcalendar/core@6.1.22)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)':
+    dependencies:
+      '@fullcalendar/core': 6.1.22
+      react: 19.3.1
+      react-dom: 19.3.1(react@19.3.1)
+
+  '@fullcalendar/timegrid@6.1.22(@fullcalendar/core@6.1.22)':
+    dependencies:
+      '@fullcalendar/core': 6.1.22
+      '@fullcalendar/daygrid': 6.1.22(@fullcalendar/core@6.1.22)
 
   '@grpc/grpc-js@1.14.6':
     dependencies:
@@ -9382,6 +9471,8 @@ snapshots:
   '@types/http-errors@2.0.5': {}
 
   '@types/json-schema@7.0.15': {}
+
+  '@types/luxon@3.7.6': {}
 
   '@types/methods@1.1.4': {}
 
@@ -11632,6 +11723,8 @@ snapshots:
   postgres-interval@1.2.0:
     dependencies:
       xtend: 4.0.2
+
+  preact@10.12.1: {}
 
   prelude-ls@1.2.1: {}
 
