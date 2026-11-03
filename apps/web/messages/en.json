@@ -250,6 +250,156 @@
       "logoutFailed": "Could not sign out. Try again."
     }
   },
+  "Settings": {
+    "nav": {
+      "label": "Settings sections",
+      "channels": "Channels",
+      "queue": "Queue",
+      "general": "General"
+    },
+    "channels": {
+      "title": "Channels",
+      "description": "Connect the accounts you publish to. We use each network's official access, and you can revoke it whenever you want.",
+      "loadError": "Couldn't load your channels.",
+      "retry": "Try again",
+      "empty": {
+        "title": "Connect your first network",
+        "body": "You don't have any connected account yet. Connect X or LinkedIn and start writing and scheduling your posts from one place."
+      },
+      "status": {
+        "connected": "Connected",
+        "needs_reconnect": "Needs reconnecting",
+        "disconnected": "Disconnected",
+        "notConnected": "Not connected"
+      },
+      "card": {
+        "avatarAlt": "Profile picture of {name}",
+        "notConnectedBody": "Connect your {network} account to write, schedule and publish from omero.",
+        "disconnectedBody": "You disconnected this account. Connect it again to publish to it.",
+        "needsReconnectBody": "This account needs to be authorized again. Until then we can't publish to it.",
+        "connect": "Connect",
+        "reconnect": "Reconnect",
+        "redirecting": "Redirecting…",
+        "connectAria": "Connect {network}",
+        "reconnectAria": "Reconnect {handle}",
+        "disconnect": "Disconnect",
+        "disconnectAria": "Disconnect {handle}"
+      },
+      "expiry": {
+        "linkedin": "Reconnect before {date}",
+        "daysLeft": "{days, plural, one {# day left} other {# days left}}",
+        "autoRenew": "Access renews automatically."
+      },
+      "notConfigured": {
+        "title": "{network} isn't configured",
+        "body": "Set these environment variables on the server and restart the API:",
+        "docs": "Read the self-hosting guide"
+      },
+      "longPosts": {
+        "label": "Long posts (X Premium)",
+        "description": "Lets each X post go past 280 characters. Turn it on only if your account has X Premium.",
+        "saveError": "Couldn't save the setting. Try again."
+      },
+      "disconnectDialog": {
+        "title": "Disconnect {handle}?",
+        "body": "We'll delete the access tokens and won't be able to publish to this account anymore.",
+        "scheduledNote": "Posts scheduled for this channel will be flagged for you to review and won't be published. Your history is kept.",
+        "confirm": "Yes, disconnect",
+        "done": "Channel disconnected.",
+        "error": "Couldn't disconnect the channel. Try again."
+      },
+      "connectResult": {
+        "connected": "{network} connected successfully.",
+        "errorTitle": "Couldn't connect the channel",
+        "errors": {
+          "access_denied": "You canceled the authorization, so we didn't connect the account. You can try again whenever you want.",
+          "provider_error": "The network returned an error while authorizing. Try again in a few minutes.",
+          "state_invalid": "The connection request expired or was already used. Start the connection again.",
+          "state_mismatch": "The connection request doesn't belong to this session. Start the connection again.",
+          "missing_code": "The network didn't send us the authorization code. Try again.",
+          "exchange_failed": "We couldn't complete the authorization with the network. Check the app credentials and try again.",
+          "profile_failed": "The account was authorized, but we couldn't read its profile. Try again.",
+          "not_configured": "That network has no credentials configured on the server.",
+          "unknown": "Something went wrong while connecting the account. Try again."
+        }
+      }
+    },
+    "queue": {
+      "title": "Publishing queue",
+      "description": "Set the weekly times used by “Add to queue”: each post takes the first free slot from now on.",
+      "loadError": "Couldn't load the queue.",
+      "preset": "Mon–Fri 09:00 and 18:00",
+      "presetHint": "Replaces every time in the week.",
+      "weekdays": {
+        "monday": "Monday",
+        "tuesday": "Tuesday",
+        "wednesday": "Wednesday",
+        "thursday": "Thursday",
+        "friday": "Friday",
+        "saturday": "Saturday",
+        "sunday": "Sunday"
+      },
+      "slotCount": "{count, plural, =0 {No times} one {# time} other {# times}}",
+      "noSlotsDay": "No times this day",
+      "addTime": "Add time",
+      "addTimeAria": "Add a time on {day}",
+      "timeLabel": "Slot time",
+      "confirmAdd": "Add",
+      "cancelAdd": "Cancel",
+      "duplicate": "There is already a slot at {time} that day.",
+      "invalidTime": "Enter a valid time.",
+      "slotAria": "{day} at {time}",
+      "enableSlot": "Slot enabled: {day} at {time}",
+      "removeSlot": "Remove the {time} slot on {day}",
+      "empty": {
+        "title": "You don't have any slots yet",
+        "body": "Without slots, “Add to queue” has nowhere to put your posts. Start with the preset and tweak it to your liking."
+      },
+      "unsaved": "You have unsaved changes",
+      "discard": "Discard",
+      "save": "Save queue",
+      "saving": "Saving…",
+      "saved": "Queue saved.",
+      "saveError": "Couldn't save the queue. Try again.",
+      "errorsTitle": "Check the times",
+      "preview": {
+        "label": "Next free slot",
+        "none": "There are no free slots in the next 30 days.",
+        "noSlots": "Add times to see the next free slot.",
+        "savedOnly": "Calculated from the saved queue.",
+        "error": "Couldn't work out the next slot."
+      },
+      "timezone": {
+        "label": "Time zone",
+        "change": "Change in General"
+      }
+    },
+    "general": {
+      "title": "General",
+      "description": "The time zone used to show and schedule your posts, and how much leeway late posts get.",
+      "loadError": "Couldn't load your settings.",
+      "timezone": {
+        "label": "Time zone",
+        "help": "The calendar, the queue and the date picker use this zone. Posts are stored in UTC, so changing it doesn't move anything already scheduled.",
+        "search": "Search a zone (for example, Buenos Aires)",
+        "noResults": "No zones match.",
+        "useBrowser": "Use the browser's",
+        "browserIs": "Your browser uses {timezone}.",
+        "nowIn": "It's {time} there right now.",
+        "listLabel": "Time zones"
+      },
+      "grace": {
+        "label": "Leeway for late posts",
+        "unit": "hours",
+        "help": "If the server was down and a post ran late, we publish it when it comes back as long as less time than this has passed. If more has passed, it's marked as “missed” and we notify you. Between 1 and 48 hours.",
+        "invalid": "Enter a whole number of hours between 1 and 48."
+      },
+      "save": "Save changes",
+      "saving": "Saving…",
+      "saved": "Settings saved.",
+      "saveError": "Couldn't save the settings. Try again."
+    }
+  },
   "Notifications": {
     "trigger": "Notifications",
     "triggerWithCount": "Notifications, {count} unread",

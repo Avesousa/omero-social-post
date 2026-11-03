@@ -250,6 +250,156 @@
       "logoutFailed": "No se pudo cerrar la sesión. Inténtalo de nuevo."
     }
   },
+  "Settings": {
+    "nav": {
+      "label": "Secciones de ajustes",
+      "channels": "Canales",
+      "queue": "Cola",
+      "general": "General"
+    },
+    "channels": {
+      "title": "Canales",
+      "description": "Conecta las cuentas donde vas a publicar. Usamos el acceso oficial de cada red y puedes revocarlo cuando quieras.",
+      "loadError": "No se pudieron cargar los canales.",
+      "retry": "Reintentar",
+      "empty": {
+        "title": "Conecta tu primera red",
+        "body": "Todavía no tienes ninguna cuenta conectada. Conecta X o LinkedIn y empieza a escribir y programar tus posts desde un solo lugar."
+      },
+      "status": {
+        "connected": "Conectado",
+        "needs_reconnect": "Necesita reconexión",
+        "disconnected": "Desconectado",
+        "notConnected": "Sin conectar"
+      },
+      "card": {
+        "avatarAlt": "Foto de perfil de {name}",
+        "notConnectedBody": "Conecta tu cuenta de {network} para escribir, programar y publicar desde omero.",
+        "disconnectedBody": "Desconectaste esta cuenta. Conéctala de nuevo para volver a publicar en ella.",
+        "needsReconnectBody": "Esta cuenta necesita volver a autorizarse. Mientras tanto no podremos publicar en ella.",
+        "connect": "Conectar",
+        "reconnect": "Reconectar",
+        "redirecting": "Redirigiendo…",
+        "connectAria": "Conectar {network}",
+        "reconnectAria": "Reconectar {handle}",
+        "disconnect": "Desconectar",
+        "disconnectAria": "Desconectar {handle}"
+      },
+      "expiry": {
+        "linkedin": "Reconectar antes del {date}",
+        "daysLeft": "{days, plural, one {Queda # día} other {Quedan # días}}",
+        "autoRenew": "El acceso se renueva automáticamente."
+      },
+      "notConfigured": {
+        "title": "Falta configurar {network}",
+        "body": "Define estas variables de entorno en el servidor y reinicia la API:",
+        "docs": "Ver la guía de self-hosting"
+      },
+      "longPosts": {
+        "label": "Posts largos (X Premium)",
+        "description": "Permite superar los 280 caracteres en cada post de X. Actívalo solo si tu cuenta tiene X Premium.",
+        "saveError": "No se pudo guardar el ajuste. Inténtalo de nuevo."
+      },
+      "disconnectDialog": {
+        "title": "¿Desconectar {handle}?",
+        "body": "Borraremos los tokens de acceso y dejaremos de poder publicar en esta cuenta.",
+        "scheduledNote": "Los posts programados para este canal quedarán marcados para que los revises y no se publicarán. Tu historial se conserva.",
+        "confirm": "Sí, desconectar",
+        "done": "Canal desconectado.",
+        "error": "No se pudo desconectar el canal. Inténtalo de nuevo."
+      },
+      "connectResult": {
+        "connected": "{network} conectado correctamente.",
+        "errorTitle": "No se pudo conectar el canal",
+        "errors": {
+          "access_denied": "Cancelaste la autorización, así que no conectamos la cuenta. Puedes intentarlo de nuevo cuando quieras.",
+          "provider_error": "La red devolvió un error al autorizar. Inténtalo de nuevo en unos minutos.",
+          "state_invalid": "La solicitud de conexión caducó o ya se usó. Empieza la conexión de nuevo.",
+          "state_mismatch": "La solicitud de conexión no corresponde a esta sesión. Empieza la conexión de nuevo.",
+          "missing_code": "La red no nos envió el código de autorización. Inténtalo de nuevo.",
+          "exchange_failed": "No pudimos completar la autorización con la red. Revisa las credenciales de la app y vuelve a intentarlo.",
+          "profile_failed": "La cuenta se autorizó, pero no pudimos leer su perfil. Inténtalo de nuevo.",
+          "not_configured": "Esa red no tiene credenciales configuradas en el servidor.",
+          "unknown": "Algo salió mal al conectar la cuenta. Inténtalo de nuevo."
+        }
+      }
+    },
+    "queue": {
+      "title": "Cola de publicación",
+      "description": "Define los horarios semanales para “Añadir a la cola”: cada post toma el primer hueco libre a partir de ahora.",
+      "loadError": "No se pudo cargar la cola.",
+      "preset": "Lun–Vie 09:00 y 18:00",
+      "presetHint": "Reemplaza todos los horarios de la semana.",
+      "weekdays": {
+        "monday": "Lunes",
+        "tuesday": "Martes",
+        "wednesday": "Miércoles",
+        "thursday": "Jueves",
+        "friday": "Viernes",
+        "saturday": "Sábado",
+        "sunday": "Domingo"
+      },
+      "slotCount": "{count, plural, =0 {Sin horarios} one {# horario} other {# horarios}}",
+      "noSlotsDay": "Sin horarios este día",
+      "addTime": "Añadir hora",
+      "addTimeAria": "Añadir una hora el {day}",
+      "timeLabel": "Hora del hueco",
+      "confirmAdd": "Añadir",
+      "cancelAdd": "Cancelar",
+      "duplicate": "Ya hay un hueco a las {time} ese día.",
+      "invalidTime": "Escribe una hora válida.",
+      "slotAria": "{day} a las {time}",
+      "enableSlot": "Hueco activo: {day} a las {time}",
+      "removeSlot": "Quitar el hueco de las {time} del {day}",
+      "empty": {
+        "title": "Todavía no tienes huecos",
+        "body": "Sin huecos, “Añadir a la cola” no tiene dónde colocar tus posts. Empieza con el preset y ajústalo a tu gusto."
+      },
+      "unsaved": "Tienes cambios sin guardar",
+      "discard": "Descartar",
+      "save": "Guardar cola",
+      "saving": "Guardando…",
+      "saved": "Cola guardada.",
+      "saveError": "No se pudo guardar la cola. Inténtalo de nuevo.",
+      "errorsTitle": "Revisa los horarios",
+      "preview": {
+        "label": "Próximo hueco libre",
+        "none": "No hay huecos libres en los próximos 30 días.",
+        "noSlots": "Añade horarios para ver cuál es el siguiente hueco libre.",
+        "savedOnly": "Calculado con la cola guardada.",
+        "error": "No se pudo calcular el siguiente hueco."
+      },
+      "timezone": {
+        "label": "Zona horaria",
+        "change": "Cambiar en General"
+      }
+    },
+    "general": {
+      "title": "General",
+      "description": "La zona horaria con la que se muestran y programan tus posts, y cuánto margen damos a los posts atrasados.",
+      "loadError": "No se pudieron cargar los ajustes.",
+      "timezone": {
+        "label": "Zona horaria",
+        "help": "El calendario, la cola y el selector de fecha usan esta zona. Los posts se guardan en UTC, así que cambiarla no mueve nada que ya esté programado.",
+        "search": "Buscar zona (por ejemplo, Buenos Aires)",
+        "noResults": "No hay zonas que coincidan.",
+        "useBrowser": "Usar la del navegador",
+        "browserIs": "Tu navegador usa {timezone}.",
+        "nowIn": "Ahora allí son las {time}.",
+        "listLabel": "Zonas horarias"
+      },
+      "grace": {
+        "label": "Margen para posts atrasados",
+        "unit": "horas",
+        "help": "Si el servidor estuvo apagado y un post quedó atrasado, lo publicamos al volver siempre que haya pasado menos tiempo que este margen. Si pasó más, queda como “perdido” y te avisamos. Entre 1 y 48 horas.",
+        "invalid": "Escribe un número entero de horas entre 1 y 48."
+      },
+      "save": "Guardar cambios",
+      "saving": "Guardando…",
+      "saved": "Ajustes guardados.",
+      "saveError": "No se pudieron guardar los ajustes. Inténtalo de nuevo."
+    }
+  },
   "Notifications": {
     "trigger": "Notificaciones",
     "triggerWithCount": "Notificaciones, {count} sin leer",
