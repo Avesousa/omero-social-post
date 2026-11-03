@@ -12,7 +12,7 @@
   "create_claude_md": true,
   "status": "build-in-progress",
   "created_at": "2026-10-28T03:35:00Z",
-  "updated_at": "2026-11-03T11:02:30Z",
+  "updated_at": "2026-11-03T11:03:24Z",
   "git": true,
   "roadmap": [
     "mvp/core-publishing — monorepo, X + LinkedIn publishing, composer, calendar, scheduler",
@@ -918,7 +918,7 @@
       "key": "web-calendar",
       "phase": 3,
       "description": "Web: calendar",
-      "status": "in_progress",
+      "status": "done",
       "depends_on": [
         "T027",
         "T021",
@@ -934,7 +934,8 @@
         "apps/web/app/(app)/calendar/**",
         "apps/web/components/calendar/**"
       ],
-      "started_at": "2026-10-31T11:14:20Z"
+      "started_at": "2026-10-31T11:14:20Z",
+      "completed_at": "2026-11-03T11:03:24Z"
     },
     {
       "id": "T032",
